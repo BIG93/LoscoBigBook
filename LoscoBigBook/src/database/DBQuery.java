@@ -1,6 +1,5 @@
 package database;
 
-<<<<<<< HEAD
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -77,17 +76,23 @@ public class DBQuery {
 				String ruolo= rs.getString("Ruolo");
 				
 				ut= new Utente(email, nome, cognome, sesso, datanascita, ruolo);
+				
+				
+				
+				con.close();
 			}
-=======
-import java.sql.*;
-
-public class DBQuery {
+		}
+		catch (Exception e) {
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		return ut;
+		 // End DB_Login.
+	}
 	
-	public static int registrazione(String nome, String cognome, String email, String password, String datanascita, String sesso)
-	{
+	public static int registrazione(String nome, String cognome, String email, String password, String datanascita, String sesso){
 		int i=0;
-		try
-		{
+		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
 			
@@ -106,27 +111,18 @@ public class DBQuery {
 			
 			i = pstmt.executeUpdate();
 			
-		
->>>>>>> 719964cab61c81e5f851d31bd7112ad989687b06
-			
 			con.close();
-			
+
+		
 		}
-<<<<<<< HEAD
-		catch (Exception e) {
-			System.out.println("Errore con DB o Query errata");
-			e.printStackTrace();
-		}
-=======
+
 		catch (Exception e) 
 		{
 			System.out.println("Errore con DB o Query errata");
 			e.printStackTrace();
 		}
+		
 		return i;
 	}
->>>>>>> 719964cab61c81e5f851d31bd7112ad989687b06
-
-		return ut;
-	} // End DB_Login.
+		
 }
