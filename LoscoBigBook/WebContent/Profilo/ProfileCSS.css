@@ -1,0 +1,126 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27-apr-2015, 16.09.52
+    Author     : B I G
+*/
+
+#header{
+    position: relative;
+    width: 100%;
+    height: 6%;
+    text-align: center;
+    border-bottom: 1px solid #66ff66;
+}
+
+#nome-cognome{
+    color: #66ff66;
+}
+
+#middle-container{
+    position: relative;
+    width: 100%;
+    height: 400px;
+}
+#ProfileImageContainer{
+    
+    position: absolute;
+    margin-left: 70px;
+    margin-top: 20px;
+    width: 35%;
+    height: 70%;
+    overflow: hidden;
+    border: 5px solid #66ff66;
+}
+
+#ProfileImage{
+    width: 100%;
+    min-height: 280px;
+}
+
+#change-profile-image{
+    position: relative;
+    position: relative;
+    margin-left: 70px;
+    width: 50%;
+}
+
+#button-change-container{
+    margin-top: 5px;
+}
+
+#richiestedamicizia{
+    position: relative;
+    padding: 10px;
+    text-align: center;
+    margin-left: 60%;
+    margin-right: 20px;
+    top: 20px;
+    height: 80%;
+    border: 1px solid #66ff66;
+    color: #66ff66;
+    font-size: 16px;
+    font-weight: bold;
+    overflow-y: scroll;
+}
+
+#tab-container{
+    position: relative;
+    margin-top: 5%;
+}
+.tabs{
+    color: #66ff66;
+}
+
+.post{
+    border: 1px solid #66ff66;
+    margin-bottom: 20px;
+}
+
+.post-text{
+    margin-left: 20px;
+    margin-right: 20px;
+    
+}
+h3.author-post{
+    margin-left: 50px;
+    color: #66ff66;
+}
+
+p{
+    color: #333333;
+} 
+
+#like-container{
+    border-top: 1px solid #66ff66;
+    border-bottom: 1px solid #66ff66;
+}
+
+
+#mi-piace{
+    margin-right: 10px;
+}
+
+.tasto-like:visited{
+    color: #66ff66;
+}
+
+.tasto-like:hover{
+    text-decoration: underline;
+}
+
+#inserisci-commento{
+    resize: none;
+    margin-left: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #66ff66;
+}
+
+#comment-container{
+
+}
+

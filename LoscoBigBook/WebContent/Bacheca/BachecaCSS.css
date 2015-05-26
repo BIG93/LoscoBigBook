@@ -1,0 +1,22 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 6-mag-2015, 23.02.18
+    Author     : Matteo
+*/
+.bacheca{
+    resize: none;
+    margin-left: 25%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #66ff66; 
+}
+
+#pubblica{
+    margin-left: 25%;
+    margin-top:10px;
+    margin-bottom: 10px;
+}
