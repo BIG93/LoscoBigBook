@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    
+<%@ page import="database.*" %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -9,6 +14,74 @@
 	</head>
         
 	<body>
+	
+	<% 
+
+	Cookie[] cookies = request.getCookies();
+	
+	if (cookies != null){
+		for(int i = 0; i < cookies.length; i++) { 
+		    Cookie c = cookies[i];		    
+		    if (c.getName().equals("log")) {
+		    	// Si ' già loggato. Faccio la login con la sessione
+		    	// In realtà controllo solo che la sessione esista senza il contenuto...
+		    	// E' solo un esempio
+		    	Utente ucookie = DBQuery.DB_Login_ByCookie(c.getValue());
+		    	session.setAttribute("loggato", ucookie);
+		    }
+		}
+	}
+
+	String user = request.getParameter("user");
+	String pass = request.getParameter("pass");	
+	String ck = request.getParameter("ck");
+	
+	Utente sesuser = (Utente) session.getAttribute("loggato");
+	
+	boolean loggato = false;
+
+	Utente ut = null;
+	
+	if (sesuser == null){
+		if (user == null || pass == null){
+			// Se sono nulli vuol dire che non arrivo a questa pagina da login.jsp
+			// Devo vedere se ci sono i coockie è attiva.. ma per ora no
+			response.sendRedirect("../Home/Home.jsp?err=1");
+		}
+		else {
+			// Li ho inseriti
+			 ut = DBQuery.DB_Login(user , pass);
+			
+			if (ut != null) { 				 
+				// Stampo il contenuto
+				loggato = true;
+				// Setto la sessione
+				session.setAttribute("loggato", ut);
+				
+				if (ck != null){
+					Cookie c = new Cookie("log", ut.email);
+				    c.setMaxAge(24*60*60);
+				    response.addCookie(c); 
+				}
+			}
+			else
+			{
+				response.sendRedirect("../Home/Home.jsp?err=1");
+			}
+		}	
+	}
+	else
+	{
+		loggato = true;
+		ut = sesuser;
+	}
+	
+	if (loggato){
+		out.print("<script>alert('loggato correttamente')</script>");
+	}	
+	
+%>
+	
             <div id="page">
                 <div id="container">
                     <h1 class="bacheca">Post dei tuoi amici</h1>

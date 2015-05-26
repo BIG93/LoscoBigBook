@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@ page import="database.*" %>
 <!DOCTYPE html>
 
 <html>
@@ -12,7 +15,34 @@
     </head>
     
     <body>
-        
+    
+ <%
+	Cookie[] cookies = request.getCookies();
+
+	if (cookies != null){
+		for(int i = 0; i < cookies.length; i++) { 
+		    Cookie c = cookies[i];		    
+		    if (c.getName().equals("log")) {
+		    	// Si ' già loggato. Faccio la login con la sessione
+		    	// In realtà controllo solo che la sessione esista senza il contenuto...
+		    	// E' solo un esempio
+		    	Utente ucookie = DBQuery.DB_Login_ByCookie(c.getValue());
+		    	session.setAttribute("loggato", ucookie);
+		    }
+		}
+	}
+
+	Utente sesuser = (Utente) session.getAttribute("loggato");
+
+	String err = request.getParameter("err");
+	
+	if(err != null){
+		if (err.equals("1")){
+			out.print("<script>alert('non sei loggato')</script>");
+		}
+	}
+
+%>
         <div class="image"></div>
       
         <div class="registrazione">
@@ -61,16 +91,16 @@
           </div>
                  
          <div class="login">
-            <form action="#" method="POST">
+            <form action="../Bacheca/Bacheca.jsp" method="POST">
                 <table>
                     <tr>
-                        <td>Username</td> 
+                        <td>email</td> 
                         <td>Password</td> 
                     </tr>
                     <tr>
-                        <td> <input type="email" id="user" required placeholder="Email" style="width: 160px; height: 20px; padding: 2px; border: 1px solid black"/></td> 
-                        <td> <input type="password" id="pass" required placeholder="Password" style="width: 160px; height: 20px; padding: 2px; border: 1px solid black"/></td>
-                        <td><input type="button" value="Accedi" class="btn"/></td>
+                        <td> <input type="email" id="user" name="user" required placeholder="Email" style="width: 160px; height: 20px; padding: 2px; border: 1px solid black"/></td> 
+                        <td> <input type="password" id="pass" name="pass" required placeholder="Password" style="width: 160px; height: 20px; padding: 2px; border: 1px solid black"/></td>
+                        <td><input type="submit" value="Accedi" class="btn"/></td>
                     </tr>
                 </table>             
             </form>
@@ -78,3 +108,4 @@
         </div>
     </body>
 </html>
+    
