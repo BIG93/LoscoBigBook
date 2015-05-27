@@ -21,7 +21,7 @@
 		}
 		
 		session.setAttribute("loggato", null);
-		response.sendRedirect("login.jsp");
+		response.sendRedirect("Home/Home.jsp");
 	%>
 </body>
 </html>

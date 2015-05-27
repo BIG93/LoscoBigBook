@@ -118,7 +118,7 @@
                             <a href="#"><div class="btn">Home</div></a>
                         </td>
                         <td>
-                            <a href="logout.jsp"><div class="btn">Logout</div></a>
+                            <a href="../logout.jsp"><div class="btn">Logout</div></a>
                         </td>
                     </tr>
                 </table>

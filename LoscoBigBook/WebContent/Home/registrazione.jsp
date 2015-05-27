@@ -18,11 +18,12 @@
     	int i=DBQuery.registrazione(nome, cognome, email, password, datanascita, sesso);
     	
     	 if(i>0){
-    		 response.sendRedirect("../Bacheca/Bacheca.jsp");
+    		 response.sendRedirect("Home.jsp");
     		 
     	 }
     	 else {
     	        response.sendRedirect("Home.jsp?mex=1");
+    	        
     	        
     	    }
     	%>
