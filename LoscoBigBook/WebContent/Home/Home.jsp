@@ -34,6 +34,10 @@
 
 	Utente sesuser = (Utente) session.getAttribute("loggato");
 
+	if(sesuser!=null){
+		response.sendRedirect("../Bacheca/Bacheca.jsp");
+	}
+	
 	String err = request.getParameter("err");
 	
 	if(err != null){
@@ -95,12 +99,15 @@
                 <table>
                     <tr>
                         <td>email</td> 
-                        <td>Password</td> 
+                        <td>Password</td>
                     </tr>
                     <tr>
                         <td> <input type="email" id="user" name="user" required placeholder="Email" style="width: 160px; height: 20px; padding: 2px; border: 1px solid black"/></td> 
                         <td> <input type="password" id="pass" name="pass" required placeholder="Password" style="width: 160px; height: 20px; padding: 2px; border: 1px solid black"/></td>
                         <td><input type="submit" value="Accedi" class="btn"/></td>
+                    </tr>
+                    <tr>    
+                        <td style="font-size:15px;">Ricordami  <input type="checkbox" name="ck" id="ck"/></td> 
                     </tr>
                 </table>             
             </form>

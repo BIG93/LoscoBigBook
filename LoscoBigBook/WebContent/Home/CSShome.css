@@ -20,7 +20,7 @@ body{
       top:0;
       left:0;
       width:100%;
-      height: 10%;
+      height: 12%;
       background-color: #66ff66;
 }
 
@@ -99,5 +99,6 @@ div.logo h3{
 .myTitleClass .ui-dialog-titlebar {
     background:#66ff66;
 }
+
 
 
