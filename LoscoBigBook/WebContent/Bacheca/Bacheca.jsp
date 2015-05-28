@@ -23,9 +23,6 @@
 		for(int i = 0; i < cookies.length; i++) { 
 		    Cookie c = cookies[i];		    
 		    if (c.getName().equals("log")) {
-		    	// Si ' già loggato. Faccio la login con la sessione
-		    	// In realtà controllo solo che la sessione esista senza il contenuto...
-		    	// E' solo un esempio
 		    	Utente ucookie = DBQuery.DB_Login_ByCookie(c.getValue());
 		    	session.setAttribute("loggato", ucookie);
 		    }
@@ -43,43 +40,31 @@
 	Utente ut = null;
 	
 	if (sesuser == null){
-		if (user == null || pass == null){
-			// Se sono nulli vuol dire che non arrivo a questa pagina da login.jsp
-			// Devo vedere se ci sono i coockie è attiva.. ma per ora no
-			response.sendRedirect("../Home/Home.jsp?err=1");
-		}
-		else {
-			// Li ho inseriti
-			 ut = DBQuery.DB_Login(user , pass);
+		ut = DBQuery.DB_Login(user , pass);
+		
+		if (ut != null){ 				 
 			
-			if (ut != null) { 				 
-				// Stampo il contenuto
-				loggato = true;
-				// Setto la sessione
-				session.setAttribute("loggato", ut);
-				
-				if (ck != null){
-					Cookie c = new Cookie("log", ut.email);
-				    c.setMaxAge(24*60*60);
-				    response.addCookie(c); 
-				}
+			loggato = true;
+			
+			session.setAttribute("loggato", ut);
+			sesuser=ut;
+			
+			if (ck != null){
+				Cookie c = new Cookie("log", ut.email);
+			    c.setMaxAge(24*60*60);
+			    response.addCookie(c); 
 			}
-			else
-			{
-				response.sendRedirect("../Home/Home.jsp?err=1");
-			}
-		}	
-	}
-	else
-	{
+		}
+		else{
+			response.sendRedirect("../Home/Home.jsp?mex=errlog");
+		}
+	}	
+	else{
 		loggato = true;
 		ut = sesuser;
 	}
 	
-	if (loggato){
-		out.print("<script>alert('loggato correttamente')</script>");
-	}	
-	
+
 %>
 	
             <div id="page">
@@ -93,7 +78,7 @@
                 <table id="logo-head">
                     <tr>
                         <td>
-                            <a href="Bacheca.html"><img src="../logo-losco-big-book.png" alt="lb2"/></a> 
+                            <a href="Bacheca.jsp"><img src="../logo-losco-big-book.png" alt="lb2"/></a> 
                         </td>
                         <td>
                             <h3 id="social">LoscoBigBook</h3>
@@ -112,10 +97,10 @@
                 <table id="ancore-home-container">
                     <tr>
                         <td>
-                            <a href="../Profilo/Profile.html"><div class="btn">Profilo</div></a>
+                            <a href="../Profilo/Profile.jsp"><div class="btn"><%if(sesuser!=null){out.print(sesuser.nome);}%></div></a>
                         </td>
                         <td>
-                            <a href="#"><div class="btn">Home</div></a>
+                            <a href="Bacheca.jsp"><div class="btn">Home</div></a>
                         </td>
                         <td>
                             <a href="../logout.jsp"><div class="btn">Logout</div></a>

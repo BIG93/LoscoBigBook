@@ -1,5 +1,9 @@
- <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    
+<%@ page import="database.*" %>
 
+<!DOCTYPE html>
 <html>
     <head>
         
@@ -18,9 +22,13 @@
   
     </head>
     <body>
+   <%
+   Utente sesuser=null;
+   sesuser=(Utente) session.getAttribute("loggato");
+   %>
         <div id="page">  
             <div id="header">
-                <h1 id="nome-cognome">Nome Cognome</h1>
+                <h1 id="nome-cognome"><%out.print(sesuser.nome+" "+sesuser.cognome); %></h1>
             </div>
             <div id="middle-container">
                 <div id="ProfileImageContainer">
@@ -52,13 +60,7 @@
                             <div class="post">
                                 <h3 class="author-post">Nome Cognome</h3>
                                 <p class="post-text">
-                                Non so aspettarti più di tanto
-                                Ogni minuto mi dà
-                                L'stinto di cucire il tempo
-                                E di portarti di qua
-                                Ho un materasso di parole
-                                Scritte apposta per te
-                                E ti direi spegni la luce
+                               		Post di prova
                                 </p>
                                 <div id="like-container">
                                     <span id="like-counter">
@@ -85,14 +87,13 @@
                         </div>   
                     </div>
                     <div id="tabs-2">
-                        <p id="nome">Nome: </p>
-                        <p id="cognome">Cognome: </p>
-                        <p id="email">Email: </p>
-                        <p id="data-di-nascita">Data di Nascita: </p>
+                        <p id="nome">Nome: <%out.print(sesuser.nome);%> </p>
+                        <p id="cognome">Cognome: <%out.print(sesuser.cognome);%></p>
+                        <p id="email">Email: <%out.print(sesuser.email);%></p>
+                        <p id="data-di-nascita">Data di Nascita: <%out.print(sesuser.datanascita);%></p>
                         <p id="nato-a"> Nato a: </p>
                         <p id="luogo">Vive a: </p>
                         <p id="stato">Stato sentimentale: </p>
-                        
                     </div>
                     <div id="tabs-3">
                         Qui compariranno gli amici
@@ -104,7 +105,7 @@
             <table id="logo-head">
                 <tr>
                     <td>
-                        <a href="../Bacheca/Bacheca.html"><img src="../logo-losco-big-book.png" alt="lb2"/></a> 
+                        <a href="../Bacheca/Bacheca.jsp"><img src="../logo-losco-big-book.png" alt="lb2"/></a> 
                     </td>
                     <td>
                         <h3 id="social">LoscoBigBook</h3>
@@ -123,13 +124,13 @@
             <table id="ancore-home-container">
                 <tr>
                     <td>
-                        <a href="Profile.html"><div class="btn">Profilo</div></a>
+                        <a href="Profile.jsp"><div class="btn"><%out.print(sesuser.nome);%></div></a>
                     </td>
                     <td>
-                        <a href="../Bacheca/Bacheca.html"><div class="btn">Home</div></a>
+                        <a href="../Bacheca/Bacheca.jsp"><div class="btn">Home</div></a>
                     </td>
                     <td>
-                        <a href="logout.jsp"><div class="btn">Logout</div></a>
+                        <a href="../logout.jsp"><div class="btn">Logout</div></a>
                     </td>
                 </tr>
             </table>

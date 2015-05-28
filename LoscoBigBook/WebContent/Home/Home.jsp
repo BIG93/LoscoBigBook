@@ -16,6 +16,36 @@
     
     <body>
     
+  <script>
+  $(function(){
+	    $("#dialoglog").dialog({
+	    		show:{
+	    	        effect: "slide",
+	    	        duration: 500
+	    	      },
+	    	     buttons:{
+	    	    	 "Chiudi": function(){
+	    	    		 $( this ).dialog( "close" );	 
+	    	      		}
+	    	    }
+  			});
+	    });
+  
+  $(function(){
+	    $("#dialog").dialog({
+	    		show:{
+	    	        effect: "slide",
+	    	        duration: 500
+	    	      },
+	    	     buttons:{
+	    	    	 "Chiudi": function(){
+	    	    		 $( this ).dialog( "close" );	 
+	    	      		}
+	    	    }
+			});
+	    });
+  </script>
+    
  <%
 	Cookie[] cookies = request.getCookies();
 
@@ -23,9 +53,6 @@
 		for(int i = 0; i < cookies.length; i++) { 
 		    Cookie c = cookies[i];		    
 		    if (c.getName().equals("log")) {
-		    	// Si ' già loggato. Faccio la login con la sessione
-		    	// In realtà controllo solo che la sessione esista senza il contenuto...
-		    	// E' solo un esempio
 		    	Utente ucookie = DBQuery.DB_Login_ByCookie(c.getValue());
 		    	session.setAttribute("loggato", ucookie);
 		    }
@@ -38,15 +65,22 @@
 		response.sendRedirect("../Bacheca/Bacheca.jsp");
 	}
 	
-	String err = request.getParameter("err");
+	String err = request.getParameter("mex");
 	
 	if(err != null){
-		if (err.equals("1")){
-			out.print("<script>alert('non sei loggato')</script>");
+		if (err.equals("errlog")){
+			out.print("<div id='dialog' title='Login fallito'> Email o Password errate </div>");
+		}
+		if (err.equals("errreg")){
+			out.print("<div id='dialog' title='Registrazione fallita'> Ci scusiamo, ma la registrazione non e' andata a buon fine </div>");
+		}
+		if (err.equals("okreg")){
+			out.print("<div id='dialog' title='Registrazione avvenuta'> La registrazione è avvenuta con successo!</br> Ora puoi effettuare il tuo primo login. </div>");
 		}
 	}
 
 %>
+
         <div class="image"></div>
       
         <div class="registrazione">

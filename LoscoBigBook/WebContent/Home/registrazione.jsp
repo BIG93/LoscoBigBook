@@ -15,16 +15,15 @@
     	String sesso=request.getParameter("sesso");
     	String password=request.getParameter("password");
     	String datanascita=request.getParameter("datanascita");
+    	
     	int i=DBQuery.registrazione(nome, cognome, email, password, datanascita, sesso);
     	
     	 if(i>0){
-    		 response.sendRedirect("Home.jsp");
+    		 response.sendRedirect("Home.jsp?mex=okreg");
     		 
     	 }
     	 else {
-    	        response.sendRedirect("Home.jsp?mex=1");
-    	        
-    	        
+    	        response.sendRedirect("Home.jsp?mex=errreg");
     	    }
     	%>
 
