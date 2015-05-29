@@ -1,7 +1,7 @@
 package database;
 
 public class Utente {
-
+	public int id;
 	public String email = "";
 	public String nome= "";
 	public String cognome = "";
@@ -11,14 +11,26 @@ public class Utente {
 	public String luogonascita="";
 	public String statosentimentale="";
 	public String residenza="";
+	public String password="";
 	
-	public Utente(String email, String nome, String cognome,String sesso, String datanascita, String ruolo){
+	public Utente(int id, String email, String nome, String cognome,String sesso, String datanascita, String ruolo, String password)
+	{	
+		this.id=id;
 		this.nome = nome;
 		this.email = email;
 		this.cognome = cognome;
 		this.sesso = sesso;
 		this.datanascita = datanascita;
 		this.ruolo = ruolo;
+		this.password=password;
+		
+	}
+	public String getPassword() {
+		return nome;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	public String getEmail() {

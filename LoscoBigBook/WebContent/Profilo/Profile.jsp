@@ -25,7 +25,22 @@
    <%
    Utente sesuser=null;
    sesuser=(Utente) session.getAttribute("loggato");
+   
+   String errmod = request.getParameter("mex");
+	
+	if(errmod != null){
+		if (errmod.equals("okmod")){
+			out.print("<script>alert('Modifiche avvenute con successo!')</script>");
+		}
+		if (errmod.equals("errrmod")){
+			out.print("<script>alert('Errore nella modifica dei dati!')</script>");
+		}
+		
+	}
+
+   
    %>
+   
         <div id="page">  
             <div id="header">
                 <h1 id="nome-cognome"><%out.print(sesuser.nome+" "+sesuser.cognome); %></h1>
@@ -91,9 +106,10 @@
                         <p id="cognome">Cognome: <%out.print(sesuser.cognome);%></p>
                         <p id="email">Email: <%out.print(sesuser.email);%></p>
                         <p id="data-di-nascita">Data di Nascita: <%out.print(sesuser.datanascita);%></p>
-                        <p id="nato-a"> Nato a: </p>
-                        <p id="luogo">Vive a: </p>
-                        <p id="stato">Stato sentimentale: </p>
+                        <p id="nato-a"> Nato a: <%out.print(sesuser.luogonascita);%></p>
+                        <p id="luogo">Vive a: <%out.print(sesuser.residenza);%></p>
+                        <p id="stato">Stato sentimentale: <%out.print(sesuser.statosentimentale);%></p>
+                        <form action="formmodifica.jsp" ><input type="submit" value="Modifica informazioni" class="btn"/></form>
                     </div>
                     <div id="tabs-3">
                         Qui compariranno gli amici
