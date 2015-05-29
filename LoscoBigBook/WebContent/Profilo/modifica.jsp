@@ -25,7 +25,7 @@
 	int i=DBQuery.UPDATE_utente(nome, cognome, email, password, datanascita, sesso, residenza, luogonascita, statosentimentale, sesuser.id);
 	 
 	 if(i>0){
-		 response.sendRedirect("Profile.jsp?mex=okmod");
+		 
 		 sesuser.setNome(nome);
 		 sesuser.setCognome(cognome);
 		 sesuser.setEmail(email);
@@ -35,6 +35,7 @@
 		 sesuser.setResidenza(residenza);
 		 sesuser.setStatosentimentale(statosentimentale);
 		 sesuser.setPassword(password);
+		 response.sendRedirect("Profile.jsp?mex=okmod");
 	 }
 	 else {
 	        response.sendRedirect("Profile.jsp?mex=errmod");

@@ -13,7 +13,7 @@ public class Utente {
 	public String residenza="";
 	public String password="";
 	
-	public Utente(int id, String email, String nome, String cognome,String sesso, String datanascita, String ruolo, String password)
+	public Utente(int id, String email, String nome, String cognome,String sesso, String datanascita, String ruolo, String luogonascita,String statosentimentale, String residenza, String password)
 	{	
 		this.id=id;
 		this.nome = nome;
@@ -22,6 +22,9 @@ public class Utente {
 		this.sesso = sesso;
 		this.datanascita = datanascita;
 		this.ruolo = ruolo;
+		this.luogonascita=luogonascita;
+		this.statosentimentale=statosentimentale;
+		this.residenza=residenza;
 		this.password=password;
 		
 	}

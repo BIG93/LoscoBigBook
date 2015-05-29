@@ -36,9 +36,12 @@ public class DBQuery {
 				String sesso= rs.getString("Sesso");
 				String datanascita= rs.getString("Datanascita");
 				String ruolo= rs.getString("Ruolo");
+				String luogonascita= rs.getString("Luogonascita");
+				String statosentimentale= rs.getString("Statosentimentale");
+				String residenza= rs.getString("Residenza");
 				String password=rs.getString("Password");
 				
-				ut= new Utente(id, email, nome, cognome, sesso, datanascita, ruolo, password);				
+				ut= new Utente(id, email, nome, cognome, sesso, datanascita, ruolo,luogonascita, statosentimentale,residenza, password);			
 			}
 			
 			con.close();
@@ -78,9 +81,12 @@ public class DBQuery {
 				String sesso= rs.getString("Sesso");
 				String datanascita= rs.getString("Datanascita");
 				String ruolo= rs.getString("Ruolo");
+				String luogonascita= rs.getString("Luogonascita");
+				String statosentimentale= rs.getString("Statosentimentale");
+				String residenza= rs.getString("Residenza");
 				String password=rs.getString("Password");
 				
-				ut= new Utente(id, email, nome, cognome, sesso, datanascita, ruolo, password);		
+				ut= new Utente(id, email, nome, cognome, sesso, datanascita, ruolo,luogonascita, statosentimentale,residenza, password);		
 				
 				con.close();
 			}

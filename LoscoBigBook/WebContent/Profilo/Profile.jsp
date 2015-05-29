@@ -106,9 +106,9 @@
                         <p id="cognome">Cognome: <%out.print(sesuser.cognome);%></p>
                         <p id="email">Email: <%out.print(sesuser.email);%></p>
                         <p id="data-di-nascita">Data di Nascita: <%out.print(sesuser.datanascita);%></p>
-                        <p id="nato-a"> Nato a: <%out.print(sesuser.luogonascita);%></p>
-                        <p id="luogo">Vive a: <%out.print(sesuser.residenza);%></p>
-                        <p id="stato">Stato sentimentale: <%out.print(sesuser.statosentimentale);%></p>
+                        <p id="nato-a"> Nato a: <%out.print(sesuser.getLuogonascita());%></p>
+                        <p id="luogo">Vive a: <%out.print(sesuser.getResidenza());%></p>
+                        <p id="stato">Stato sentimentale: <%out.print(sesuser.getStatosentimentale());%></p>
                         <form action="formmodifica.jsp" ><input type="submit" value="Modifica informazioni" class="btn"/></form>
                     </div>
                     <div id="tabs-3">
