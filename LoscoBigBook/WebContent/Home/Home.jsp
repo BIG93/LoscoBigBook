@@ -18,20 +18,6 @@
     
   <script>
   $(function(){
-	    $("#dialoglog").dialog({
-	    		show:{
-	    	        effect: "slide",
-	    	        duration: 500
-	    	      },
-	    	     buttons:{
-	    	    	 "Chiudi": function(){
-	    	    		 $( this ).dialog( "close" );	 
-	    	      		}
-	    	    }
-  			});
-	    });
-  
-  $(function(){
 	    $("#dialog").dialog({
 	    		show:{
 	    	        effect: "slide",
@@ -65,19 +51,19 @@
 		response.sendRedirect("../Bacheca/Bacheca.jsp");
 	}
 	
-	String err = request.getParameter("mex");
+	String mex = request.getParameter("mex");
 	
-	if(err != null){
-		if (err.equals("errlog")){
+	if(mex != null){
+		if (mex.equals("errlog")){
 			out.print("<div id='dialog' title='Login fallito'> Email o Password errate </div>");
 		}
-		if (err.equals("errreg")){
+		if (mex.equals("errreg")){
 			out.print("<div id='dialog' title='Registrazione fallita'> Ci scusiamo, ma la registrazione non e' andata a buon fine </div>");
 		}
-		if (err.equals("okreg")){
+		if (mex.equals("okreg")){
 			out.print("<div id='dialog' title='Registrazione avvenuta'> La registrazione è avvenuta con successo!</br> Ora puoi effettuare il tuo primo login. </div>");
 		}
-	}
+	 }
 
 %>
 

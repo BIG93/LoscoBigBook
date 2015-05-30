@@ -22,18 +22,35 @@
   
     </head>
     <body>
+    
+    <script>
+		$(function(){
+		   $("#dialog").dialog({
+		   		show:{
+		   	        effect: "slide",
+		   	        duration: 500
+		   	      },
+		   	     buttons:{
+		   	    	 "Chiudi": function(){
+		   	    		 $( this ).dialog( "close" );	 
+		   	      		}
+		   	    }
+			});
+		   });
+  </script>
+  
    <%
    Utente sesuser=null;
    sesuser=(Utente) session.getAttribute("loggato");
    
-   String errmod = request.getParameter("mex");
+   String mexmod = request.getParameter("mex");
 	
-	if(errmod != null){
-		if (errmod.equals("okmod")){
-			out.print("<script>alert('Modifiche avvenute con successo!')</script>");
+	if(mexmod != null){
+		if (mexmod.equals("okmod")){
+			out.print("<div id='dialog' title='Modifiche Effettuate'> Hai modificato il tuo profilo con successo!</div>");
 		}
-		if (errmod.equals("errrmod")){
-			out.print("<script>alert('Errore nella modifica dei dati!')</script>");
+		if (mexmod.equals("errrmod")){
+			out.print("<div id='dialog' title='Modifiche non effettuate'> Ci scusiamo, ma le tue modifiche non sono state effettuate </div>");
 		}
 		
 	}

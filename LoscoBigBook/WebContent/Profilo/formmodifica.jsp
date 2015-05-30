@@ -18,55 +18,51 @@
         <div id="page"> 
         <h3>Modifica dati</h3>
             <form action="modifica.jsp" method="POST">
-            
-            <table>
-            <tr>
-            	<td>Nome</td><td><input type="text" name="nome" value="<%out.print(sesuser.nome);%>" required/> </td>
-             </tr>
-             <tr>
-            	<td>Cognome</td><td><input type="text" name="cognome" value="<%out.print(sesuser.cognome);%>" required/> </td>
-            </tr>
-            <tr>
-            	<td>Sesso</td> 
-	            <td>
-					M<input type="radio" name="sesso" value="M" checked/>
-	                F<input type="radio" name="sesso" value="F" />
-	            </td>
-            </tr>
-            <tr>
-            <td>Email</td><td><input type="email" name="email" value="<%out.print(sesuser.email);%>" required /> </td>
-             </tr>
-             <tr>
-           <td>Data di nascita</td><td> <input type="date" name="datanascita" max="2000-12-31" min="1900-01-01" required/>
-             </tr>
-             <tr>
-            <td>Nato a </td><td><input type="text" name="luogonascita" value="<%out.print(sesuser.luogonascita);%>" /> </td>
-           </tr>
-             <tr>
-            <td>Vive a </td><td><input type="text" name="residenza" value="<%out.print(sesuser.residenza);%>"/> </td>
-           </tr>
-             <tr>
-             <td>Situazione sentimentale</td>
-             	<td>
-				 <select name="statosentimentale">
-				  <option value="single">Single</option>
-				  <option value="sposato">Sposato</option>
-				  <option value="vedovo/a">Vedovo/a</option>
-				  <option value="relazione_complicata">Relazione complicata</option>
-				</select>
-				</td>
-				</tr>
-			<tr>
-            <td>Password </td><td><input type="password" name="password" required value="<%out.print(sesuser.password);%>"/> </td>
-           </tr>
-				<tr>
-				<td>
-				<input type="submit" value="Modifica" class="btn" />
-				</td>
-				
-				</tr>
-            </table>
-            
+	            <table>
+		            <tr>
+		            	<td>Nome</td><td><input type="text" name="nome" value="<%out.print(sesuser.nome);%>" required/> </td>
+		            </tr>
+		            <tr>
+		            	<td>Cognome</td><td><input type="text" name="cognome" value="<%out.print(sesuser.cognome);%>" required/> </td>
+		            </tr>
+		            <tr>
+		            	<td>Sesso</td> 
+			            <td>
+							M<input type="radio" name="sesso" value="M" checked/>
+			                F<input type="radio" name="sesso" value="F" />
+			            </td>
+		            </tr>
+		            <tr>
+		            	<td>Email</td><td><input type="email" name="email" value="<%out.print(sesuser.email);%>" required /> </td>
+		            </tr>
+		            <tr>
+		            	<td>Data di nascita</td><td> <input type="date" name="datanascita" max="2000-12-31" min="1900-01-01" required/>
+		            </tr>
+		            <tr>
+		            	<td>Nato a </td><td><input type="text" name="luogonascita" value="<%out.print(sesuser.luogonascita);%>" /> </td>
+		            </tr>
+		            <tr>
+		            	<td>Vive a </td><td><input type="text" name="residenza" value="<%out.print(sesuser.residenza);%>"/> </td>
+		            </tr>
+		            <tr>
+		            	<td>Situazione sentimentale</td>
+		             	<td>
+							<select name="statosentimentale">
+						  		<option value="Single">Single</option>
+						  		<option value="Relazione_complicata">Relazione complicata</option>
+						  		<option value="Impegnato">Impegnato</option>
+						   		<option value="Sposato">Sposato</option>
+						 		 <option value="Vedovo/a">Vedovo/a</option>
+						    </select>
+						</td>
+					</tr>
+					<tr>
+		            	<td>Password </td><td><input type="password" name="password" required value="<%out.print(sesuser.password);%>"/> </td>
+		            </tr>
+					<tr>
+						<td><input type="submit" value="Modifica" class="btn" /></td>
+					</tr>
+	            </table>
             </form>
         </div>
         

@@ -70,7 +70,7 @@
             <div id="page">
                 <div id="container">
                     <h1 class="bacheca">Post dei tuoi amici</h1>
-                    <textarea class="bacheca" cols="64" rows="4" placeholder="Dillo ai tuoi amici" ></textarea>
+                    <textarea class="bacheca" cols="64" rows="4" placeholder="Dillo ai tuoi amici" maxlength="150"></textarea>
                     <input type="button" value="Pubblica" class="btn" id="pubblica"/>
                 </div>
             </div>
