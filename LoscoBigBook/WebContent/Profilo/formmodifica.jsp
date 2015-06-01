@@ -13,6 +13,8 @@
     <%
    Utente sesuser=null;
    sesuser=(Utente) session.getAttribute("loggato");
+   
+   
    %>
         <div id="page"> 
         <h3>Modifica dati</h3>
@@ -35,7 +37,7 @@
 		            	<td>Email</td><td><input type="email" name="email" value="<%out.print(sesuser.email);%>" required /> </td>
 		            </tr>
 		            <tr>
-		            	<td>Data di nascita</td><td> <input type="date" name="datanascita" max="2000-12-31" min="1900-01-01" required/>
+		            	<td>Data di nascita</td><td> <input type="date" name="datanascita" max="2000-12-31" min="1900-01-01"  value="<%out.print(sesuser.datanascita);%>" required/>
 		            </tr>
 		            <tr>
 		            	<td>Nato a </td><td><input type="text" name="luogonascita" value="<%out.print(sesuser.luogonascita);%>" /> </td>
@@ -96,7 +98,7 @@
                         <a href="../Bacheca/Bacheca.jsp"><div class="btn">Home</div></a>
                     </td>
                     <td>
-                        <a href="logout.jsp"><div class="btn">Logout</div></a>
+                        <a href="../logout.jsp"><div class="btn">Logout</div></a>
                     </td>
                 </tr>
             </table>
