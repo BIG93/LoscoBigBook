@@ -107,7 +107,7 @@
           <div class="logo">
               <table>
                   <tr>
-                      <td><a href="index.html"><img src="../logo-losco-big-book.png" alt="Logo"/></a></td>
+                      <td><a href=""><img src="../logo-losco-big-book.png" alt="Logo"/></a></td>
                       <td><h3>LoscoBigBook</h3></td>
                   </tr>
               </table>
