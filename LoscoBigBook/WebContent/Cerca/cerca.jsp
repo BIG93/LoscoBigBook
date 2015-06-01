@@ -45,7 +45,7 @@
            				Utente u = userfind_search.get(i);
             	%>
 		           		<div id="friends">
-		           			<a id="friend-find" href="#"><%out.print(u.nome +" "+ u.cognome);%></a>
+		           			<a id="friend-find" href="<%out.print("../Profilo/Friend-Profile.jsp?id= "+ u.id); %>"><%out.print(u.nome +" "+ u.cognome);%></a>
 		           		</div>
             	<%			
             		}
