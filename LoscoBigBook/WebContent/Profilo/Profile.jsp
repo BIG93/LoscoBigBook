@@ -146,12 +146,14 @@
             </table>        
             <table id="cerca">  
                 <tr>
-                    <td>
-                        <input id="input-cerca" type="text" placeholder="Cerca...">
-                    </td>
-                    <td>
-                        <button class="btn">Cerca</button>
-                    </td>
+                	<form action="../Cerca/cerca.jsp" method="get">
+	                    <td>
+	                    	<input id="input-cerca" name="input-cerca" type="text" placeholder="Cerca...">
+	                    </td>
+	                    <td>
+	                    	<input type="submit" value="Cerca" class="btn"></input>
+	                    </td>
+                    </form>
                 </tr>
             </table> 
             <table id="ancore-home-container">

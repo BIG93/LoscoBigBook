@@ -1,0 +1,10 @@
+#friends{
+	border: 2px solid #66ff66;
+	height: 40px;
+	width:100%;	
+	text-align: center;
+}
+
+#friend-find{
+	color:black;	
+}

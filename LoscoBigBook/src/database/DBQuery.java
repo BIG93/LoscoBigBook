@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 
 import database.Utente;
 
+import java.util.*;
+
 public class DBQuery {
 	public static Utente DB_Login(String user, String pass)
 	{
@@ -170,5 +172,53 @@ public class DBQuery {
 	}
 	
 	
+	public static ArrayList<Utente> User_search(String cerca)
+	{
+		ArrayList<Utente> userfind = new ArrayList<Utente>();
+		Utente ut = null;
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
+                    "user=" + "root" + "&password=" + "");
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" SELECT * " +
+														   " FROM utente " +
+														   " WHERE Ruolo like 'user' AND Nome LIKE ? OR cognome LIKE ?");
+			
+			pstmt.setString(1, cerca + "%");
+			pstmt.setString(2, cerca + "%" );
+			
+			ResultSet rs = pstmt.executeQuery();
+				
+			while (rs.next()){
+				int id= rs.getInt("ID");
+				String nome = rs.getString("Nome");	
+				String cognome = rs.getString("Cognome");	
+				String email = rs.getString("Email");	
+				String sesso= rs.getString("Sesso");
+				String datanascita= rs.getString("Datanascita");
+				String ruolo= rs.getString("Ruolo");
+				String luogonascita= rs.getString("Luogonascita");
+				String statosentimentale= rs.getString("Statosentimentale");
+				String residenza= rs.getString("Residenza");
+				String password= rs.getString("Password");
+				
+				ut = new Utente(id, email, nome, cognome, sesso, datanascita, ruolo,luogonascita, statosentimentale,residenza, password);
+				
+				userfind.add(ut);
+			}
+			
+			con.close();
+			
+		}
+		catch (Exception e) {
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		return userfind;
+	} // End User_rel
 		
 }
