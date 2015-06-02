@@ -98,7 +98,7 @@ public class DBQuery {
 			e.printStackTrace();
 		}
 		return ut;
-		 // End DB_Login.
+		 // End DB_Login_ByCookie.
 	}
 	
 	public static int registrazione(String nome, String cognome, String email, String password, String datanascita, String sesso){
@@ -134,7 +134,7 @@ public class DBQuery {
 		}
 		
 		return i;
-	}
+	}// End registrazione
 	
 	public static int UPDATE_utente(String nome, String cognome, String email, String password, String datanascita, String sesso, String residenza, String luogonascita, String statosentimentale, int id){
 		int i=0;
@@ -169,7 +169,7 @@ public class DBQuery {
 		}
 		
 		return i;
-	}
+	}// End UPDATE_utente
 	
 	
 	public static ArrayList<Utente> User_search(String cerca)
@@ -219,6 +219,52 @@ public class DBQuery {
 			e.printStackTrace();
 		}
 		return userfind;
-	} // End User_rel
+	} // End User_search
+	
+	public static Utente userByID(int ID)
+	{
+		Utente ut = null;
 		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
+                    "user=" + "root" + "&password=" + "");
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
+														   " FROM utente " + 
+															" WHERE ID LIKE ? ");
+			pstmt.setInt(1, ID);
+			
+			ResultSet rs = pstmt.executeQuery();
+				
+			while (rs.next()){
+				
+				int id=rs.getInt("ID");
+				String nome =  rs.getString("Nome");	
+				String cognome =  rs.getString("Cognome");	
+				String email = rs.getString("Email");	
+				String sesso= rs.getString("Sesso");
+				String datanascita= rs.getString("Datanascita");
+				String ruolo= rs.getString("Ruolo");
+				String luogonascita= rs.getString("Luogonascita");
+				String statosentimentale= rs.getString("Statosentimentale");
+				String residenza= rs.getString("Residenza");
+				String password=rs.getString("Password");
+				
+				ut= new Utente(id, email, nome, cognome, sesso, datanascita, ruolo,luogonascita, statosentimentale,residenza, password);		
+				
+				con.close();
+			}
+		}
+		catch (Exception e) {
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		return ut;
+		 // End userByID
+	}
+	
+	
 }

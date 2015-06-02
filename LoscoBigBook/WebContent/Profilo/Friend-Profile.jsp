@@ -1,3 +1,4 @@
+<%@page import="sun.net.util.URLUtil"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
@@ -23,44 +24,29 @@
     </head>
     <body>
     
-    <script>
-		$(function(){
-		   $("#dialog").dialog({
-		   		show:{
-		   	        effect: "slide",
-		   	        duration: 500
-		   	      },
-		   	     buttons:{
-		   	    	 "Chiudi": function(){
-		   	    		 $( this ).dialog( "close" );	 
-		   	      		}
-		   	    }
-			});
-		   });
-  </script>
+   
   
    <%
    Utente sesuser=null;
    sesuser=(Utente) session.getAttribute("loggato");
+   Utente u = null;
    
-   String mexmod = request.getParameter("mex");
-	
-	if(mexmod != null){
-		if (mexmod.equals("okmod")){
-			out.print("<div id='dialog' title='Modifiche Effettuate'> Hai modificato il tuo profilo con successo!</div>");
-		}
-		if (mexmod.equals("errrmod")){
-			out.print("<div id='dialog' title='Modifiche non effettuate'> Ci scusiamo, ma le tue modifiche non sono state effettuate </div>");
-		}
-		
-	}
-
+   String id = String.valueOf(sesuser.id);
+   String urlID = request.getParameter("id").trim();
+   int urlIDInt = Integer.parseInt(urlID);
+   
+   if(urlID.equals(id)){
+	   response.sendRedirect("Profile.jsp");
+   }
+   else{
+	   u = DBQuery.userByID(urlIDInt);  
+   }
    
    %>
    
         <div id="page">  
             <div id="header">
-                <h1 id="nome-cognome">Nome Cognome</h1>
+                <h1 id="nome-cognome"><%out.print(u.nome + " "+ u.cognome);%></h1>
             </div>
             <div id="middle-container">
                 <div id="ProfileImageContainer">
@@ -106,14 +92,13 @@
                         </div>   
                     </div>
                     <div id="tabs-2">
-                        <p id="nome">Nome: </p>
-                        <p id="cognome">Cognome:</p>
-                        <p id="email">Email: </p>
-                        <p id="data-di-nascita">Data di Nascita:</p>
-                        <p id="nato-a"> Nato a: </p>
-                        <p id="luogo">Vive a: </p>
-                        <p id="stato">Stato sentimentale: </p>
-                        <form action="formmodifica.jsp" ><input type="submit" value="Modifica informazioni" class="btn"/></form>
+                        <p id="nome">Nome: <%if(u.nome==null){out.print("");}else{out.print(u.nome);}%></p>
+                        <p id="cognome">Cognome: <%if(u.cognome==null){out.print("");}else{out.print(u.cognome);}%></p>
+                        <p id="email">Email: <%if(u.email==null){out.print("");}else{out.print(u.email);}%></p>
+                        <p id="data-di-nascita">Data di Nascita: <%if(u.datanascita==null){out.print("");}else{out.print(u.datanascita);}%></p>
+                        <p id="nato-a"> Nato a: <%if(u.luogonascita==null){out.print("");}else{out.print(u.luogonascita);}%></p>
+                        <p id="luogo">Vive a: <%if(u.residenza==null){out.print("");}else{out.print(u.residenza);}%></p>
+                        <p id="stato">Stato sentimentale: <%if(u.statosentimentale==null){out.print("");}else{out.print(u.statosentimentale);}%></p>
                     </div>
                     <div id="tabs-3">
                         Qui compariranno gli amici

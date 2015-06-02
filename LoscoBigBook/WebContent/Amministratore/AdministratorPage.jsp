@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    
+<%@ page import="database.*" %>
+
+
 <!DOCTYPE html>
 
 <html>
@@ -8,8 +14,9 @@
     </head>
     
     <body>
+    <%Utente sesuser= (Utente) session.getAttribute("loggato"); %>
         <div id="page"> 
-            Contenuto pagina amministratore
+            <h3 style="margin-left: 10%;">Ciao <%out.print(sesuser.nome);%>, sei loggato come amministratore </h3>
         </div>
         
         <div id="top-bar" class="fixed-bar">
@@ -37,13 +44,10 @@
             <table id="ancore-home-container">
                 <tr>
                     <td>
-                        <a href="Profile.html"><div class="btn">Profilo</div></a>
+                        <a href="AdministratorPage.jsp"><div class="btn">Home</div></a>
                     </td>
                     <td>
-                        <a href="#"><div class="btn">Home</div></a>
-                    </td>
-                    <td>
-                        <a href="logout.jsp"><div class="btn">Logout</div></a>
+                        <a href="../logout.jsp"><div class="btn">Logout</div></a>
                     </td>
                 </tr>
             </table>

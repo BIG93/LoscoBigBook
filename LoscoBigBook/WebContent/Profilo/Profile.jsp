@@ -119,13 +119,13 @@
                         </div>   
                     </div>
                     <div id="tabs-2">
-                        <p id="nome">Nome: <%out.print(sesuser.nome);%> </p>
-                        <p id="cognome">Cognome: <%out.print(sesuser.cognome);%></p>
-                        <p id="email">Email: <%out.print(sesuser.email);%></p>
-                        <p id="data-di-nascita">Data di Nascita: <%out.print(sesuser.datanascita);%></p>
-                        <p id="nato-a"> Nato a: <%out.print(sesuser.getLuogonascita());%></p>
-                        <p id="luogo">Vive a: <%out.print(sesuser.getResidenza());%></p>
-                        <p id="stato">Stato sentimentale: <%out.print(sesuser.getStatosentimentale());%></p>
+                        <p id="nome">Nome: <%if(sesuser.nome==null){out.print("");}else{out.print(sesuser.nome);}%> </p>
+                        <p id="cognome">Cognome: <%if(sesuser.cognome==null){out.print("");}else{out.print(sesuser.cognome);}%></p>
+                        <p id="email">Email: <%if(sesuser.email==null){out.print("");}else{out.print(sesuser.email);}%></p>
+                        <p id="data-di-nascita">Data di Nascita: <%if(sesuser.datanascita==null){out.print("");}else{out.print(sesuser.datanascita);}%></p>
+                        <p id="nato-a"> Nato a: <%if(sesuser.luogonascita==null){out.print("");}else{out.print(sesuser.luogonascita);}%></p>
+                        <p id="luogo">Vive a: <%if(sesuser.residenza==null){out.print("");}else{out.print(sesuser.residenza);}%></p>
+                        <p id="stato">Stato sentimentale: <%if(sesuser.statosentimentale==null){out.print("");}else{out.print(sesuser.statosentimentale);}%></p>
                         <form action="formmodifica.jsp" ><input type="submit" value="Modifica informazioni" class="btn"/></form>
                     </div>
                     <div id="tabs-3">
