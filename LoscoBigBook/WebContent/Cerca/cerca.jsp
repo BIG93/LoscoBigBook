@@ -45,7 +45,7 @@
            				Utente u = userfind_search.get(i);
             	%>
 		           		<div id="friends">
-		           			<a id="friend-find" href="<%out.print("../Profilo/Friend-Profile.jsp?id= "+ u.id); %>"><%out.print(u.nome +" "+ u.cognome);%></a>
+		           			<a id="friend-find" href="<%out.print("../Profilo/Friend-Profile.jsp?id="+ u.id); %>"><%out.print(u.nome +" "+ u.cognome);%></a>
 		           		</div>
             	<%			
             		}
@@ -64,19 +64,19 @@
                     <td>
                         <h3 id="social">LoscoBigBook</h3>
                     </td>
-            </table>        
-            <table id="cerca">  
-                 <tr>
-                	<form action="#" method="get">
+            </table>  
+            <form action="cerca.jsp" method="get">      
+	            <table id="cerca">  
+	                 <tr>
 	                    <td>
-	                    	<input id="input-cerca" type="text" placeholder="Cerca...">
+	                    	<input id="input-cerca" name="input-cerca" type="text" placeholder="Cerca...">
 	                    </td>
 	                    <td>
 	                    	<input type="submit" value="Cerca" class="btn"></input>
-	                    </td>
-                    </form>
-                </tr>
-            </table> 
+	                    </td>   
+	                </tr>
+	            </table> 
+            </form>
             <table id="ancore-home-container">
                 <tr>
                     <td>

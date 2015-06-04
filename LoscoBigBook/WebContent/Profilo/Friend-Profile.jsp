@@ -20,7 +20,6 @@
               $( "#tabs" ).tabs();
             });
         </script>
-  
     </head>
     <body>
     
@@ -29,18 +28,19 @@
    <%
    Utente sesuser=null;
    sesuser=(Utente) session.getAttribute("loggato");
-   Utente u = null;
    
+   String urlID = request.getParameter("id");
    String id = String.valueOf(sesuser.id);
-   String urlID = request.getParameter("id").trim();
    int urlIDInt = Integer.parseInt(urlID);
-   
+   Utente u=null;
+  
    if(urlID.equals(id)){
 	   response.sendRedirect("Profile.jsp");
    }
-   else{
-	   u = DBQuery.userByID(urlIDInt);  
-   }
+   
+   u = DBQuery.userByID(urlIDInt);
+  
+   
    
    %>
    
@@ -115,19 +115,19 @@
                     <td>
                         <h3 id="social">LoscoBigBook</h3>
                     </td>
-            </table>        
-            <table id="cerca">  
-                <tr>
-                	<form action="../Cerca/cerca.jsp" method="get">
+            </table>   
+            <form action="../Cerca/cerca.jsp" method="get">     
+	            <table id="cerca">  
+	                <tr>
 	                    <td>
 	                    	<input id="input-cerca" name="input-cerca" type="text" placeholder="Cerca...">
 	                    </td>
 	                    <td>
 	                    	<input type="submit" value="Cerca" class="btn"></input>
 	                    </td>
-                    </form>
-                </tr>
-            </table> 
+	                </tr>
+	            </table> 
+            </form>
             <table id="ancore-home-container">
                 <tr>
                     <td>

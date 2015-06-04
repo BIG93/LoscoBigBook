@@ -186,7 +186,7 @@ public class DBQuery {
 			
 			PreparedStatement pstmt = con.prepareStatement(" SELECT * " +
 														   " FROM utente " +
-														   " WHERE Ruolo like 'user' AND Nome LIKE ? OR cognome LIKE ?");
+														   " WHERE Ruolo like 'user' AND (Nome LIKE ? OR cognome LIKE ?)");
 			
 			pstmt.setString(1, cerca + "%");
 			pstmt.setString(2, cerca + "%" );

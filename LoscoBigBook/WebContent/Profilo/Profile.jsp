@@ -83,7 +83,7 @@
             <div id="tab-container">
                 <div id="tabs">
                     <ul style="background-color: #66ff66;">
-                        <li><a href="#tabs-1">Post</a></li>
+                      <li><a href="#tabs-1">Post</a></li>
                       <li><a href="#tabs-2">Informazioni</a></li>
                       <li><a href="#tabs-3">Amici</a></li>
                     </ul>
@@ -143,19 +143,19 @@
                     <td>
                         <h3 id="social">LoscoBigBook</h3>
                     </td>
-            </table>        
+            </table>    
+            <form action="../Cerca/cerca.jsp" method="get">    
             <table id="cerca">  
-                <tr>
-                	<form action="../Cerca/cerca.jsp" method="get">
+                <tr>	
 	                    <td>
 	                    	<input id="input-cerca" name="input-cerca" type="text" placeholder="Cerca...">
 	                    </td>
 	                    <td>
 	                    	<input type="submit" value="Cerca" class="btn"></input>
 	                    </td>
-                    </form>
                 </tr>
             </table> 
+            </form>
             <table id="ancore-home-container">
                 <tr>
                     <td>

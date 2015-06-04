@@ -89,19 +89,19 @@
                         <td>
                             <h3 id="social">LoscoBigBook</h3>
                         </td>
-                </table>        
-                <table id="cerca">  
-                    <tr>
-                	<form action="../Cerca/cerca.jsp" method="get">
-	                    <td>
-	                    	<input id="input-cerca" name="input-cerca" type="text" placeholder="Cerca...">
-	                    </td>
-	                    <td>
-	                    	<input type="submit" value="Cerca" class="btn"></input>
-	                    </td>
-                    </form>
-                </tr>
-                </table> 
+                </table>   
+                <form action="../Cerca/cerca.jsp" method="get">     
+	                <table id="cerca">  
+		                <tr>
+		                    <td>
+		                    	<input id="input-cerca" name="input-cerca" type="text" placeholder="Cerca...">
+		                    </td>
+		                    <td>
+		                    	<input type="submit" value="Cerca" class="btn"></input>
+		                    </td>
+		                </tr>
+	                </table> 
+                </form>
                 <table id="ancore-home-container">
                     <tr>
                         <td>
