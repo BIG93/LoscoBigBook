@@ -89,9 +89,9 @@ public class DBQuery {
 				String password=rs.getString("Password");
 				
 				ut= new Utente(id, email, nome, cognome, sesso, datanascita, ruolo,luogonascita, statosentimentale,residenza, password);		
-				
-				con.close();
 			}
+			con.close();
+			
 		}
 		catch (Exception e) {
 			System.out.println("Errore con DB o Query errata");
@@ -254,9 +254,10 @@ public class DBQuery {
 				String password=rs.getString("Password");
 				
 				ut= new Utente(id, email, nome, cognome, sesso, datanascita, ruolo,luogonascita, statosentimentale,residenza, password);		
-				
-				con.close();
 			}
+		
+			con.close();
+			
 		}
 		catch (Exception e) {
 			System.out.println("Errore con DB o Query errata");
@@ -265,6 +266,118 @@ public class DBQuery {
 		return ut;
 		 // End userByID
 	}
+	
+	public static int friend_request(int richiedente, int ricevente){
+		
+		int i=0;
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `amicizia` "
+					+ " (`Richiedente`, `Ricevente`, `Stato`) "
+					+ " VALUES (?, ?, 'in attesa'); ");
+			
+			pstmt.setInt(1, richiedente);
+			pstmt.setInt(2, ricevente);
+			
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+		
+		}
+
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End friend_request
+	
+	public static Friendship friendship_status(int richiedente, int ricevente)
+	{
+		Friendship f=null;
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
+                    "user=" + "root" + "&password=" + "");
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" SELECT Stato " + 
+														   " FROM amicizia " + 
+															" WHERE Richiedente = ? AND Ricevente = ? ");
+			pstmt.setInt(1, richiedente);
+			pstmt.setInt(2, ricevente);
+			
+			
+			ResultSet rs = pstmt.executeQuery();
+				
+			while (rs.next()){
+				
+				String stato = rs.getString("Stato");
+				
+				f=new Friendship(richiedente, ricevente,stato);
+						
+			}
+			con.close();
+			
+		}
+		catch (Exception e) {
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		return f;
+		 // End Friendship_status
+		}
+	
+	public static ArrayList<Friendship> friendship_list(int ricevente)
+	{
+		ArrayList <Friendship> f_list= new ArrayList<Friendship>();
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
+                    "user=" + "root" + "&password=" + "");
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
+														   " FROM amicizia " + 
+															" WHERE Ricevente = ? ");
+			
+			pstmt.setInt(1, ricevente);
+			
+			
+			ResultSet rs = pstmt.executeQuery();
+				
+			while (rs.next()){
+				
+				int richiedente=rs.getInt("Richiedente");
+				String stato = rs.getString("Stato");
+				
+				
+				Friendship f=new Friendship(richiedente, ricevente , stato);
+				
+				f_list.add(f);		
+			}	
+			con.close();
+			
+		}
+		catch (Exception e) {
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		return f_list;
+		 // End userByID
+	}
+	
 	
 	
 }

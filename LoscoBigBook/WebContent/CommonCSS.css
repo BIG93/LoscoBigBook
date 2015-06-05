@@ -63,6 +63,10 @@ h3#social{
   text-decoration: none;
 }
 
+.btn:active {
+  background: #005128;
+}
+
 .btn:hover {
   background: #1ac211;
 }

@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
     
 <%@ page import="database.*" %>
+<%@ page import="java.util.ArrayList" %>
 
 <!DOCTYPE html>
 <html>
@@ -67,8 +68,29 @@
                     <img id="ProfileImage" src="profileimage.jpg" alt="immagine del profilo"/>
                 </div> 
                 <div id="richiestedamicizia">
-                    <div>
-                        Richieste d'amicizia
+                    <div style="margin-bottom: 15px; text-align: center;">
+                        <h3>Richieste d'amicizia</h3>
+                    </div>    
+                        <%
+                        ArrayList<Friendship> f_list=DBQuery.friendship_list(sesuser.id);
+                        for(int i=0; i<f_list.size();i++)
+                        {
+                        	Utente u=DBQuery.userByID(f_list.get(i).richiedente);
+                        	%>
+                       <div style="border:3px solid #66ff66; padding:7px; margin-bottom:3px;">
+	                       <table>
+	                       		<tr>
+	                       			<td>
+	                       				<a href="<%out.print("Friend-Profile.jsp?id="+f_list.get(i).richiedente);%>" style="color:#66ff66;"><% out.println(u.nome + " " + u.cognome);%></a>
+	                       			</td>	
+	                       		</tr>	                       		
+	                       </table>
+                       	   <input type="button" value="Conferma" class="btn" />		
+						   <input type="button" value="Rifiuta" class="btn" />
+                       </div>
+                       	<% 
+                        }
+                        %>
                     </div>
                 </div>
                 <div id="change-profile-image">
@@ -79,8 +101,7 @@
                         <button class="btn">Cambia</button>
                     </div>
                 </div>
-            </div>    
-            <div id="tab-container">
+                 <div id="tab-container">
                 <div id="tabs">
                     <ul style="background-color: #66ff66;">
                       <li><a href="#tabs-1">Post</a></li>
@@ -134,6 +155,8 @@
                 </div>
             </div>
         </div>  
+            </div>    
+           
         <div id="top-bar" class="fixed-bar">
             <table id="logo-head">
                 <tr>

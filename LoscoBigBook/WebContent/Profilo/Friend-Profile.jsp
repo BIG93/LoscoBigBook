@@ -10,16 +10,23 @@
         
         <title>Profilo</title>
         
-        <link href="ProfileCSS.css" rel="stylesheet" type="text/css"/>
+        
         <script src="../jquery-1.8.3.js" type="text/javascript"></script>
         <link href="../jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css"/>
         <script src="../jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+        
+        
         <link href="../CommonCSS.css" rel="stylesheet" type="text/css"/>
+        <link href="ProfileCSS.css" rel="stylesheet" type="text/css"/>
+        
         <script>
             $(function() {
               $( "#tabs" ).tabs();
             });
-        </script>
+         </script>   
+           
+        
+        
     </head>
     <body>
     
@@ -39,11 +46,9 @@
    }
    
    u = DBQuery.userByID(urlIDInt);
-  
-   
    
    %>
-   
+  
         <div id="page">  
             <div id="header">
                 <h1 id="nome-cognome"><%out.print(u.nome + " "+ u.cognome);%></h1>
@@ -51,7 +56,23 @@
             <div id="middle-container">
                 <div id="ProfileImageContainer">
                     <img id="ProfileImage" src="profileimage.jpg" alt="immagine del profilo"/>
-                </div>   
+                </div>  
+                <div id="friend-request-container">
+                	<% 
+                		Friendship f= DBQuery.friendship_status(sesuser.id,urlIDInt);
+                		
+                		if(f==null){
+                	%>
+                		<a href="<%out.print("friendship.jsp?id="+ urlIDInt ); %>" id="friend-request-button" name="friend-request-button"><div id="friend-request" class="btn">Aggiungi agli amici</div></a>       	
+                	<%
+                		}
+                		else if(f.stato.equals("in attesa")){
+                	%>
+                		<h3>Amicizia in attesa di approvazione</h3>
+                	<%
+                		}
+                	%>
+                </div> 
             </div>    
             <div id="tab-container">
                 <div id="tabs">

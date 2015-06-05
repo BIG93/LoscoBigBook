@@ -29,7 +29,7 @@ and open the template in the editor.
     
     position: absolute;
     margin-left: 70px;
-    margin-top: 20px;
+    margin-top: 60px;
     width: 35%;
     height: 70%;
     overflow: hidden;
@@ -39,6 +39,25 @@ and open the template in the editor.
 #ProfileImage{
     width: 100%;
     min-height: 280px;
+}
+
+#friend-request-container{
+	position : absolute;
+	left : 60%;
+	top : 40%;
+}
+
+#friend-request{
+	width: 300px;
+	height: 70px;
+	font-size: 25px;
+	text-align: center;	
+	padding-top:40px;
+}
+
+#friend-request-button{
+	color : white;
+	margin-top:50px;
 }
 
 #change-profile-image{
@@ -55,7 +74,6 @@ and open the template in the editor.
 #richiestedamicizia{
     position: relative;
     padding: 10px;
-    text-align: center;
     margin-left: 60%;
     margin-right: 20px;
     top: 20px;
