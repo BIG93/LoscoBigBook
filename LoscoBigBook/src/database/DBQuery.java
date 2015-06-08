@@ -312,9 +312,12 @@ public class DBQuery {
 			
 			PreparedStatement pstmt = con.prepareStatement(" SELECT Stato " + 
 														   " FROM amicizia " + 
-															" WHERE Richiedente = ? AND Ricevente = ? ");
+															" WHERE (Richiedente = ? AND Ricevente = ?) OR (Richiedente = ? AND Ricevente = ?)");
 			pstmt.setInt(1, richiedente);
 			pstmt.setInt(2, ricevente);
+			pstmt.setInt(3, ricevente);
+			pstmt.setInt(4, richiedente);
+			
 			
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -323,7 +326,7 @@ public class DBQuery {
 				
 				String stato = rs.getString("Stato");
 				
-				f=new Friendship(richiedente, ricevente,stato);
+				f=new Friendship(richiedente, ricevente , stato);
 						
 			}
 			con.close();

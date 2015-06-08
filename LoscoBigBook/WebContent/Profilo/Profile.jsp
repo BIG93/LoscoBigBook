@@ -24,22 +24,23 @@
     </head>
     <body>
     
-    <script>
-		$(function(){
-		   $("#dialog").dialog({
-		   		show:{
-		   	        effect: "slide",
-		   	        duration: 500
-		   	      },
-		   	     buttons:{
-		   	    	 "Chiudi": function(){
-		   	    		 $( this ).dialog( "close" );	 
-		   	      		}
-		   	    }
-			});
-		   });
-  </script>
-  
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#click").click(function() {
+            name = $("#name").val();
+            age = $("#age").val();
+                $.ajax({
+                type : "POST",
+                url : "pageTwo.jsp",
+                data : "name=" + name + "&age=" + age,
+                success : function(data) {
+                    $("#response").html(data);
+                }
+            });
+        });
+
+	</script>
+ 
    <%
    Utente sesuser=null;
    sesuser=(Utente) session.getAttribute("loggato");
@@ -65,7 +66,7 @@
             </div>
             <div id="middle-container">
                 <div id="ProfileImageContainer">
-                    <img id="ProfileImage" src="profileimage.jpg" alt="immagine del profilo"/>
+                    <img id="ProfileImage" src="ProfileImage/profileimage.jpg" alt="immagine del profilo"/>
                 </div> 
                 <div id="richiestedamicizia">
                     <div style="margin-bottom: 15px; text-align: center;">
@@ -76,7 +77,7 @@
                         for(int i=0; i<f_list.size();i++)
                         {
                         	Utente u=DBQuery.userByID(f_list.get(i).richiedente);
-                        	%>
+                        %>
                        <div style="border:3px solid #66ff66; padding:7px; margin-bottom:3px;">
 	                       <table>
 	                       		<tr>

@@ -30,7 +30,7 @@
     </head>
     <body>
     
-   
+  
   
    <%
    Utente sesuser=null;
@@ -49,13 +49,32 @@
    
    %>
   
+   <script type="text/javascript">
+    $(document).ready(function() {
+        $("#friend-request").click(function() {
+            currentid = <%out.print(sesuser.id);%>;
+            id = <%out.print(urlIDInt);%>;
+                $.ajax({
+                type : "POST",
+                url : "friend-request.jsp",
+                async : false,
+                data : "currentid=" + currentid + "&id=" + id,
+                success : function(data) {
+                    location.reload();
+                }
+            });
+        });
+    });
+
+</script>
+  
         <div id="page">  
             <div id="header">
                 <h1 id="nome-cognome"><%out.print(u.nome + " "+ u.cognome);%></h1>
             </div>
             <div id="middle-container">
                 <div id="ProfileImageContainer">
-                    <img id="ProfileImage" src="profileimage.jpg" alt="immagine del profilo"/>
+                    <img id="ProfileImage" src="ProfileImage/profileimage.jpg" alt="immagine del profilo"/>
                 </div>  
                 <div id="friend-request-container">
                 	<% 
@@ -63,7 +82,7 @@
                 		
                 		if(f==null){
                 	%>
-                		<a href="<%out.print("friendship.jsp?id="+ urlIDInt ); %>" id="friend-request-button" name="friend-request-button"><div id="friend-request" class="btn">Aggiungi agli amici</div></a>       	
+                		<button id="friend-request" class="btn">Aggiungi agli amici</button>      	
                 	<%
                 		}
                 		else if(f.stato.equals("in attesa")){
@@ -93,7 +112,7 @@
                                         #mi piace
                                     </span>
                                     <span id="mi-piace">
-                                        <a data-target="#" class="tasto-like" style="color: #66ff66;">
+                                        <a href="#" class="tasto-like" style="color: #66ff66;">
                                             Mi piace
                                         </a>
                                     </span> 
@@ -101,7 +120,7 @@
                                         #non mi piace
                                     </span>
                                     <span id="non-mi-piace" class="tasto-like">
-                                        <a data-target=""  class="tasto-like" style="color: #66ff66;">
+                                        <a href="#" class="tasto-like" style="color: #66ff66;">
                                             Non mi piace
                                         </a>
                                     </span>
