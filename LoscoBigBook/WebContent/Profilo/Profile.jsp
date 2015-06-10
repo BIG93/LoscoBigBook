@@ -25,19 +25,34 @@
     <body>
     
     <script type="text/javascript">
-    $(document).ready(function() {
-        $("#click").click(function() {
-            name = $("#name").val();
-            age = $("#age").val();
-                $.ajax({
-                type : "POST",
-                url : "pageTwo.jsp",
-                data : "name=" + name + "&age=" + age,
-                success : function(data) {
-                    $("#response").html(data);
-                }
+    function conferma(richiedente,ricevente) {
+     $(document).ready(function() {
+            
+                    $.ajax({
+                    type : "POST",
+                    url : "confirm.jsp",
+                    data : "richiedente=" + richiedente + "&ricevente=" + ricevente,
+                    success : function(data) {
+                    	location.reload();
+                    }
             });
         });
+    	
+    }
+    function elimina(richiedente,ricevente) {
+        $(document).ready(function() {
+               
+                       $.ajax({
+                       type : "POST",
+                       url : "reject.jsp",
+                       data : "richiedente=" + richiedente + "&ricevente=" + ricevente,
+                       success : function(data) {
+                       	location.reload();
+                       }
+               });
+           });
+       	
+       }
 
 	</script>
  
@@ -86,8 +101,8 @@
 	                       			</td>	
 	                       		</tr>	                       		
 	                       </table>
-                       	   <input type="button" value="Conferma" class="btn" />		
-						   <input type="button" value="Rifiuta" class="btn" />
+                       	   <input type="button" value="Conferma" class="btn" onclick="conferma(<%out.print(f_list.get(i).richiedente);%>,<%out.print(sesuser.id);%>);"/>		
+						   <input type="button" value="Rifiuta" class="btn" onclick="elimina(<%out.print(f_list.get(i).richiedente);%>,<%out.print(sesuser.id);%>);"/>
                        </div>
                        	<% 
                         }
