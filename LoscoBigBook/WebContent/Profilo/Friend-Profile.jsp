@@ -174,26 +174,25 @@
 	                    <div id="Amici">
 	                        <%
                         ArrayList<Friendship> confirmed_list=DBQuery.confirmed_friend(urlIDInt);
-                        
-                        for(int j=0; j<confirmed_list.size();j++){
-                        	Utente u_friend=null;
                         	
-                        	if(urlIDInt==confirmed_list.get(j).richiedente)
-                        	{
-                        		u_friend=DBQuery.userByID(confirmed_list.get(j).ricevente);
-                        	}
-                        	else
-                        	{
-                        		u_friend=DBQuery.userByID(confirmed_list.get(j).richiedente);
-                        	}
-                        	%>
-                        	<div style="border:1px solid #66ff66; padding:7px; margin-bottom:3px; text-align: center;">
-                        		<a href="<%out.print("Friend-Profile.jsp?id="+u_friend.id);%>" style="color:black;"><% out.println(u_friend.nome + " " + u_friend.cognome);%></a></br>
-                       	    </div>
-                        <%
+	                        for(int j=0; j<confirmed_list.size();j++){
+	                        	Utente u_friend=null;
+	                        	
+	                        	if(urlIDInt==confirmed_list.get(j).richiedente)
+	                        	{
+	                        		u_friend=DBQuery.userByID(confirmed_list.get(j).ricevente);
+	                        	}
+	                        	else
+	                        	{
+	                        		u_friend=DBQuery.userByID(confirmed_list.get(j).richiedente);
+	                        	}
+	                        	%>
+	                        	<div style="border:1px solid #66ff66; padding:7px; margin-bottom:3px; text-align: center;">
+	                        		<a href="<%out.print("Friend-Profile.jsp?id="+u_friend.id);%>" style="color:black;"><% out.println(u_friend.nome + " " + u_friend.cognome);%></a></br>
+	                       	    </div>
+	                        <%
                         
                         }
-                        
                         %>
                         
 	                    </div>

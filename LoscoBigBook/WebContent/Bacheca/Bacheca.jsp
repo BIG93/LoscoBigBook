@@ -49,9 +49,13 @@
 	}	
 	else{
 		loggato = true;
-		ut = sesuser;
+		ut = sesuser;			
+	}
+	
+	if(loggato==true){
 		
 		String ruolo = sesuser.ruolo;
+		
 		if(ruolo.equals("admin")){
 			response.sendRedirect("../Amministratore/AdministratorPage.jsp");
 		}

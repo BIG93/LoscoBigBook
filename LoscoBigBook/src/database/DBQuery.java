@@ -511,5 +511,110 @@ public class DBQuery {
 	}
 	
 	
+	public static ArrayList<Utente> admin_list_user()
+	{	
+		Utente ut = null;
+		ArrayList<Utente> user_list=new ArrayList<Utente>();
+		
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
+                    "user=" + "root" + "&password=" + "");
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" SELECT * FROM utente WHERE Ruolo='user' ");
+														   
+			
+			ResultSet rs = pstmt.executeQuery();
+				
+			while (rs.next())
+			{
+				
+				int id=rs.getInt("ID");
+				String nome =  rs.getString("Nome");	
+				String cognome =  rs.getString("Cognome");	
+				String email = rs.getString("Email");	
+				String sesso= rs.getString("Sesso");
+				String datanascita= rs.getString("Datanascita");
+				String ruolo= rs.getString("Ruolo");
+				String luogonascita= rs.getString("Luogonascita");
+				String statosentimentale= rs.getString("Statosentimentale");
+				String residenza= rs.getString("Residenza");
+				String password=rs.getString("Password");
+				
+				ut= new Utente(id, email, nome, cognome, sesso, datanascita, ruolo,luogonascita, statosentimentale,residenza, password);		
+				user_list.add(ut);
+			}
+			con.close();
+			
+		}
+		catch (Exception e) {
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		return user_list;
+		 // End DB_Login_ByCookie.
+	}
+	
+	
+	public static int banna_user(int id)
+	{
+		int i=0;
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `utente` WHERE `ID`= ? LIMIT 1;");
+		
+			pstmt.setInt(1, id);
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+	}
+
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End banna_user
+	
+	public static int delete_user_friendship(int id)
+	{
+		int i=0;
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `amicizia` WHERE (`Richiedente`= ? OR Ricevente = ?) LIMIT 1;");
+		
+			pstmt.setInt(1, id);
+			pstmt.setInt(2, id);
+			
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+	}
+
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End delete_user_friendship
+	
+	
 	
 }

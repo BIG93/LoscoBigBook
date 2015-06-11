@@ -169,26 +169,32 @@
                     <div id="Amici">
                         <%
                         ArrayList<Friendship> confirmed_list=DBQuery.confirmed_friend(sesuser.id);
+                         if(confirmed_list.size()==0)
+                         {
+                        	out.println("Non hai amici");
                         
-                        for(int j=0; j<confirmed_list.size();j++){
-                        	Utente u_friend=null;
-                        	
-                        	if(sesuser.id==confirmed_list.get(j).richiedente)
-                        	{
-                        		u_friend=DBQuery.userByID(confirmed_list.get(j).ricevente);
-                        	}
-                        	else
-                        	{
-                        		u_friend=DBQuery.userByID(confirmed_list.get(j).richiedente);
-                        	}
-                        	%>
-                        	<div style="border:1px solid #66ff66; padding:7px; margin-bottom:3px; text-align: center;">
-                        		<a href="<%out.print("Friend-Profile.jsp?id="+u_friend.id);%>" style="color:black;"><% out.println(u_friend.nome + " " + u_friend.cognome);%></a></br>
-                       	    </div>
-                        <%
-                        
-                        }
-                        
+                         }
+                         else
+                         {
+	                        for(int j=0; j<confirmed_list.size();j++){
+	                        	Utente u_friend=null;
+	                        	
+	                        	if(sesuser.id==confirmed_list.get(j).richiedente)
+	                        	{
+	                        		u_friend=DBQuery.userByID(confirmed_list.get(j).ricevente);
+	                        	}
+	                        	else
+	                        	{
+	                        		u_friend=DBQuery.userByID(confirmed_list.get(j).richiedente);
+	                        	}
+	                        	%>
+	                        	<div style="border:1px solid #66ff66; padding:7px; margin-bottom:3px; text-align: center;">
+	                        		<a href="<%out.print("Friend-Profile.jsp?id="+u_friend.id);%>" style="color:black;"><% out.println(u_friend.nome + " " + u_friend.cognome);%></a></br>
+	                       	    </div>
+	                       		 <%
+	                        
+	                        	}
+                         }
                         %>
                         
                         
