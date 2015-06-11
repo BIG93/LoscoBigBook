@@ -121,11 +121,11 @@
                  <div id="tab-container">
                 <div id="tabs">
                     <ul style="background-color: #66ff66;">
-                      <li><a href="#tabs-1">Post</a></li>
-                      <li><a href="#tabs-2">Informazioni</a></li>
-                      <li><a href="#tabs-3">Amici</a></li>
+                      <li><a href="#Post">Post</a></li>
+                      <li><a href="#Info">Informazioni</a></li>
+                      <li><a href="#Amici">Amici</a></li>
                     </ul>
-                    <div id="tabs-1">
+                    <div id="Post">
                         <div id="postContainer">
                             <div class="post">
                                 <h3 class="author-post">Nome Cognome</h3>
@@ -156,7 +156,7 @@
                             </div>
                         </div>   
                     </div>
-                    <div id="tabs-2">
+                    <div id="Info">
                         <p id="nome">Nome: <%if(sesuser.nome==null){out.print("");}else{out.print(sesuser.nome);}%> </p>
                         <p id="cognome">Cognome: <%if(sesuser.cognome==null){out.print("");}else{out.print(sesuser.cognome);}%></p>
                         <p id="email">Email: <%if(sesuser.email==null){out.print("");}else{out.print(sesuser.email);}%></p>
@@ -166,8 +166,32 @@
                         <p id="stato">Stato sentimentale: <%if(sesuser.statosentimentale==null){out.print("");}else{out.print(sesuser.statosentimentale);}%></p>
                         <form action="formmodifica.jsp" ><input type="submit" value="Modifica informazioni" class="btn"/></form>
                     </div>
-                    <div id="tabs-3">
-                        Qui compariranno gli amici
+                    <div id="Amici">
+                        <%
+                        ArrayList<Friendship> confirmed_list=DBQuery.confirmed_friend(sesuser.id);
+                        
+                        for(int j=0; j<confirmed_list.size();j++){
+                        	Utente u_friend=null;
+                        	
+                        	if(sesuser.id==confirmed_list.get(j).richiedente)
+                        	{
+                        		u_friend=DBQuery.userByID(confirmed_list.get(j).ricevente);
+                        	}
+                        	else
+                        	{
+                        		u_friend=DBQuery.userByID(confirmed_list.get(j).richiedente);
+                        	}
+                        	%>
+                        	<div style="border:1px solid #66ff66; padding:7px; margin-bottom:3px; text-align: center;">
+                        		<a href="<%out.print("Friend-Profile.jsp?id="+u_friend.id);%>" style="color:black;"><% out.println(u_friend.nome + " " + u_friend.cognome);%></a></br>
+                       	    </div>
+                        <%
+                        
+                        }
+                        
+                        %>
+                        
+                        
                     </div>
                 </div>
             </div>

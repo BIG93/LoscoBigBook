@@ -3,6 +3,7 @@
     pageEncoding="ISO-8859-1"%>
     
 <%@ page import="database.*" %>
+<%@ page import="java.util.ArrayList" %>
 
 <!DOCTYPE html>
 <html>
@@ -122,53 +123,98 @@
             <div id="tab-container">
                 <div id="tabs">
                     <ul style="background-color: #66ff66;">
-                        <li><a href="#tabs-1">Post</a></li>
-                      <li><a href="#tabs-2">Informazioni</a></li>
-                      <li><a href="#tabs-3">Amici</a></li>
+                        <li><a href="#Post">Post</a></li>
+                      <li><a href="#Info">Informazioni</a></li>
+                      <li><a href="#Amici">Amici</a></li>
                     </ul>
-                    <div id="tabs-1">
-                        <div id="postContainer">
-                            <div class="post">
-                                <h3 class="author-post">Nome Cognome</h3>
-                                <p class="post-text">
-                               		Post di prova
-                                </p>
-                                <div id="like-container">
-                                    <span id="like-counter">
-                                        #mi piace
-                                    </span>
-                                    <span id="mi-piace">
-                                        <a href="#" class="tasto-like" style="color: #66ff66;">
-                                            Mi piace
-                                        </a>
-                                    </span> 
-                                    <span id="dislike-counter">
-                                        #non mi piace
-                                    </span>
-                                    <span id="non-mi-piace" class="tasto-like">
-                                        <a href="#" class="tasto-like" style="color: #66ff66;">
-                                            Non mi piace
-                                        </a>
-                                    </span>
-                                </div>
-                                <div id="comment-container">
-                                    <textarea id="inserisci-commento" cols="64" rows="4" placeholder="Commenta..."></textarea>
-                                </div>
-                            </div>
-                        </div>   
-                    </div>
-                    <div id="tabs-2">
-                        <p id="nome">Nome: <%if(u.nome==null){out.print("");}else{out.print(u.nome);}%></p>
-                        <p id="cognome">Cognome: <%if(u.cognome==null){out.print("");}else{out.print(u.cognome);}%></p>
-                        <p id="email">Email: <%if(u.email==null){out.print("");}else{out.print(u.email);}%></p>
-                        <p id="data-di-nascita">Data di Nascita: <%if(u.datanascita==null){out.print("");}else{out.print(u.datanascita);}%></p>
-                        <p id="nato-a"> Nato a: <%if(u.luogonascita==null){out.print("");}else{out.print(u.luogonascita);}%></p>
-                        <p id="luogo">Vive a: <%if(u.residenza==null){out.print("");}else{out.print(u.residenza);}%></p>
-                        <p id="stato">Stato sentimentale: <%if(u.statosentimentale==null){out.print("");}else{out.print(u.statosentimentale);}%></p>
-                    </div>
-                    <div id="tabs-3">
-                        Qui compariranno gli amici
-                    </div>
+                    <%
+                    if(f!=null){
+	                    if(f.stato.equals("Confermata")){
+	                    %>
+	                    <div id="Post">
+	                        <div id="postContainer">
+	                            <div class="post">
+	                                <h3 class="author-post">Nome Cognome</h3>
+	                                <p class="post-text">
+	                               		Post di prova
+	                                </p>
+	                                <div id="like-container">
+	                                    <span id="like-counter">
+	                                        #mi piace
+	                                    </span>
+	                                    <span id="mi-piace">
+	                                        <a href="#" class="tasto-like" style="color: #66ff66;">
+	                                            Mi piace
+	                                        </a>
+	                                    </span> 
+	                                    <span id="dislike-counter">
+	                                        #non mi piace
+	                                    </span>
+	                                    <span id="non-mi-piace" class="tasto-like">
+	                                        <a href="#" class="tasto-like" style="color: #66ff66;">
+	                                            Non mi piace
+	                                        </a>
+	                                    </span>
+	                                </div>
+	                                <div id="comment-container">
+	                                    <textarea id="inserisci-commento" cols="64" rows="4" placeholder="Commenta..."></textarea>
+	                                </div>
+	                            </div>
+	                        </div>   
+	                    </div>
+	                    <div id="Info">
+	                        <p id="nome">Nome: <%if(u.nome==null){out.print("");}else{out.print(u.nome);}%></p>
+	                        <p id="cognome">Cognome: <%if(u.cognome==null){out.print("");}else{out.print(u.cognome);}%></p>
+	                        <p id="email">Email: <%if(u.email==null){out.print("");}else{out.print(u.email);}%></p>
+	                        <p id="data-di-nascita">Data di Nascita: <%if(u.datanascita==null){out.print("");}else{out.print(u.datanascita);}%></p>
+	                        <p id="nato-a"> Nato a: <%if(u.luogonascita==null){out.print("");}else{out.print(u.luogonascita);}%></p>
+	                        <p id="luogo">Vive a: <%if(u.residenza==null){out.print("");}else{out.print(u.residenza);}%></p>
+	                        <p id="stato">Stato sentimentale: <%if(u.statosentimentale==null){out.print("");}else{out.print(u.statosentimentale);}%></p>
+	                    </div>
+	                    <div id="Amici">
+	                        <%
+                        ArrayList<Friendship> confirmed_list=DBQuery.confirmed_friend(urlIDInt);
+                        
+                        for(int j=0; j<confirmed_list.size();j++){
+                        	Utente u_friend=null;
+                        	
+                        	if(urlIDInt==confirmed_list.get(j).richiedente)
+                        	{
+                        		u_friend=DBQuery.userByID(confirmed_list.get(j).ricevente);
+                        	}
+                        	else
+                        	{
+                        		u_friend=DBQuery.userByID(confirmed_list.get(j).richiedente);
+                        	}
+                        	%>
+                        	<div style="border:1px solid #66ff66; padding:7px; margin-bottom:3px; text-align: center;">
+                        		<a href="<%out.print("Friend-Profile.jsp?id="+u_friend.id);%>" style="color:black;"><% out.println(u_friend.nome + " " + u_friend.cognome);%></a></br>
+                       	    </div>
+                        <%
+                        
+                        }
+                        
+                        %>
+                        
+	                    </div>
+	                    <%
+	                    }
+	                    else if(f.stato.equals("in attesa")){
+                   	%>
+                    	<div id="Post">Aggiungi agli amici per visualizzare i Post</div>
+                    	<div id="Info">Aggiungi agli amici per visualizzare le info</div>
+                    	<div id="Amici">Aggiungi agli amici per visualizzare gli amici</div>
+                   	<% 
+                    	}
+                    }
+	                else{
+	                	%>
+	                	<div id="Post">Aggiungi agli amici per visualizzare i Post</div>
+	                   	<div id="Info">Aggiungi agli amici per visualizzare le info</div>
+	                   	<div id="Amici">Aggiungi agli amici per visualizzare gli amici</div>
+	                	<% 
+	                }
+                    %>
                 </div>
             </div>
         </div>  

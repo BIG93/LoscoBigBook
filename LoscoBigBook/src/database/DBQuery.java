@@ -378,7 +378,7 @@ public class DBQuery {
 			e.printStackTrace();
 		}
 		return f_list;
-		 // End userByID
+		 // End friendship_list
 	}
 	
 	public static int friendship_confirm(int richiedente,int ricevente){
@@ -466,6 +466,49 @@ public class DBQuery {
 		
 		return i;
 	}// End friendship_delete
+	
+	
+	public static ArrayList<Friendship> confirmed_friend(int id)
+	{
+		ArrayList <Friendship> f_list= new ArrayList<Friendship>();
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
+                    "user=" + "root" + "&password=" + "");
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
+														   " FROM amicizia " + 
+															" WHERE (Ricevente = ? OR Richiedente=?) AND Stato='Confermata' ");
+			
+			pstmt.setInt(1, id);
+			pstmt.setInt(2, id);
+			
+			ResultSet rs = pstmt.executeQuery();
+				
+			while (rs.next()){
+				
+					int ricevente=rs.getInt("Ricevente");
+					int richiedente=rs.getInt("Richiedente");
+					String stato = rs.getString("Stato");
+						
+					Friendship f=new Friendship(richiedente, ricevente , stato);
+					
+					f_list.add(f);
+				
+			}	
+			con.close();
+			
+		}
+		catch (Exception e) {
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		return f_list;
+		 // End userByID
+	}
 	
 	
 	
