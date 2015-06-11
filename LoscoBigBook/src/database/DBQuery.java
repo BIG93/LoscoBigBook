@@ -432,6 +432,41 @@ public class DBQuery {
 		}
 		
 		return i;
-	}// End UPDATE_utente
+	}// End friendship_delete
+	
+	
+	
+	public static int friend_delete(int richiedente,int ricevente)
+	{
+		int i=0;
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `amicizia` WHERE ((`Richiedente`= ? AND `Ricevente`= ?) OR (`Richiedente`= ? AND `Ricevente`= ?)) AND Stato='Confermata' LIMIT 1;");
+		
+			pstmt.setInt(1, richiedente);
+			pstmt.setInt(2, ricevente);
+			
+			pstmt.setInt(3, ricevente);
+			pstmt.setInt(4, richiedente);
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+	}
+
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End friendship_delete
+	
+	
 	
 }

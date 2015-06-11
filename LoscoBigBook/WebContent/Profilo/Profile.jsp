@@ -48,6 +48,7 @@
                        data : "richiedente=" + richiedente + "&ricevente=" + ricevente,
                        success : function(data) {
                        	location.reload();
+                       	
                        }
                });
            });

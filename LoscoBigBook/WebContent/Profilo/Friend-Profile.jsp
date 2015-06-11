@@ -65,6 +65,22 @@
             });
         });
     });
+    
+    
+    
+    function elimina_amico(richiedente,ricevente){
+  			
+            $.ajax({
+                    type : "POST",
+                    url : "elimina_amico.jsp",
+                    data : "richiedente=" + richiedente + "&ricevente=" + ricevente,
+                    success : function(data)
+                    {
+                    	location.reload();
+                    
+                    }
+            });
+    }
 
 </script>
   
@@ -90,6 +106,16 @@
                 		<h3>Amicizia in attesa di approvazione</h3>
                 	<%
                 		}
+                		else if(f.stato.equals("Confermata")){
+                			
+                	%>
+                	<table>
+                	<tr>
+                	<td><p class="btn">Amici</p></td><td><input type="button"  value="Rimuovi dagli amici" id="friend-delete" class="btn" onclick="elimina_amico(<%out.print(sesuser.id);%> , <%out.print(urlIDInt);%>);" /></td>
+                	</tr>
+                	</table>
+                	<%
+                	}
                 	%>
                 </div> 
             </div>    

@@ -17,18 +17,6 @@
 	
 	<% 
 
-	Cookie[] cookies = request.getCookies();
-	
-	if (cookies != null){
-		for(int i = 0; i < cookies.length; i++) { 
-		    Cookie c = cookies[i];		    
-		    if (c.getName().equals("log")) {
-		    	Utente ucookie = DBQuery.DB_Login_ByCookie(c.getValue());
-		    	session.setAttribute("loggato", ucookie);
-		    }
-		}
-	}
-
 	String user = request.getParameter("user");
 	String pass = request.getParameter("pass");	
 	String ck = request.getParameter("ck");
@@ -62,13 +50,14 @@
 	else{
 		loggato = true;
 		ut = sesuser;
+		
+		String ruolo = sesuser.ruolo;
+		if(ruolo.equals("admin")){
+			response.sendRedirect("../Amministratore/AdministratorPage.jsp");
+		}
 	}
 	
-	String ruolo = sesuser.ruolo;
 	
-	if(ruolo.equals("admin")){
-		response.sendRedirect("../Amministratore/AdministratorPage.jsp");
-	}
 	
 
 %>
