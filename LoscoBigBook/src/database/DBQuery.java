@@ -24,7 +24,7 @@ public class DBQuery {
 			PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
 														   " FROM utente " + 
 															" WHERE email LIKE ? "
-															+ " AND password LIKE ? ");
+															+ " AND password LIKE ? AND Cancellato=0;");
 			pstmt.setString(1, user);
 			pstmt.setString(2, pass);
 			
@@ -186,7 +186,7 @@ public class DBQuery {
 			
 			PreparedStatement pstmt = con.prepareStatement(" SELECT * " +
 														   " FROM utente " +
-														   " WHERE Ruolo like 'user' AND (Nome LIKE ? OR cognome LIKE ?)");
+														   " WHERE Ruolo like 'user' AND (Nome LIKE ? OR cognome LIKE ?) AND Cancellato='0';");
 			
 			pstmt.setString(1, cerca + "%");
 			pstmt.setString(2, cerca + "%" );
@@ -524,7 +524,7 @@ public class DBQuery {
                     "user=" + "root" + "&password=" + "");
 			
 			
-			PreparedStatement pstmt = con.prepareStatement(" SELECT * FROM utente WHERE Ruolo='user' ");
+			PreparedStatement pstmt = con.prepareStatement(" SELECT * FROM utente WHERE Ruolo='user' AND Cancellato='0'; ");
 														   
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -568,7 +568,7 @@ public class DBQuery {
 			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
 			
 			
-			PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `utente` WHERE `ID`= ? LIMIT 1;");
+			PreparedStatement pstmt = con.prepareStatement(" UPDATE `utente` SET `Cancellato`= '1' WHERE (`ID`= ?) LIMIT 1;");
 		
 			pstmt.setInt(1, id);
 			

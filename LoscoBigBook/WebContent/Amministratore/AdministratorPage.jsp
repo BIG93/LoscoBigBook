@@ -98,11 +98,8 @@
 	                </tr>
 	            </table> 
             </form>
-            <table id="ancore-home-container">
+            <table id="ancore-home-container" style="margin-left:85%">
                 <tr>
-                    <td>
-                        <a href="AdministratorPage.jsp"><div class="btn">Home</div></a>
-                    </td>
                     <td>
                         <a href="../logout.jsp"><div class="btn">Logout</div></a>
                     </td>
