@@ -82,7 +82,7 @@
             </div>
             <div id="middle-container">
                 <div id="ProfileImageContainer">
-                    <img id="ProfileImage" src="profileimage.jpg" alt="immagine del profilo"/>
+                    <img id="ProfileImage" src="ProfileImage/profileimage.jpg" alt="immagine del profilo"/>
                 </div> 
                 <div id="richiestedamicizia">
                     <div style="margin-bottom: 15px; text-align: center;">

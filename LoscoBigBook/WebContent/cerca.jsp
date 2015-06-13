@@ -39,7 +39,7 @@
         		ArrayList<Utente> userfind_search = DBQuery.User_search(ricerca);
         		if(userfind_search.size()==0){
         			%>
-        			<h3>Nessun utente trovato</h3>
+        				<h3 style="margin-left:5%">Nessun utente trovato</h3>
         			<% 
         		}
         		else{
