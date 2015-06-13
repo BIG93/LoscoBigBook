@@ -130,15 +130,22 @@
                       <li><a href="#Amici">Amici</a></li>
                     </ul>
                     <div id="Post">
+                    <%
+              
+		                ArrayList <Post> post_list= DBQuery.show_post_profile(sesuser.id);
+		                for(int i=0; i<post_list.size();i++){
+		                	
+		                %>
+                    
                         <div id="postContainer">
                             <div class="post">
-                                <h3 class="author-post">Nome Cognome</h3>
+                                <h3 class="author-post"><%out.print(sesuser.nome + " " + sesuser.cognome); %></h3>
                                 <p class="post-text">
-                               		Post di prova
+                               		<%out.print(post_list.get(i).post); %> 
                                 </p>
                                 <div id="like-container">
                                     <span id="like-counter">
-                                        #mi piace
+                                        <%out.print(post_list.get(i).like); %>
                                     </span>
                                     <span id="mi-piace">
                                         <a data-target="#" class="tasto-like" style="color: #66ff66;">
@@ -146,7 +153,7 @@
                                         </a>
                                     </span> 
                                     <span id="dislike-counter">
-                                        #non mi piace
+                                         <%out.print(post_list.get(i).dislike); %>
                                     </span>
                                     <span id="non-mi-piace" class="tasto-like">
                                         <a data-target=""  class="tasto-like" style="color: #66ff66;">
@@ -158,7 +165,10 @@
                                     <textarea id="inserisci-commento" cols="64" rows="4" placeholder="Commenta..."></textarea>
                                 </div>
                             </div>
-                        </div>   
+                        </div> 
+                        <%
+		                }
+                        %>  
                     </div>
                     <div id="Info">
                         <p id="nome">Nome: <%if(sesuser.nome==null){out.print("");}else{out.print(sesuser.nome);}%> </p>

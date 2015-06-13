@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
     
 <%@ page import="database.*" %>
-
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -95,6 +95,55 @@ $(document).ready(function() {
                     <input type="button" value="Pubblica" class="btn" id="pubblica" onclick="pubblica(<%out.print(sesuser.id);%>,post);"/>
                 	</form>
                 </div>
+                <div id="pubblicazioni">
+                <%
+              
+                ArrayList <Post> post_list= DBQuery.show_post_bacheca();
+                for(int i=0; i<post_list.size();i++){
+                		
+                	
+                	int id=post_list.get(i).id_utente;
+                	Utente u=DBQuery.userByID(id);
+                %>
+                <div id="postContainer">
+                            <div class="post">
+                                <h3 class="author-post"><%out.print(u.nome + " " + u.cognome); %></h3>
+                                <p class="post-text">
+                               		<%out.print(post_list.get(i).post); %>
+                                </p>
+                                <div id="like-container">
+                                    <span id="like-counter">
+                                       <%out.print(post_list.get(i).like); %>
+                                    </span>
+                                    <span id="mi-piace">
+                                        <a data-target="#" class="tasto-like" style="color: #66ff66;">
+                                            Mi piace
+                                        </a>
+                                    </span> 
+                                    <span id="dislike-counter">
+                                        <%out.print(post_list.get(i).dislike); %>
+                                    </span>
+                                    <span id="non-mi-piace" class="tasto-like">
+                                        <a data-target=""  class="tasto-like" style="color: #66ff66;">
+                                            Non mi piace
+                                        </a>
+                                    </span>
+                                </div>
+                                <div id="comment-container">
+                                    <textarea id="inserisci-commento" cols="64" rows="4" placeholder="Commenta..."></textarea>
+                                </div>
+                            </div>
+                        </div>   
+                
+                </div>
+                <%
+                }
+                
+                %>
+                
+                
+                
+                
             </div>
             <div id="top-bar" class="fixed-bar">
                 <table id="logo-head">
