@@ -8,9 +8,9 @@
 	<head>
 		<title>Bacheca</title>
                 <link href="BachecaCSS.css" rel="stylesheet" type="text/css"/>
-                <script src="../jquery-1.8.3.js" type="text/javascript"></script>
-                <link href="../jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css"/>
-                <link href="../CommonCSS.css" rel="stylesheet" type="text/css"/>
+                <script src="jquery-1.8.3.js" type="text/javascript"></script>
+                <link href="jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css"/>
+                <link href="CommonCSS.css" rel="stylesheet" type="text/css"/>
 	</head>
         
 	<body>
@@ -44,7 +44,7 @@
 			}
 		}
 		else{
-			response.sendRedirect("../Home/Home.jsp?mex=errlog");
+			response.sendRedirect("Home.jsp?mex=errlog");
 		}
 	}	
 	else{
@@ -57,7 +57,7 @@
 		String ruolo = sesuser.ruolo;
 		
 		if(ruolo.equals("admin")){
-			response.sendRedirect("../Amministratore/AdministratorPage.jsp");
+			response.sendRedirect("AdministratorPage.jsp");
 		}
 	}
 	
@@ -77,13 +77,13 @@
                 <table id="logo-head">
                     <tr>
                         <td>
-                            <a href="Bacheca.jsp"><img src="../logo-losco-big-book.png" alt="lb2"/></a> 
+                            <a href="Bacheca.jsp"><img src="logo-losco-big-book.png" alt="lb2"/></a> 
                         </td>
                         <td>
                             <h3 id="social">LoscoBigBook</h3>
                         </td>
                 </table>   
-                <form action="../Cerca/cerca.jsp" method="get">     
+                <form action="cerca.jsp" method="get">     
 	                <table id="cerca">  
 		                <tr>
 		                    <td>
@@ -98,13 +98,13 @@
                 <table id="ancore-home-container">
                     <tr>
                         <td>
-                            <a href="../Profilo/Profile.jsp"><div class="btn"><%if(sesuser!=null){out.print(sesuser.nome);}%></div></a>
+                            <a href="Profile.jsp"><div class="btn"><%if(sesuser!=null){out.print(sesuser.nome);}%></div></a>
                         </td>
                         <td>
                             <a href="Bacheca.jsp"><div class="btn">Home</div></a>
                         </td>
                         <td>
-                            <a href="../logout.jsp"><div class="btn">Logout</div></a>
+                            <a href="logout.jsp"><div class="btn">Logout</div></a>
                         </td>
                     </tr>
                 </table>

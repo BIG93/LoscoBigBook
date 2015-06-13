@@ -6,7 +6,7 @@
 <html>
     <head>
         <title>Modifica dati</title>
-        <link href="../CommonCSS.css" rel="stylesheet" type="text/css"/>
+        <link href="CommonCSS.css" rel="stylesheet" type="text/css"/>
     </head>
     
     <body>
@@ -71,7 +71,7 @@
             <table id="logo-head">
                 <tr>
                     <td>
-                        <a href="../Bacheca/Bacheca.jsp"><img src="../logo-losco-big-book.png" alt="lb2"/></a> 
+                        <a href="Bacheca.jsp"><img src="logo-losco-big-book.png" alt="lb2"/></a> 
                     </td>
                     <td>
                         <h3 id="social">LoscoBigBook</h3>
@@ -79,7 +79,7 @@
             </table>        
             <table id="cerca">  
                  <tr>
-                	<form action="../Cerca/cerca.jsp" method="get">
+                	<form action="cerca.jsp" method="get">
 	                    <td>
 	                    	<input id="input-cerca" name="input-cerca" type="text" placeholder="Cerca...">
 	                    </td>
@@ -95,10 +95,10 @@
                         <a href="Profilo.jsp"><div class="btn"><%out.print(sesuser.nome);%></div></a>
                     </td>
                     <td>
-                        <a href="../Bacheca/Bacheca.jsp"><div class="btn">Home</div></a>
+                        <a href="Bacheca.jsp"><div class="btn">Home</div></a>
                     </td>
                     <td>
-                        <a href="../logout.jsp"><div class="btn">Logout</div></a>
+                        <a href="logout.jsp"><div class="btn">Logout</div></a>
                     </td>
                 </tr>
             </table>

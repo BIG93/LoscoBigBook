@@ -12,12 +12,12 @@
         <title>Profilo</title>
         
         
-        <script src="../jquery-1.8.3.js" type="text/javascript"></script>
-        <link href="../jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css"/>
-        <script src="../jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+        <script src="jquery-1.8.3.js" type="text/javascript"></script>
+        <link href="jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css"/>
+        <script src="jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
         
         
-        <link href="../CommonCSS.css" rel="stylesheet" type="text/css"/>
+        <link href="CommonCSS.css" rel="stylesheet" type="text/css"/>
         <link href="ProfileCSS.css" rel="stylesheet" type="text/css"/>
         
         <script>
@@ -25,9 +25,7 @@
               $( "#tabs" ).tabs();
             });
          </script>   
-           
-        
-        
+               
     </head>
     <body>
     
@@ -91,7 +89,7 @@
             </div>
             <div id="middle-container">
                 <div id="ProfileImageContainer">
-                    <img id="ProfileImage" src="ProfileImage/profileimage.jpg" alt="immagine del profilo"/>
+                    <img id="ProfileImage" src="profileimage.jpg" alt="immagine del profilo"/>
                 </div>  
                 <div id="friend-request-container">
                 	<% 
@@ -221,13 +219,13 @@
             <table id="logo-head">
                 <tr>
                     <td>
-                        <a href="../Bacheca/Bacheca.jsp"><img src="../logo-losco-big-book.png" alt="lb2"/></a> 
+                        <a href="Bacheca.jsp"><img src="logo-losco-big-book.png" alt="lb2"/></a> 
                     </td>
                     <td>
                         <h3 id="social">LoscoBigBook</h3>
                     </td>
             </table>   
-            <form action="../Cerca/cerca.jsp" method="get">     
+            <form action="cerca.jsp" method="get">     
 	            <table id="cerca">  
 	                <tr>
 	                    <td>
@@ -245,10 +243,10 @@
                         <a href="Profile.jsp"><div class="btn"><%out.print(sesuser.nome); %></div></a>
                     </td>
                     <td>
-                        <a href="../Bacheca/Bacheca.jsp"><div class="btn">Home</div></a>
+                        <a href="Bacheca.jsp"><div class="btn">Home</div></a>
                     </td>
                     <td>
-                        <a href="../logout.jsp"><div class="btn">Logout</div></a>
+                        <a href="logout.jsp"><div class="btn">Logout</div></a>
                     </td>
                 </tr>
             </table>

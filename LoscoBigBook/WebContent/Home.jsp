@@ -7,9 +7,9 @@
     <head>
         <title>Homepage</title>
 
-        <script src="../jquery-1.8.3.js" type="text/javascript"></script>
-        <link href="../jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css"/>
-        <script src="../jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+        <script src="jquery-1.8.3.js" type="text/javascript"></script>
+        <link href="jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css"/>
+        <script src="jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
         <script src="controllohome.js" type="text/javascript"></script>
         <link href="CSShome.css" rel="stylesheet" type="text/css"/>
     </head>
@@ -48,7 +48,7 @@
 	Utente sesuser = (Utente) session.getAttribute("loggato");
 
 	if(sesuser!=null){
-		response.sendRedirect("../Bacheca/Bacheca.jsp");
+		response.sendRedirect("Bacheca.jsp");
 	}
 	
 	String mex = request.getParameter("mex");
@@ -107,7 +107,7 @@
           <div class="logo">
               <table>
                   <tr>
-                      <td><a href=""><img src="../logo-losco-big-book.png" alt="Logo"/></a></td>
+                      <td><a href=""><img src="logo-losco-big-book.png" alt="Logo"/></a></td>
                       <td><h3>LoscoBigBook</h3></td>
                   </tr>
               </table>
@@ -115,7 +115,7 @@
           </div>
                  
          <div class="login">
-            <form action="../Bacheca/Bacheca.jsp" method="POST">
+            <form action="Bacheca.jsp" method="POST">
                 <table>
                     <tr>
                         <td>email</td> 

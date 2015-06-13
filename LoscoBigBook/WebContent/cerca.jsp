@@ -13,7 +13,7 @@
 	
 	<title>Cerca</title>
 	
-	<link href="../CommonCSS.css" rel="stylesheet" type="text/css"/>
+	<link href="CommonCSS.css" rel="stylesheet" type="text/css"/>
 	<link href="cerca.css" rel="stylesheet" type="text/css"/>
 	
 </head>	
@@ -37,7 +37,12 @@
         		
         		String ricerca =request.getParameter("input-cerca");
         		ArrayList<Utente> userfind_search = DBQuery.User_search(ricerca);
-        		
+        		if(userfind_search.size()==0){
+        			%>
+        			<h3>Nessun utente trovato</h3>
+        			<% 
+        		}
+        		else{
                 %>
                 	<h3 style="margin-left:5%">Risultato della ricerca</h3>
                 <% 
@@ -45,10 +50,11 @@
            				Utente u = userfind_search.get(i);
             	%>
 		           		<div id="friends">
-		           			<a id="friend-find" href="<%out.print("../Profilo/Friend-Profile.jsp?id="+ u.id); %>"><%out.print(u.nome +" "+ u.cognome);%></a>
+		           			<a id="friend-find" href="<%out.print("Friend-Profile.jsp?id="+ u.id); %>"><%out.print(u.nome +" "+ u.cognome);%></a>
 		           		</div>
             	<%			
             		}
+        		}
         	}
         %>
            
@@ -59,7 +65,7 @@
             <table id="logo-head">
                 <tr>
                     <td>
-                        <a href="../Bacheca/Bacheca.jsp"><img src="../logo-losco-big-book.png" alt="lb2"/></a> 
+                        <a href="Bacheca.jsp"><img src="logo-losco-big-book.png" alt="lb2"/></a> 
                     </td>
                     <td>
                         <h3 id="social">LoscoBigBook</h3>
@@ -80,13 +86,13 @@
             <table id="ancore-home-container">
                 <tr>
                     <td>
-                        <a href="../Profilo/Profile.jsp"><div class="btn"><%out.print(sesuser.nome);%></div></a>
+                        <a href="Profile.jsp"><div class="btn"><%out.print(sesuser.nome);%></div></a>
                     </td>
                     <td>
-                        <a href="../Bacheca/Bacheca.jsp"><div class="btn">Home</div></a>
+                        <a href="Bacheca.jsp"><div class="btn">Home</div></a>
                     </td>
                     <td>
-                        <a href="../logout.jsp"><div class="btn">Logout</div></a>
+                        <a href="logout.jsp"><div class="btn">Logout</div></a>
                     </td>
                 </tr>
             </table>
