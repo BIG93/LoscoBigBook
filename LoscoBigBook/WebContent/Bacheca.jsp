@@ -67,12 +67,33 @@
 	
 
 %>
+<script>
+
+$(document).ready(function() {
+    $("#pubblica").click(function() {
+       var id = <%out.print(sesuser.id);%>;
+       var post=$("#post").val();
+            $.ajax({
+            type : "POST",
+            url : "pubblica.jsp",
+            async : false,
+            data : "id=" + id + "&stato=" + post,
+            success : function(data) {
+                location.reload();
+            }
+        });
+    });
+});
+</script>
 	
             <div id="page">
                 <div id="container">
                     <h1 class="bacheca">Post dei tuoi amici</h1>
-                    <textarea class="bacheca" cols="64" rows="4" placeholder="Dillo ai tuoi amici" maxlength="150"></textarea>
-                    <input type="button" value="Pubblica" class="btn" id="pubblica"/>
+                    <form>
+                    <textarea class="bacheca" cols="64" rows="4" placeholder="Dillo ai tuoi amici" maxlength="150" name="post" id="post"></textarea>
+                    <script>var post= $("#post").val();</script>
+                    <input type="button" value="Pubblica" class="btn" id="pubblica" onclick="pubblica(<%out.print(sesuser.id);%>,post);"/>
+                	</form>
                 </div>
             </div>
             <div id="top-bar" class="fixed-bar">

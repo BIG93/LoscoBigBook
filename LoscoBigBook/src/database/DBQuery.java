@@ -617,4 +617,40 @@ public class DBQuery {
 	
 	
 	
+public static int publica_post(int id, String post){
+		
+		int i=0;
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `post` "
+					+ " (`Post`, `ID_utente`, `like`, `dislike`) "
+					+ " VALUES (?, ? , 0 , 0); ");
+			
+			pstmt.setString(1, post);
+			pstmt.setInt(2, id);
+			
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+		
+		}
+
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End friend_request
+
+
+
+	
+	
 }
