@@ -131,13 +131,13 @@
                     </ul>
                     <div id="Post">
                     <%
-              
+              			//INIZIO CODICE POST
 		                ArrayList <Post> post_list= DBQuery.show_post_profile(sesuser.id);
 		                for(int i=0; i<post_list.size();i++){
 		                	
 		                %>
                     
-                        <div id="postContainer">
+                        
                             <div class="post">
                                 <h3 class="author-post"><%out.print(sesuser.nome + " " + sesuser.cognome); %></h3>
                                 <p class="post-text">
@@ -161,14 +161,16 @@
                                         </a>
                                     </span>
                                 </div>
+                                
                                 <div id="comment-container">
                                     <textarea id="inserisci-commento" cols="64" rows="4" placeholder="Commenta..."></textarea>
                                 </div>
                             </div>
-                        </div> 
-                        <%
-		                }
-                        %>  
+                            <%
+				                }
+		                        %>  
+                       
+                        
                     </div>
                     <div id="Info">
                         <p id="nome">Nome: <%if(sesuser.nome==null){out.print("");}else{out.print(sesuser.nome);}%> </p>
