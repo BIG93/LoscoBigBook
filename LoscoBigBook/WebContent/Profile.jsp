@@ -61,6 +61,10 @@
    Utente sesuser=null;
    sesuser=(Utente) session.getAttribute("loggato");
    
+   if(sesuser==null){
+	   response.sendRedirect("Home.jsp");
+   }
+   
    String mexmod = request.getParameter("mex");
 	
 	if(mexmod != null){

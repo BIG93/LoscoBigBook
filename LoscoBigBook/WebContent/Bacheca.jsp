@@ -61,7 +61,9 @@
 		}
 	}
 	
-	
+	if(sesuser==null){
+		response.sendRedirect("Home.jsp");
+	}
 	
 
 %>

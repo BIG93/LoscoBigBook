@@ -35,6 +35,10 @@
    Utente sesuser=null;
    sesuser=(Utente) session.getAttribute("loggato");
    
+   if(sesuser==null){
+	   response.sendRedirect("Home.jsp");
+	}
+   
    String urlID = request.getParameter("id");
    String id = String.valueOf(sesuser.id);
    int urlIDInt = Integer.parseInt(urlID);
