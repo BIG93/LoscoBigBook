@@ -20,3 +20,11 @@ and open the template in the editor.
     margin-top:10px;
     margin-bottom: 10px;
 }
+
+#all-post-container{
+	margin-top: 50px;
+}
+
+#postContainer{
+	margin-top: 7%; 
+}

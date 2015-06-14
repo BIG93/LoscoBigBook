@@ -60,7 +60,7 @@
 		if(ruolo.equals("admin")){
 			response.sendRedirect("AdministratorPage.jsp");
 		}
-<<<<<<< HEAD
+
 	}	
 
 %>
@@ -83,114 +83,60 @@ function pubblica(testo) {
        });
    	
    }
-=======
-	}
-	
-	if(sesuser==null){
-		response.sendRedirect("Home.jsp");
-	}
-	
 
-%>
-<script>
-
-$(document).ready(function() {
-    $("#pubblica").click(function() {
-       var id = <%out.print(sesuser.id);%>;
-       var post=$("#post").val();
-            $.ajax({
-            type : "POST",
-            url : "pubblica.jsp",
-            async : false,
-            data : "id=" + id + "&stato=" + post,
-            success : function(data) {
-                location.reload();
-            }
-        });
-    });
-});
->>>>>>> 5f335fd50bd848679217ab66d5d1d80f683f0efe
 </script>
 	
             <div id="page">
-                <div id="container">
+                
                     <h1 class="bacheca">Post dei tuoi amici</h1>
-<<<<<<< HEAD
                     <textarea id="#post" class="bacheca" cols="64" rows="4" placeholder="Dillo ai tuoi amici" maxlength="150"></textarea>
                     <input type="button" value="Pubblica" class="btn" id="pubblica" onclick="pubblica( $.trim($('textarea').val()));"/>
                 	<br/>
-                	<%
-                	ArrayList<Post> p = new ArrayList<Post>();
-                	p=DBQuery.show_post_bacheca();
-                	for(int i=0;i< p.size(); i++){
-                		Utente u = null;
-                		u=DBQuery.userByID(p.get(i).ID_utente);
-                	%>              	
-                        <div id="postContainer">
-                            <div class="post">
-                                <h3 class="author-post"><%out.print(u.nome + " "+ u.cognome) ;%></h3>
-                                <p class="post-text">
-                               		<%out.print(p.get(i).Post);%>
-                                </p>
-                                <div id="like-container">
-                                    <span id="like-counter">
-                                        <%out.print(p.get(i).like);%>
-=======
-                    <form>
-                    <textarea class="bacheca" cols="64" rows="4" placeholder="Dillo ai tuoi amici" maxlength="150" name="post" id="post"></textarea>
-                    <script>var post= $("#post").val();</script>
-                    <input type="button" value="Pubblica" class="btn" id="pubblica" onclick="pubblica(<%out.print(sesuser.id);%>,post);"/>
-                	</form>
-                </div>
-                <div id="pubblicazioni">
-                <%
-              
-                ArrayList <Post> post_list= DBQuery.show_post_bacheca();
-                for(int i=0; i<post_list.size();i++){
-                		
-                	
-                	int id=post_list.get(i).id_utente;
-                	Utente u=DBQuery.userByID(id);
-                %>
-                <div id="postContainer">
-                            <div class="post">
-                                <h3 class="author-post"><%out.print(u.nome + " " + u.cognome); %></h3>
-                                <p class="post-text">
-                               		<%out.print(post_list.get(i).post); %>
-                                </p>
-                                <div id="like-container">
-                                    <span id="like-counter">
-                                       <%out.print(post_list.get(i).like); %>
->>>>>>> 5f335fd50bd848679217ab66d5d1d80f683f0efe
-                                    </span>
-                                    <span id="mi-piace">
-                                        <a data-target="#" class="tasto-like" style="color: #66ff66;">
-                                            Mi piace
-                                        </a>
-                                    </span> 
-                                    <span id="dislike-counter">
-<<<<<<< HEAD
-                                        <%out.print(p.get(i).dislike);%>
-=======
-                                        <%out.print(post_list.get(i).dislike); %>
->>>>>>> 5f335fd50bd848679217ab66d5d1d80f683f0efe
-                                    </span>
-                                    <span id="non-mi-piace" class="tasto-like">
-                                        <a data-target=""  class="tasto-like" style="color: #66ff66;">
-                                            Non mi piace
-                                        </a>
-                                    </span>
-                                </div>
-                                <div id="comment-container">
-                                    <textarea id="inserisci-commento" cols="64" rows="4" placeholder="Commenta..."></textarea>
-                                </div>
-                            </div>
-<<<<<<< HEAD
-                        </div>                       
-               	<%
-               	}
-               	%>
-               </div>
+                	<div id="all-post-container">
+	                	<%
+	                	ArrayList<Post> p = new ArrayList<Post>();
+	                	p=DBQuery.show_post_bacheca();
+	                	for(int i=0;i< p.size(); i++){
+	                		Utente u = null;
+	                		u=DBQuery.userByID(p.get(i).ID_utente);
+	                	%>              	
+	                        <div id="postContainer">
+	                            <div class="post">
+	                                <a href="<%out.print("Friend-Profile.jsp?id="+u.id);%>"><h3 class="author-post"><%out.print(u.nome + " "+ u.cognome) ;%></h3></a>
+	                                <p class="post-text">
+	                               		<%out.print(p.get(i).Post);%>
+	                                </p>
+	                                <div id="like-container">
+	                                    <span id="like-counter">
+	                                        <%out.print(p.get(i).like);%>
+	
+	                                    </span>
+	                                    <span id="mi-piace">
+	                                        <a data-target="#" class="tasto-like">
+	                                            Mi piace
+	                                        </a>
+	                                    </span> 
+	                                    <span id="dislike-counter">
+	
+	                                        <%out.print(p.get(i).dislike);%>
+	
+	                                    </span>
+	                                    <span id="non-mi-piace" class="tasto-like">
+	                                        <a data-target=""  class="tasto-like">
+	                                            Non mi piace
+	                                        </a>
+	                                    </span>
+	                                </div>
+	                                <div id="comment-container">
+	                                    <textarea id="inserisci-commento" cols="64" rows="4" placeholder="Commenta..."></textarea>
+	                                </div>
+	                            </div>
+	
+	                        </div>                       
+	               	<%
+	               	}
+	               	%>
+               	</div>         
            </div>
            <div id="top-bar" class="fixed-bar">
                <table id="logo-head">
@@ -228,55 +174,6 @@ $(document).ready(function() {
                    </tr>
                </table>
            </div>
-=======
-                        </div>   
-                
-                </div>
-                <%
-                }
-                
-                %>
-                
-                
-                
-                
-            </div>
-            <div id="top-bar" class="fixed-bar">
-                <table id="logo-head">
-                    <tr>
-                        <td>
-                            <a href="Bacheca.jsp"><img src="logo-losco-big-book.png" alt="lb2"/></a> 
-                        </td>
-                        <td>
-                            <h3 id="social">LoscoBigBook</h3>
-                        </td>
-                </table>   
-                <form action="cerca.jsp" method="get">     
-	                <table id="cerca">  
-		                <tr>
-		                    <td>
-		                    	<input id="input-cerca" name="input-cerca" type="text" placeholder="Cerca...">
-		                    </td>
-		                    <td>
-		                    	<input type="submit" value="Cerca" class="btn"></input>
-		                    </td>
-		                </tr>
-	                </table> 
-                </form>
-                <table id="ancore-home-container">
-                    <tr>
-                        <td>
-                            <a href="Profile.jsp"><div class="btn"><%if(sesuser!=null){out.print(sesuser.nome);}%></div></a>
-                        </td>
-                        <td>
-                            <a href="Bacheca.jsp"><div class="btn">Home</div></a>
-                        </td>
-                        <td>
-                            <a href="logout.jsp"><div class="btn">Logout</div></a>
-                        </td>
-                    </tr>
-                </table>
-            </div>
->>>>>>> 5f335fd50bd848679217ab66d5d1d80f683f0efe
+
 	</body>
 </html>

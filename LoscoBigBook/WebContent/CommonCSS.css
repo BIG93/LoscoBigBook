@@ -87,11 +87,17 @@ div.btn:hover{
 
 a{
     text-decoration: none;
+    color:#66ff66;
 }
 
-.post{
-    border: 1px solid #66ff66;
-    margin-bottom: 20px;
+
+#postContainer{
+	margin: auto;
+	margin-top:5%;
+	margin-bottom:5%;
+	border: 1px solid #66ff66;
+	border-radius:15px;
+	width:85%;
 }
 
 .post-text{

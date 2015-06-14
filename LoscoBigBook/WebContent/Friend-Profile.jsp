@@ -93,7 +93,7 @@
             </div>
             <div id="middle-container">
                 <div id="ProfileImageContainer">
-                    <img id="ProfileImage" src="profileimage.jpg" alt="immagine del profilo"/>
+                    <img id="ProfileImage" src="ProfileImage/profileimage.jpg" alt="immagine del profilo"/>
                 </div>  
                 <div id="friend-request-container">
                 	<% 
@@ -134,47 +134,48 @@
 	                    if(f.stato.equals("Confermata")){
 	              %>
 	                    <div id="Post">
-	                    
-	                    <%
-	                  //inizio codice post
-                    	ArrayList <Post> post_list= DBQuery.show_post_profile(urlIDInt);
-		                for(int i=0; i<post_list.size();i++)
-		                {
-                    		Utente u_post=DBQuery.userByID(urlIDInt);
-	                    %>
-	                        
+		                    <% 
+		                	ArrayList<Post> p = new ArrayList<Post>();
+		                	p=DBQuery.show_post_profile(urlIDInt);
+		                	for(int i=0;i< p.size(); i++){
+			              	%>              	
+	                        <div id="postContainer">
 	                            <div class="post">
-	                                <h3 class="author-post"><%out.print(u_post.nome + " " + u_post.cognome); %></h3>
+	                                <h3 class="author-post"><%out.print(u.nome + " "+ u.cognome);%></h3>
 	                                <p class="post-text">
-	                               		<%out.print(post_list.get(i).post); %> 
+	                               		<%out.print(p.get(i).Post);%>
 	                                </p>
 	                                <div id="like-container">
 	                                    <span id="like-counter">
-	                                        <%out.print(post_list.get(i).like); %>
+	                                        <%out.print(p.get(i).like);%>
+	
 	                                    </span>
 	                                    <span id="mi-piace">
-	                                        <a href="#" class="tasto-like" style="color: #66ff66;">
+	                                        <a data-target="#" class="tasto-like" style="color: #66ff66;">
 	                                            Mi piace
 	                                        </a>
 	                                    </span> 
 	                                    <span id="dislike-counter">
-	                                        <%out.print(post_list.get(i).dislike); %>
+	
+	                                        <%out.print(p.get(i).dislike);%>
+	
 	                                    </span>
 	                                    <span id="non-mi-piace" class="tasto-like">
-	                                        <a href="#" class="tasto-like" style="color: #66ff66;">
+	                                        <a data-target=""  class="tasto-like" style="color: #66ff66;">
 	                                            Non mi piace
 	                                        </a>
 	                                    </span>
 	                                </div>
+	                                
 	                                <div id="comment-container">
 	                                    <textarea id="inserisci-commento" cols="64" rows="4" placeholder="Commenta..."></textarea>
 	                                </div>
 	                            </div>
-	                            <%
-			                	}//FINE CODICE POST
-	                            %> 
-	                       
-	                        
+	
+	                        </div>                       
+			               	<%
+			               	}
+			               	%>  
 	                    </div>
 	                    <div id="Info">
 	                        <p id="nome">Nome: <%if(u.nome==null){out.print("");}else{out.print(u.nome);}%></p>
