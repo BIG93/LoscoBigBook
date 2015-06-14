@@ -14,7 +14,9 @@
    Utente sesuser=null;
    sesuser=(Utente) session.getAttribute("loggato");
    
-   
+   if(sesuser==null){
+	   response.sendRedirect("Home.jsp");
+   }
    %>
         <div id="page"> 
         <h3>Modifica dati</h3>

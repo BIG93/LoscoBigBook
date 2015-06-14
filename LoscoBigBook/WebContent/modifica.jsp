@@ -12,6 +12,10 @@
 	Utente sesuser=null;
 	sesuser=(Utente) session.getAttribute("loggato");
 	
+	if(sesuser==null){
+		   response.sendRedirect("Home.jsp");
+	}
+	
 	String nome=request.getParameter("nome");
 	String cognome=request.getParameter("cognome");
 	String email=request.getParameter("email");

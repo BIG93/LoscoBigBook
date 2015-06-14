@@ -21,8 +21,12 @@
 <body>
 
 <%
-	Utente sesuser=null;
-	sesuser=(Utente) session.getAttribute("loggato");
+Utente sesuser=null;
+sesuser=(Utente) session.getAttribute("loggato");
+
+if(sesuser==null){
+	   response.sendRedirect("Home.jsp");
+}
 %>
 
  <div id="page">  

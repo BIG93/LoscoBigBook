@@ -35,6 +35,10 @@
    Utente sesuser=null;
    sesuser=(Utente) session.getAttribute("loggato");
    
+   if(sesuser==null){
+	   response.sendRedirect("Home.jsp");
+	}
+   
    String urlID = request.getParameter("id");
    String id = String.valueOf(sesuser.id);
    int urlIDInt = Integer.parseInt(urlID);
@@ -128,17 +132,25 @@
                     <%
                     if(f!=null){
 	                    if(f.stato.equals("Confermata")){
-	                    %>
+	              %>
 	                    <div id="Post">
-	                        <div id="postContainer">
+	                    
+	                    <%
+	                  //inizio codice post
+                    	ArrayList <Post> post_list= DBQuery.show_post_profile(urlIDInt);
+		                for(int i=0; i<post_list.size();i++)
+		                {
+                    		Utente u_post=DBQuery.userByID(urlIDInt);
+	                    %>
+	                        
 	                            <div class="post">
-	                                <h3 class="author-post">Nome Cognome</h3>
+	                                <h3 class="author-post"><%out.print(u_post.nome + " " + u_post.cognome); %></h3>
 	                                <p class="post-text">
-	                               		Post di prova
+	                               		<%out.print(post_list.get(i).post); %> 
 	                                </p>
 	                                <div id="like-container">
 	                                    <span id="like-counter">
-	                                        #mi piace
+	                                        <%out.print(post_list.get(i).like); %>
 	                                    </span>
 	                                    <span id="mi-piace">
 	                                        <a href="#" class="tasto-like" style="color: #66ff66;">
@@ -146,7 +158,7 @@
 	                                        </a>
 	                                    </span> 
 	                                    <span id="dislike-counter">
-	                                        #non mi piace
+	                                        <%out.print(post_list.get(i).dislike); %>
 	                                    </span>
 	                                    <span id="non-mi-piace" class="tasto-like">
 	                                        <a href="#" class="tasto-like" style="color: #66ff66;">
@@ -158,7 +170,11 @@
 	                                    <textarea id="inserisci-commento" cols="64" rows="4" placeholder="Commenta..."></textarea>
 	                                </div>
 	                            </div>
-	                        </div>   
+	                            <%
+			                	}//FINE CODICE POST
+	                            %> 
+	                       
+	                        
 	                    </div>
 	                    <div id="Info">
 	                        <p id="nome">Nome: <%if(u.nome==null){out.print("");}else{out.print(u.nome);}%></p>
