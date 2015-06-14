@@ -148,9 +148,7 @@
 
                                     </span>
                                     <span id="mi-piace">
-                                        <a data-target="#" class="tasto-like" style="color: #66ff66;">
-                                            Mi piace
-                                        </a>
+                                       <button id="like" class="btn">mi piace</button>
                                     </span> 
                                     <span id="dislike-counter">
 
@@ -158,9 +156,7 @@
 
                                     </span>
                                     <span id="non-mi-piace" class="tasto-like">
-                                        <a data-target=""  class="tasto-like" style="color: #66ff66;">
-                                            Non mi piace
-                                        </a>
+                                        <button id="like" class="btn">non mi piace</button>
                                     </span>
                                 </div>
                                 

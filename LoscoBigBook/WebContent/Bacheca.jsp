@@ -69,7 +69,6 @@
 function pubblica(testo) {
     $(document).ready(function() {
     	var testoPost=testo;
-    	console.log("("+testo+")");
     	if(testo){
                    $.ajax({
                    type : "POST",
@@ -83,6 +82,21 @@ function pubblica(testo) {
        });
    	
    }
+
+function like(id){
+	console.log(id);
+	 $(document).ready(function() {
+	    	var idpost=id;
+	    	$.ajax({
+	    		type : "POST",
+	    		 url : "like.jsp",
+	    		 data : "id=" + idpost,
+	    		 success : function(data) {
+	                   location.reload();
+	             }
+	    	});
+	 });
+}
 
 </script>
 	
@@ -108,13 +122,10 @@ function pubblica(testo) {
 	                                </p>
 	                                <div id="like-container">
 	                                    <span id="like-counter">
-	                                        <%out.print(p.get(i).like);%>
-	
+	                                        <%out.print(p.get(i).like);%>	
 	                                    </span>
 	                                    <span id="mi-piace">
-	                                        <a data-target="#" class="tasto-like">
-	                                            Mi piace
-	                                        </a>
+	                                        <input type="button" id="like" class="btn" value="mi piace" onclick="like(<%out.print(p.get(i).id);%>);"></button>
 	                                    </span> 
 	                                    <span id="dislike-counter">
 	
@@ -122,9 +133,7 @@ function pubblica(testo) {
 	
 	                                    </span>
 	                                    <span id="non-mi-piace" class="tasto-like">
-	                                        <a data-target=""  class="tasto-like">
-	                                            Non mi piace
-	                                        </a>
+	                                       	<input type="button" id="like" class="btn" value="non mi piace"></button>
 	                                    </span>
 	                                </div>
 	                                <div id="comment-container">

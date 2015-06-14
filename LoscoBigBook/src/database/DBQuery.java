@@ -727,4 +727,32 @@ public static ArrayList<Post> show_post_profile(int id)
 	 // End show.post_profile
 }
 
+public static int like_post(int id)
+{
+	int i=0;
+	
+	try{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+		
+		
+		PreparedStatement pstmt = con.prepareStatement(" UPDATE `post` SET post.`like`= post.`like`+1 WHERE (`ID`= ?)");
+	
+		pstmt.setInt(1, id);
+		
+		i = pstmt.executeUpdate();
+		
+		con.close();
+}
+
+	catch (Exception e) 
+	{
+		System.out.println("Errore con DB o Query errata");
+		e.printStackTrace();
+	}
+	
+	return i;
+}// End like_post
+
+
 }

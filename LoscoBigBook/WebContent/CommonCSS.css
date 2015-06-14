@@ -115,10 +115,14 @@ p{
 } 
 
 #like-container{
+	padding :5px;
     border-top: 1px solid #66ff66;
     border-bottom: 1px solid #66ff66;
 }
 
+#like-counter{
+	margin-left:10px;
+}
 
 #mi-piace{
     margin-right: 10px;
