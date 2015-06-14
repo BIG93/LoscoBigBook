@@ -615,6 +615,120 @@ public class DBQuery {
 		return i;
 	}// End delete_user_friendship
 	
+public static int publica_post(int id, String post){
+		
+		int i=0;
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `post` "
+					+ " (`Post`, `ID_utente`, `like`, `dislike`) "
+					+ " VALUES (?, ? , 0 , 0); ");
+			
+			pstmt.setString(1, post);
+			pstmt.setInt(2, id);
+			
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+		
+		}
+
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End publica_post
+
+
+public static ArrayList<Post> show_post_bacheca()
+{
+	ArrayList <Post> post_list= new ArrayList<Post>();
+	
+	try
+	{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
+                "user=" + "root" + "&password=" + "");
+		
+		
+		PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
+													   " FROM post ORDER BY ID DESC");
+		
+		
+		ResultSet rs = pstmt.executeQuery();
+			
+		while (rs.next()){
+			int id=rs.getInt("ID");
+			String post=rs.getString("Post");
+			int id_utente=rs.getInt("ID_utente");
+			int like=rs.getInt("like");
+			int dislike=rs.getInt("dislike");
+			
+			Post p=new Post(id,post,id_utente,like,dislike);
+			
+			post_list.add(p);		
+		}	
+		con.close();
+		
+	}
+	catch (Exception e) {
+		System.out.println("Errore con DB o Query errata");
+		e.printStackTrace();
+	}
+	return post_list;
+	 // End show_post_bacheca
+}
+
+public static ArrayList<Post> show_post_profile(int id)
+{
+	ArrayList <Post> post_list= new ArrayList<Post>();
+	
+	try
+	{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
+                "user=" + "root" + "&password=" + "");
+		
+		
+		PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
+													   " FROM post " +
+														" WHERE ID_utente=? ORDER BY ID DESC");
+		
+		pstmt.setInt(1, id);
+		ResultSet rs = pstmt.executeQuery();
+			
+		while (rs.next()){
+			
+			String post=rs.getString("Post");
+			int id_utente=rs.getInt("ID_utente");
+			int like=rs.getInt("like");
+			int dislike=rs.getInt("dislike");
+			
+			Post p=new Post(id,post,id_utente,like,dislike);
+			
+			post_list.add(p);		
+		}	
+		con.close();
+		
+	}
+	catch (Exception e) {
+		System.out.println("Errore con DB o Query errata");
+		e.printStackTrace();
+	}
+	return post_list;
+	 // End show.post_profile
+}
+
+	
+	
 	
 	
 }
