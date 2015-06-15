@@ -12,8 +12,8 @@
 <% 
 int id= Integer.parseInt(request.getParameter("id"));
 int id_utente= Integer.parseInt(request.getParameter("idutente"));
-int x=DBQuery.like_insert(id, id_utente);
-int i = DBQuery.like_post(id);
+int x=DBQuery.dislike_insert(id, id_utente);
+int i = DBQuery.dislike_post(id);
 %>
 </body>
 </html>

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
 <%@ page import="database.*" %>
 <!DOCTYPE>
 <html>
@@ -12,8 +11,8 @@
 <% 
 int id= Integer.parseInt(request.getParameter("id"));
 int id_utente= Integer.parseInt(request.getParameter("idutente"));
-int x=DBQuery.like_insert(id, id_utente);
-int i = DBQuery.like_post(id);
+int x=DBQuery.dislike_delete(id, id_utente);
+int i = DBQuery.non_dislike_post(id);
 %>
 </body>
 </html>
