@@ -7,3 +7,23 @@ and open the template in the editor.
     Created on : 6-mag-2015, 19.05.01
     Author     : B I G
 */
+
+#censura 
+{
+	margin-top:1%;
+	margin-bottom: 3%;
+	margin-left:7%;
+}
+
+#postContainer-admnistrator
+{
+	padding:1%;
+	margin: auto;
+	border: 1px solid #66ff66;
+	border-radius:15px;
+	width:85%;
+}
+
+#title-ad{
+	margin-left: 40%;
+}

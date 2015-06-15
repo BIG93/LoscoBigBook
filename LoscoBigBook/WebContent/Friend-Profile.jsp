@@ -84,6 +84,23 @@
                     }
             });
     }
+    
+    function commenta(commento, id_post) {
+        $(document).ready(function() {
+        	var testocommento=commento;
+            var idpost=id_post;
+        	if(testocommento){
+                       $.ajax({
+                       type : "POST",
+                       url : "commenta.jsp",
+                       data : "testo=" + testocommento + "&idutente=" + <%if(sesuser!=null){out.print(sesuser.id);}%> + "&idpost=" + idpost,
+                       success : function(data) {
+                       location.reload();
+                       }
+               });
+        	}
+         }); 	
+    }
 
 </script>
   
@@ -141,7 +158,7 @@
 			              	%>              	
 	                        <div id="postContainer">
 	                            <div class="post">
-	                                <h3 class="author-post"><%out.print(u.nome + " "+ u.cognome);%></h3>
+	                                <span class="author-post"><%out.print(u.nome + " "+ u.cognome);%></span>
 	                                <p class="post-text">
 	                               		<%out.print(p.get(i).Post);%>
 	                                </p>
@@ -159,12 +176,53 @@
 	
 	                                    </span>
 	                                    <span id="non-mi-piace" class="tasto-like">
-	                                        <button id="like" class="btn">non mi piace</button>
+	                                        <button id="dislike" class="btn">non mi piace</button>
 	                                    </span>
 	                                </div>
 	                                
-	                                <div id="comment-container">
-	                                    <textarea id="inserisci-commento" cols="64" rows="4" placeholder="Commenta..."></textarea>
+	                                <div id="all-comment-container">
+	                                	<table>	
+	                                		<tr>
+	                                			<td>                                	
+			                                    	<textarea id="inserisci-commento<%out.print(i); %>" name="commento" cols="64" rows="4" placeholder="Commenta..." class="inserisci-commento"></textarea>
+			                                    </td>
+			                                    <td>
+													<input type="button" id="commenta" class="btn" value="commenta" onclick="commenta($.trim($('#inserisci-commento<%out.print(i); %>').val()), <%out.print(p.get(i).id);%>);"></input>
+	                                   			</td>
+	                                   		</tr>
+	                                    </table>
+	                                    <%
+	                                    	ArrayList<Commento> comment_list = DBQuery.show_comment(p.get(i).id);
+	                                    	for(int j=0; j<comment_list.size(); j++){
+	                                    %>
+		                                	<div id="comment-container">
+		                                		<a href="<%out.print("Friend-Profile.jsp?id="+ comment_list.get(j).ID_utente);%>"><span class="author-comment"><%out.print(comment_list.get(j).nome + " "+ comment_list.get(j).cognome);%></span></a>
+		                                		<br/>
+		                                		<div id="testo-commento">
+		                                			<span><%out.print(comment_list.get(j).testo); %></span>
+		                                		</div>
+		                                		
+		                                		<div id="comment-like-container">
+				                                    <span id="like-counter">
+				                                        <%out.print(comment_list.get(j).like);%> 	
+				                                    </span>
+				                                    <span id="mi-piace">
+				                                        <input type="button" id="like" class="btn" value="mi piace" style="font-size:15px; padding:2px 8px 2px 8px;" onclick=""></input>
+				                                    </span> 
+				                                    <span id="dislike-counter">
+				
+				                                        <%out.print(comment_list.get(j).dislike);%>
+				
+				                                    </span>
+				                                    <span id="non-mi-piace" class="tasto-like">
+				                                       	<input type="button" id="dislike" class="btn" value="non mi piace" style="font-size:15px; padding:2px 8px 2px 8px;" ></button>
+				                                    </span>
+				                                </div>
+				                                
+		                                	</div>
+		                                	<%
+	                                    	}
+		                                	%>
 	                                </div>
 	                            </div>
 	

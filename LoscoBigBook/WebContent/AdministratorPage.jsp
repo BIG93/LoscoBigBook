@@ -14,7 +14,7 @@
       <link href="AdministratorPageCSS.css" rel="stylesheet" type="text/css"/>
       <link href="CommonCSS.css" rel="stylesheet" type="text/css"/>
       <script src="jquery-1.8.3.js" type="text/javascript"></script>
-        <link href="jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css"/>
+      <link href="jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css"/>
       <script src="jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
       
   </head>
@@ -37,6 +37,21 @@
                    }
            });
            } 
+           
+
+           
+           function censura_post(id_post){
+        	   
+        	   $.ajax({
+                   type : "POST",
+                   url : "censura.jsp",
+                   data : "id=" + id_post,
+                   success : function(data) {
+                   	location.reload();
+                   	
+                   }
+           });
+           } 
             
             
     </script>
@@ -49,7 +64,7 @@
 	   }
   		%>
     <div id="page"> 
-        <h3 style="margin-left: 10%;">Ciao <%out.print(sesuser.nome);%>, sei loggato come amministratore </h3>
+        <h3 style="margin-left: 10%;">Ciao <%out.print(sesuser.nome);%>, sei loggato come amministratore, cosa vuoi fare?</h3>
         
         <div id="tab-container">
         	 <div id="tabs">
@@ -77,8 +92,29 @@
                 
                 </div>
                 <div id="Censura">
-                
-                </div>
+	                <%
+	                	ArrayList<Post> p_list=DBQuery.show_post_bacheca();
+	                	for(int j=0; j<p_list.size(); j++)
+	                	{
+	                		Utente u=DBQuery.userByID(p_list.get(j).ID_utente);
+	                	
+	                %>
+	                
+		                	<div id="postContainer-admnistrator">
+		                            <div class="post">
+		                                <span class="author-post"><%out.print(u.nome + " "+ u.cognome);%></span>
+			                                <p class="post-text">
+			                               		<%out.print(p_list.get(j).Post);%>
+			                                </p>
+		                             </div>
+		                     </div>
+	                   
+	                  		 <input type="button" id="censura" class="btn" value="Censura" onclick="censura_post(<%out.print(p_list.get(j).id); %>);"/>
+	                 
+	                <%
+	                	}
+	                %>
+               </div>
         </div>
         </div>
     </div>
@@ -93,18 +129,7 @@
                     <h3 id="social">LoscoBigBook</h3>
                 </td>
         </table>
-        <form action="cerca.jsp" method="get">        
-         <table id="cerca">  
-              <tr>
-                  <td>
-                  	<input id="input-cerca" name="input-cerca" type="text" placeholder="Cerca...">
-                  </td>
-                  <td>
-                  	<input type="submit" value="Cerca" class="btn"></input>
-                  </td>
-             </tr>
-         </table> 
-        </form>
+			      
         <table id="ancore-home-container" style="margin-left:85%">
             <tr>
                 <td>

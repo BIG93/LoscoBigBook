@@ -615,7 +615,7 @@ public class DBQuery {
 		return i;
 	}// End delete_user_friendship
 	
-public static int publica_post(int id, String post){
+public static int pubblica_post(int id, String post){
 		
 		int i=0;
 		
@@ -645,7 +645,40 @@ public static int publica_post(int id, String post){
 		}
 		
 		return i;
-	}// End publica_post
+	}// End pubblica_post
+
+public static int pubblica_commento(int id_utente, int id_post, String commento){
+	
+	int i=0;
+	
+	try{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+		
+		
+		PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `commenti` "
+				+ " (`Commento`, `ID_utente`, `ID_post`, `like`, `dislike`) "
+				+ " VALUES (?, ? , ?, 0 , 0); ");
+		
+		pstmt.setString(1, commento);
+		pstmt.setInt(2, id_utente);
+		pstmt.setInt(3, id_post);
+				
+		i = pstmt.executeUpdate();
+		
+		con.close();
+	
+	}
+
+	catch (Exception e) 
+	{
+		System.out.println("Errore con DB o Query errata");
+		e.printStackTrace();
+	}
+	
+	return i;
+}// End pubblica_post
+
 
 
 public static ArrayList<Post> show_post_bacheca()
@@ -659,9 +692,7 @@ public static ArrayList<Post> show_post_bacheca()
                 "user=" + "root" + "&password=" + "");
 		
 		
-		PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
-													   " FROM post ORDER BY ID DESC");
-		
+		PreparedStatement pstmt = con.prepareStatement("SELECT * FROM post ORDER BY ID DESC");
 		
 		ResultSet rs = pstmt.executeQuery();
 			
@@ -687,7 +718,7 @@ public static ArrayList<Post> show_post_bacheca()
 	 // End show_post_bacheca
 }
 
-public static ArrayList<Post> show_post_profile(int id)
+public static ArrayList<Post> show_post_profile(int id_utente)
 {
 	ArrayList <Post> post_list= new ArrayList<Post>();
 	
@@ -702,17 +733,17 @@ public static ArrayList<Post> show_post_profile(int id)
 													   " FROM post " +
 														" WHERE ID_utente=? ORDER BY ID DESC");
 		
-		pstmt.setInt(1, id);
+		pstmt.setInt(1, id_utente);
 		ResultSet rs = pstmt.executeQuery();
 			
 		while (rs.next()){
 			
+			int id_post=rs.getInt("ID");
 			String post=rs.getString("Post");
-			int id_utente=rs.getInt("ID_utente");
 			int like=rs.getInt("like");
 			int dislike=rs.getInt("dislike");
 			
-			Post p=new Post(id,post,id_utente,like,dislike);
+			Post p=new Post(id_post,post,id_utente,like,dislike);
 			
 			post_list.add(p);		
 		}	
@@ -753,6 +784,101 @@ public static int like_post(int id)
 	
 	return i;
 }// End like_post
+
+public static ArrayList<Commento> show_comment(int id_post)
+{
+	ArrayList <Commento> comment_list= new ArrayList<Commento>();
+	
+	try
+	{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
+                "user=" + "root" + "&password=" + "");
+		
+		
+		PreparedStatement pstmt = con.prepareStatement(" SELECT * FROM commenti AS c JOIN utente AS u ON c.ID_utente=u.ID WHERE ID_post=? ORDER BY c.ID DESC");
+		
+		pstmt.setInt(1, id_post);
+		
+		ResultSet rs = pstmt.executeQuery();
+			
+		while (rs.next()){
+			int id=rs.getInt("ID");
+			String commento=rs.getString("Commento");
+			int id_utente=rs.getInt("ID_utente");
+			int like=rs.getInt("like");
+			int dislike=rs.getInt("dislike");
+			String nome=rs.getString("Nome");
+			String cognome =rs.getString("Cognome");
+			
+			Commento c = new Commento(id, id_utente, id_post, commento, like, dislike,nome,cognome);
+			
+			comment_list.add(c);		
+		}	
+		con.close();
+		
+	}
+	catch (Exception e) {
+		System.out.println("Errore con DB o Query errata");
+		e.printStackTrace();
+	}
+	return comment_list;
+	 // End show_comment
+}
+
+public static int post_delete(int id_post){
+	int i=0;
+	
+	try{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+		
+		
+		PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `post` WHERE `ID`= ? LIMIT 1;");
+	
+		pstmt.setInt(1, id_post);
+		
+		i = pstmt.executeUpdate();
+		
+		con.close();
+}
+
+	catch (Exception e) 
+	{
+		System.out.println("Errore con DB o Query errata");
+		e.printStackTrace();
+	}
+	
+	return i;
+}// End post_delete
+
+public static int delete_comments(int id_post)
+{
+	int i=0;
+	
+	try{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+		
+		
+		PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `commenti` WHERE ID_post=?");
+	
+		pstmt.setInt(1, id_post);	
+		
+		i = pstmt.executeUpdate();
+		
+		con.close();
+}
+
+	catch (Exception e) 
+	{
+		System.out.println("Errore con DB o Query errata");
+		e.printStackTrace();
+	}
+	
+	return i;
+}// End delete_comments
+
 
 
 }

@@ -79,19 +79,34 @@ function pubblica(testo) {
                    }
            });
     	}
-       });
-   	
-   }
+    });
+}
 
-function like(id){
-	console.log(id);
-	 $(document).ready(function() {
+function commenta(commento, id_post) {
+    $(document).ready(function() {
+    	var testocommento=commento;
+        var idpost=id_post;
+    	if(testocommento){
+                   $.ajax({
+                   type : "POST",
+                   url : "commenta.jsp",
+                   data : "testo=" + testocommento + "&idutente=" + <%if(sesuser!=null){out.print(sesuser.id);}%> + "&idpost=" + idpost,
+                   success : function(data) {
+                   location.reload();
+                   }
+           });
+    	}
+     }); 	
+}
+
+function like(id, idbutton){
+	 $(document).ready(function(){
 	    	var idpost=id;
 	    	$.ajax({
 	    		type : "POST",
 	    		 url : "like.jsp",
 	    		 data : "id=" + idpost,
-	    		 success : function(data) {
+	    		 success : function(data){
 	                   location.reload();
 	             }
 	    	});
@@ -103,8 +118,8 @@ function like(id){
             <div id="page">
                 
                     <h1 class="bacheca">Post dei tuoi amici</h1>
-                    <textarea id="#post" class="bacheca" cols="64" rows="4" placeholder="Dillo ai tuoi amici" maxlength="150"></textarea>
-                    <input type="button" value="Pubblica" class="btn" id="pubblica" onclick="pubblica( $.trim($('textarea').val()));"/>
+                    <textarea id="post" class="bacheca" cols="100" rows="10" placeholder="Dillo ai tuoi amici..." maxlength="150"></textarea>
+                    <input type="button" value="Pubblica" class="btn" id="pubblica" onclick="pubblica( $.trim($('#post').val()));"/>
                 	<br/>
                 	<div id="all-post-container">
 	                	<%
@@ -113,10 +128,14 @@ function like(id){
 	                	for(int i=0;i< p.size(); i++){
 	                		Utente u = null;
 	                		u=DBQuery.userByID(p.get(i).ID_utente);
+	                		Friendship f=DBQuery.friendship_status(sesuser.id, p.get(i).ID_utente);
+	                		
+	                		if(p.get(i).ID_utente==sesuser.id || (f!=null)&&(f.stato.equals("Confermata")))
+	                		{
 	                	%>              	
 	                        <div id="postContainer">
 	                            <div class="post">
-	                                <a href="<%out.print("Friend-Profile.jsp?id="+u.id);%>"><h3 class="author-post"><%out.print(u.nome + " "+ u.cognome) ;%></h3></a>
+	                                <a href="<%out.print("Friend-Profile.jsp?id="+u.id);%>"><span class="author-post"><%out.print(u.nome + " "+ u.cognome) ;%></span></a>
 	                                <p class="post-text">
 	                               		<%out.print(p.get(i).Post);%>
 	                                </p>
@@ -125,25 +144,65 @@ function like(id){
 	                                        <%out.print(p.get(i).like);%>	
 	                                    </span>
 	                                    <span id="mi-piace">
-	                                        <input type="button" id="like" class="btn" value="mi piace" onclick="like(<%out.print(p.get(i).id);%>);"></button>
+	                                        <input type="button" id="like" class="btn" value="mi piace" onclick="like(<%out.print(p.get(i).id);%>, 'dislike<%out.print(i);%>');"></input>
 	                                    </span> 
-	                                    <span id="dislike-counter">
-	
+	                                    <span id="dislike-counter">	
 	                                        <%out.print(p.get(i).dislike);%>
-	
 	                                    </span>
 	                                    <span id="non-mi-piace" class="tasto-like">
-	                                       	<input type="button" id="like" class="btn" value="non mi piace"></button>
+	                                       	<input type="button" id="dislike<%out.print(i); %>" class="btn" value="non mi piace"></input>
 	                                    </span>
 	                                </div>
-	                                <div id="comment-container">
-	                                    <textarea id="inserisci-commento" cols="64" rows="4" placeholder="Commenta..."></textarea>
+	                                <div id="all-comment-container">
+	                                	<table>	
+	                                		<tr>
+	                                			<td>                                	
+			                                    	<textarea id="inserisci-commento<%out.print(i); %>" name="commento" cols="64" rows="4" placeholder="Commenta..." class="inserisci-commento"></textarea>
+			                                    </td>
+			                                    <td>
+													<input type="button" id="commenta" class="btn" value="commenta" onclick="commenta($.trim($('#inserisci-commento<%out.print(i); %>').val()), <%out.print(p.get(i).id);%>);"></input>
+	                                   			</td>
+	                                   		</tr>
+	                                    </table>
+	                                    <%
+	                                    	ArrayList<Commento> comment_list = DBQuery.show_comment(p.get(i).id);
+	                                    	for(int j=0; j<comment_list.size(); j++){
+	                                    %>
+		                                	<div id="comment-container">
+		                                		<a href="<%out.print("Friend-Profile.jsp?id="+ comment_list.get(j).ID_utente);%>"><span class="author-comment"><%out.print(comment_list.get(j).nome + " "+ comment_list.get(j).cognome);%></span></a>
+		                                		<br/>
+		                                		<div id="testo-commento">
+		                                			<span><%out.print(comment_list.get(j).testo); %></span>
+		                                		</div>
+		                                		
+		                                		<div id="comment-like-container">
+				                                    <span id="like-counter">
+				                                        <%out.print(comment_list.get(j).like);%> 	
+				                                    </span>
+				                                    <span id="mi-piace">
+				                                        <input type="button" id="like" class="btn" value="mi piace" style="font-size:15px; padding:2px 8px 2px 8px;" onclick=""></input>
+				                                    </span> 
+				                                    <span id="dislike-counter">
+				
+				                                        <%out.print(comment_list.get(j).dislike);%>
+				
+				                                    </span>
+				                                    <span id="non-mi-piace" class="tasto-like">
+				                                       	<input type="button" id="dislike" class="btn" value="non mi piace" style="font-size:15px; padding:2px 8px 2px 8px;" ></input>
+				                                    </span>
+				                                </div>
+				                                
+		                                	</div>
+		                                	<%
+	                                    	}
+		                                	%>
 	                                </div>
 	                            </div>
 	
 	                        </div>                       
 	               	<%
-	               	}
+	               		}
+	                }
 	               	%>
                	</div>         
            </div>

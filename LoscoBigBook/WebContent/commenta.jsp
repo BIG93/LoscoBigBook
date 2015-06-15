@@ -12,7 +12,8 @@
 <%
 String testo = request.getParameter("testo");
 int idutente = Integer.parseInt(request.getParameter("idutente"));
-int i = DBQuery.pubblica_post(idutente, testo);
+int idpost = Integer.parseInt(request.getParameter("idpost"));
+int i = DBQuery.pubblica_commento(idutente, idpost, testo);
 %>
 </body>
 </html>

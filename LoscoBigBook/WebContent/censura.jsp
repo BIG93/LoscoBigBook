@@ -1,7 +1,6 @@
-<%@page import="database.DBQuery"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
+    <%@ page import="database.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,10 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%
-String testo = request.getParameter("testo");
-int idutente = Integer.parseInt(request.getParameter("idutente"));
-int i = DBQuery.pubblica_post(idutente, testo);
-%>
+ <%
+ int id=Integer.parseInt(request.getParameter("id"));
+ int x=DBQuery.delete_comments(id);
+ int i=DBQuery.post_delete(id);
+ %>
 </body>
 </html>
