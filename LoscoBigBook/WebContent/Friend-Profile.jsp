@@ -58,7 +58,13 @@
             </div>
             <div id="middle-container">
                 <div id="ProfileImageContainer">
-                    <img id="ProfileImage" src="ProfileImage/profileimage.jpg" alt="immagine del profilo"/>
+                <%
+                	String photo=DBQuery.photoById(urlIDInt);
+                	if(photo.equals("")){
+                		photo=DBQuery.photoById(0);
+                	}
+                	%>
+                    <img id="ProfileImage" src="<%out.print(photo); %>" alt="immagine del profilo"/>
                 </div>  
                 <div id="friend-request-container">
                 	<% 

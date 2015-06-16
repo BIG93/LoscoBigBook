@@ -1473,4 +1473,39 @@ public static Dislike check_dislike_comment(int id_utente, int id_commento)
 	 // End check_dislike_comment
 }
 
+
+
+public static String photoById(int id_utente)
+{
+	String photo="";
+	
+	try
+	{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
+                "user=" + "root" + "&password=" + "");
+		
+		
+		PreparedStatement pstmt = con.prepareStatement(" SELECT url_image " + 
+													   " FROM photo " + 
+														" WHERE ID_utente=? ");
+		pstmt.setInt(1, id_utente);
+		
+		ResultSet rs = pstmt.executeQuery();
+			
+		while (rs.next()){
+			 photo=rs.getString("url_image");
+		}
+	
+		con.close();
+		
+	}
+	catch (Exception e) {
+		System.out.println("Errore con DB o Query errata");
+		e.printStackTrace();
+	}
+	return photo;
+	 // End userByID
+}
+
 }
