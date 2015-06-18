@@ -9,9 +9,11 @@
 </head>
 <body>
 <%
+   ServletContext context = pageContext.getServletContext();
+
    int richiedente = Integer.parseInt(request.getParameter("richiedente"));
    int ricevente = Integer.parseInt(request.getParameter("ricevente"));
-   int i = DBQuery.friendship_confirm(richiedente, ricevente);
+   int i = DBQuery.friendship_confirm(richiedente, ricevente,context);
  %>
 </body>
 </html>

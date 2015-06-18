@@ -229,7 +229,11 @@ function controllo(){
       {
             $("body").append("<div id='myDiv' title='Errore' style='font-family:verdana;'>Le password inserite non sono uguali!</div>");
             
-            $( "#myDiv" ).dialog({dialogClass: 'myTitleClass',
+            $( "#myDiv" ).dialog({
+					            	show:{
+						    	        effect: "slide",
+						    	        duration: 500
+						    	      },
                                     buttons: [
                                     {
                                       text: "OK",

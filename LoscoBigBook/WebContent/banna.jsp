@@ -9,9 +9,11 @@
 </head>
 <body>
  <%
+ ServletContext context = pageContext.getServletContext();
+ 
  int id=Integer.parseInt(request.getParameter("id"));
- int x=DBQuery.delete_user_friendship(id);
- int i=DBQuery.banna_user(id);
+ int x=DBQuery.delete_user_friendship(id,context);
+ int i=DBQuery.banna_user(id,context);
  %>
 </body>
 </html>

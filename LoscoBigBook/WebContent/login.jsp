@@ -13,6 +13,8 @@
 	String pass = request.getParameter("pass");	
 	String ck = request.getParameter("ck");
 	
+	ServletContext context = pageContext.getServletContext();
+	
 	Utente sesuser = (Utente) session.getAttribute("loggato");
 	
 	boolean loggato = false;
@@ -20,7 +22,7 @@
 	Utente ut = null;
 	
 	if (sesuser == null){
-		ut = DBQuery.DB_Login(user , pass);
+		ut = DBQuery.DB_Login(user , pass, context);
 		
 		if (ut != null){ 				 
 			

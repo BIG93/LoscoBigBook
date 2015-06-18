@@ -9,9 +9,11 @@
 </head>
 <body>
  <%
+ ServletContext context = pageContext.getServletContext();
+ 
  int id=Integer.parseInt(request.getParameter("id"));
- int x=DBQuery.delete_comments(id);
- int i=DBQuery.post_delete(id);
+ int x=DBQuery.delete_comments(id,context);
+ int i=DBQuery.post_delete(id,context);
  %>
 </body>
 </html>

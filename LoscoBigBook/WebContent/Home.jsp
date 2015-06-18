@@ -34,13 +34,15 @@
   </script>
     
  <%
+    ServletContext context = pageContext.getServletContext();
+ 
 	Cookie[] cookies = request.getCookies();
 
 	if (cookies != null){
 		for(int i = 0; i < cookies.length; i++) { 
 		    Cookie c = cookies[i];		    
 		    if (c.getName().equals("log")) {
-		    	Utente ucookie = DBQuery.DB_Login_ByCookie(c.getValue());
+		    	Utente ucookie = DBQuery.DB_Login_ByCookie(c.getValue(),context);
 		    	session.setAttribute("loggato", ucookie);
 		    }
 		}

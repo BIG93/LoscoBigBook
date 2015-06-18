@@ -16,7 +16,9 @@
     	String password=request.getParameter("password");
     	String datanascita=request.getParameter("datanascita");
     	
-    	int i=DBQuery.registrazione(nome, cognome, email, password, datanascita, sesso);
+    	ServletContext context = pageContext.getServletContext();
+   	
+    	int i=DBQuery.registrazione(nome, cognome, email, password, datanascita, sesso, context);
     	
     	 if(i>0){
     		 response.sendRedirect("Home.jsp?mex=okreg");

@@ -9,6 +9,8 @@
 </head>
 <body>
 <%
+	ServletContext context = pageContext.getServletContext();
+
 	Utente sesuser=null;
 	sesuser=(Utente) session.getAttribute("loggato");
 	
@@ -26,7 +28,7 @@
 	String datanascita=request.getParameter("datanascita");
 	String statosentimentale=request.getParameter("statosentimentale");
 	
-	int i=DBQuery.UPDATE_utente(nome, cognome, email, password, datanascita, sesso, residenza, luogonascita, statosentimentale, sesuser.id);
+	int i=DBQuery.UPDATE_utente(nome, cognome, email, password, datanascita, sesso, residenza, luogonascita, statosentimentale, sesuser.id,context);
 	 
 	 if(i>0){
 		 

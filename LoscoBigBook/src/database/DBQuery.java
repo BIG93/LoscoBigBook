@@ -9,16 +9,19 @@ import database.Utente;
 
 import java.util.*;
 
+import javax.servlet.ServletContext;
+
 public class DBQuery {
-	public static Utente DB_Login(String user, String pass)
+	
+	public static Utente DB_Login(String user, String pass, ServletContext cont)
 	{
 		Utente ut = null;
 		
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                    "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
@@ -57,15 +60,15 @@ public class DBQuery {
 		return ut;
 	} // End DB_Login.
 	
-	public static Utente DB_Login_ByCookie(String user)
+	public static Utente DB_Login_ByCookie(String user, ServletContext cont)
 	{
 		Utente ut = null;
 		
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                    "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
@@ -101,11 +104,12 @@ public class DBQuery {
 		 // End DB_Login_ByCookie.
 	}
 	
-	public static int registrazione(String nome, String cognome, String email, String password, String datanascita, String sesso){
+	public static int registrazione(String nome, String cognome, String email, String password, String datanascita, String sesso, ServletContext cont){
 		int i=0;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `utente` "
@@ -136,15 +140,15 @@ public class DBQuery {
 		return i;
 	}// End registrazione
 	
-	public static String controllo_email(String email)
+	public static String controllo_email(String email,ServletContext cont)
 	{
 		String dbemail="";
 		
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                    "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" SELECT email " + 
@@ -171,12 +175,13 @@ public class DBQuery {
 		return dbemail;
 	} // End controllo_email
 	
-	public static int UPDATE_utente(String nome, String cognome, String email, String password, String datanascita, String sesso, String residenza, String luogonascita, String statosentimentale, int id){
+	public static int UPDATE_utente(String nome, String cognome, String email, String password, String datanascita, String sesso, String residenza, String luogonascita, String statosentimentale, int id,ServletContext cont){
 		int i=0;
 		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" UPDATE `utente` SET `Nome`= ?, `Cognome`= ?, `Email`= ?, `Password`= ?, `Datanascita`= ?, `Sesso`= ?, `Residenza`= ?, `Luogonascita`= ?, `Statosentimentale`= ? WHERE `ID`= ? LIMIT 1;");
@@ -206,8 +211,7 @@ public class DBQuery {
 		return i;
 	}// End UPDATE_utente
 	
-	
-	public static ArrayList<Utente> User_search(String cerca)
+	public static ArrayList<Utente> User_search(String cerca,ServletContext cont)
 	{
 		ArrayList<Utente> userfind = new ArrayList<Utente>();
 		Utente ut = null;
@@ -215,8 +219,8 @@ public class DBQuery {
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                    "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" SELECT * " +
@@ -256,15 +260,15 @@ public class DBQuery {
 		return userfind;
 	} // End User_search
 	
-	public static Utente userByID(int ID)
+	public static Utente userByID(int ID,ServletContext cont)
 	{
 		Utente ut = null;
 		
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                    "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
@@ -302,13 +306,14 @@ public class DBQuery {
 		 // End userByID
 	}
 	
-	public static int friend_request(int richiedente, int ricevente){
+	public static int friend_request(int richiedente, int ricevente,ServletContext cont){
 		
 		int i=0;
 		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `amicizia` "
@@ -334,15 +339,15 @@ public class DBQuery {
 		return i;
 	}// End friend_request
 	
-	public static Friendship friendship_status(int richiedente, int ricevente)
+	public static Friendship friendship_status(int richiedente, int ricevente,ServletContext cont)
 	{
 		Friendship f=null;
 		
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                    "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" SELECT Stato " + 
@@ -375,15 +380,15 @@ public class DBQuery {
 		 // End Friendship_status
 		}
 	
-	public static ArrayList<Friendship> friendship_list(int ricevente)
+	public static ArrayList<Friendship> friendship_list(int ricevente,ServletContext cont)
 	{
 		ArrayList <Friendship> f_list= new ArrayList<Friendship>();
 		
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                    "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
@@ -416,12 +421,13 @@ public class DBQuery {
 		 // End friendship_list
 	}
 	
-	public static int friendship_confirm(int richiedente,int ricevente){
+	public static int friendship_confirm(int richiedente,int ricevente,ServletContext cont){
 		int i=0;
 		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" UPDATE `amicizia` SET `Stato`= 'Confermata' WHERE (`Richiedente`= ? AND `Ricevente`= ?) LIMIT 1;");
@@ -442,13 +448,13 @@ public class DBQuery {
 		return i;
 	}// End UPDATE_utente
 	
-	
-	public static int friendship_delete(int richiedente,int ricevente){
+	public static int friendship_delete(int richiedente,int ricevente,ServletContext cont){
 		int i=0;
 		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `amicizia` WHERE (`Richiedente`= ? AND `Ricevente`= ?) LIMIT 1;");
@@ -469,15 +475,14 @@ public class DBQuery {
 		return i;
 	}// End friendship_delete
 	
-	
-	
-	public static int friend_delete(int richiedente,int ricevente)
+	public static int friend_delete(int richiedente,int ricevente,ServletContext cont)
 	{
 		int i=0;
 		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `amicizia` WHERE ((`Richiedente`= ? AND `Ricevente`= ?) OR (`Richiedente`= ? AND `Ricevente`= ?)) AND Stato='Confermata' LIMIT 1;");
@@ -502,16 +507,15 @@ public class DBQuery {
 		return i;
 	}// End friendship_delete
 	
-	
-	public static ArrayList<Friendship> confirmed_friend(int id)
+	public static ArrayList<Friendship> confirmed_friend(int id,ServletContext cont)
 	{
 		ArrayList <Friendship> f_list= new ArrayList<Friendship>();
 		
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                    "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
@@ -545,8 +549,7 @@ public class DBQuery {
 		 // End userByID
 	}
 	
-	
-	public static ArrayList<Utente> admin_list_user()
+	public static ArrayList<Utente> admin_list_user(ServletContext cont)
 	{	
 		Utente ut = null;
 		ArrayList<Utente> user_list=new ArrayList<Utente>();
@@ -555,8 +558,8 @@ public class DBQuery {
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                    "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" SELECT * FROM utente WHERE Ruolo='user' AND Cancellato='0'; ");
@@ -593,14 +596,14 @@ public class DBQuery {
 		 // End DB_Login_ByCookie.
 	}
 	
-	
-	public static int banna_user(int id)
+	public static int banna_user(int id,ServletContext cont)
 	{
 		int i=0;
 		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" UPDATE `utente` SET `Cancellato`= '1' WHERE (`ID`= ?) LIMIT 1;");
@@ -621,13 +624,14 @@ public class DBQuery {
 		return i;
 	}// End banna_user
 	
-	public static int delete_user_friendship(int id)
+	public static int delete_user_friendship(int id,ServletContext cont)
 	{
 		int i=0;
 		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
 			PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `amicizia` WHERE (`Richiedente`= ? OR Ricevente = ?) LIMIT 1;");
@@ -650,29 +654,63 @@ public class DBQuery {
 		return i;
 	}// End delete_user_friendship
 	
-public static int pubblica_post(int id, String post){
+	public static int pubblica_post(int id, String post,ServletContext cont){
+			
+			int i=0;
+			
+			try{
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+	                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+				
+				
+				PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `post` "
+						+ " (`Post`, `ID_utente`, `like`, `dislike`) "
+						+ " VALUES (?, ? , 0 , 0); ");
+				
+				pstmt.setString(1, post);
+				pstmt.setInt(2, id);
+				
+				
+				i = pstmt.executeUpdate();
+				
+				con.close();
+			
+			}
+	
+			catch (Exception e) 
+			{
+				System.out.println("Errore con DB o Query errata");
+				e.printStackTrace();
+			}
+			
+			return i;
+		}// End pubblica_post
+	
+	public static int pubblica_commento(int id_utente, int id_post, String commento,ServletContext cont){
 		
 		int i=0;
 		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
-			PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `post` "
-					+ " (`Post`, `ID_utente`, `like`, `dislike`) "
-					+ " VALUES (?, ? , 0 , 0); ");
+			PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `commenti` "
+					+ " (`Commento`, `ID_utente`, `ID_post`, `like`, `dislike`) "
+					+ " VALUES (?, ? , ?, 0 , 0); ");
 			
-			pstmt.setString(1, post);
-			pstmt.setInt(2, id);
-			
-			
+			pstmt.setString(1, commento);
+			pstmt.setInt(2, id_utente);
+			pstmt.setInt(3, id_post);
+					
 			i = pstmt.executeUpdate();
 			
 			con.close();
 		
 		}
-
+	
 		catch (Exception e) 
 		{
 			System.out.println("Errore con DB o Query errata");
@@ -681,831 +719,812 @@ public static int pubblica_post(int id, String post){
 		
 		return i;
 	}// End pubblica_post
-
-public static int pubblica_commento(int id_utente, int id_post, String commento){
 	
-	int i=0;
-	
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
+	public static ArrayList<Post> show_post_bacheca(ServletContext cont)
+	{
+		ArrayList <Post> post_list= new ArrayList<Post>();
 		
-		
-		PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `commenti` "
-				+ " (`Commento`, `ID_utente`, `ID_post`, `like`, `dislike`) "
-				+ " VALUES (?, ? , ?, 0 , 0); ");
-		
-		pstmt.setString(1, commento);
-		pstmt.setInt(2, id_utente);
-		pstmt.setInt(3, id_post);
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM post ORDER BY ID DESC");
+			
+			ResultSet rs = pstmt.executeQuery();
 				
-		i = pstmt.executeUpdate();
-		
-		con.close();
-	
-	}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End pubblica_post
-
-
-
-public static ArrayList<Post> show_post_bacheca()
-{
-	ArrayList <Post> post_list= new ArrayList<Post>();
-	
-	try
-	{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement("SELECT * FROM post ORDER BY ID DESC");
-		
-		ResultSet rs = pstmt.executeQuery();
+			while (rs.next()){
+				int id=rs.getInt("ID");
+				String post=rs.getString("Post");
+				int id_utente=rs.getInt("ID_utente");
+				int like=rs.getInt("like");
+				int dislike=rs.getInt("dislike");
+				
+				Post p=new Post(id,post,id_utente,like,dislike);
+				
+				post_list.add(p);		
+			}	
+			con.close();
 			
-		while (rs.next()){
-			int id=rs.getInt("ID");
-			String post=rs.getString("Post");
-			int id_utente=rs.getInt("ID_utente");
-			int like=rs.getInt("like");
-			int dislike=rs.getInt("dislike");
+		}
+		catch (Exception e) {
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		return post_list;
+		 // End show_post_bacheca
+	}
+	
+	public static ArrayList<Post> show_post_profile(int id_utente,ServletContext cont)
+	{
+		ArrayList <Post> post_list= new ArrayList<Post>();
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
-			Post p=new Post(id,post,id_utente,like,dislike);
 			
-			post_list.add(p);		
-		}	
-		con.close();
-		
-	}
-	catch (Exception e) {
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	return post_list;
-	 // End show_post_bacheca
-}
-
-public static ArrayList<Post> show_post_profile(int id_utente)
-{
-	ArrayList <Post> post_list= new ArrayList<Post>();
-	
-	try
-	{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
-													   " FROM post " +
-														" WHERE ID_utente=? ORDER BY ID DESC");
-		
-		pstmt.setInt(1, id_utente);
-		ResultSet rs = pstmt.executeQuery();
+			PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
+														   " FROM post " +
+															" WHERE ID_utente=? ORDER BY ID DESC");
 			
-		while (rs.next()){
+			pstmt.setInt(1, id_utente);
+			ResultSet rs = pstmt.executeQuery();
+				
+			while (rs.next()){
+				
+				int id_post=rs.getInt("ID");
+				String post=rs.getString("Post");
+				int like=rs.getInt("like");
+				int dislike=rs.getInt("dislike");
+				
+				Post p=new Post(id_post,post,id_utente,like,dislike);
+				
+				post_list.add(p);		
+			}	
+			con.close();
 			
-			int id_post=rs.getInt("ID");
-			String post=rs.getString("Post");
-			int like=rs.getInt("like");
-			int dislike=rs.getInt("dislike");
+		}
+		catch (Exception e) {
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		return post_list;
+		 // End show.post_profile
+	}
+	
+	public static int like_post(int id,ServletContext cont)
+	{
+		int i=0;
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
-			Post p=new Post(id_post,post,id_utente,like,dislike);
 			
-			post_list.add(p);		
-		}	
-		con.close();
+			PreparedStatement pstmt = con.prepareStatement(" UPDATE `post` SET post.`like`= post.`like`+1 WHERE (`ID`= ?)");
 		
-	}
-	catch (Exception e) {
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	return post_list;
-	 // End show.post_profile
-}
-
-public static int like_post(int id)
-{
-	int i=0;
-	
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" UPDATE `post` SET post.`like`= post.`like`+1 WHERE (`ID`= ?)");
-	
-		pstmt.setInt(1, id);
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End like_post
-
-public static int dislike_post(int id)
-{
-	int i=0;
-	
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" UPDATE `post` SET post.`dislike`= post.`dislike`+1 WHERE (`ID`= ?)");
-	
-		pstmt.setInt(1, id);
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End dislike_post
-
-public static int non_like_post(int id)
-{
-	int i=0;
-	
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" UPDATE `post` SET post.`like`= post.`like`-1 WHERE (`ID`= ?)");
-	
-		pstmt.setInt(1, id);
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End non_like_post
-
-public static int non_dislike_post(int id)
-{
-	int i=0;
-	
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" UPDATE `post` SET post.`dislike`= post.`dislike`-1 WHERE (`ID`= ?)");
-	
-		pstmt.setInt(1, id);
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End like_post
-
-public static ArrayList<Commento> show_comment(int id_post)
-{
-	ArrayList <Commento> comment_list= new ArrayList<Commento>();
-	
-	try
-	{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" SELECT * FROM commenti AS c JOIN utente AS u ON c.ID_utente=u.ID WHERE ID_post=? ORDER BY c.ID DESC");
-		
-		pstmt.setInt(1, id_post);
-		
-		ResultSet rs = pstmt.executeQuery();
+			pstmt.setInt(1, id);
 			
-		while (rs.next()){
-			int id=rs.getInt("ID");
-			String commento=rs.getString("Commento");
-			int id_utente=rs.getInt("ID_utente");
-			int like=rs.getInt("like");
-			int dislike=rs.getInt("dislike");
-			String nome=rs.getString("Nome");
-			String cognome =rs.getString("Cognome");
+			i = pstmt.executeUpdate();
 			
-			Commento c = new Commento(id, id_utente, id_post, commento, like, dislike,nome,cognome);
+			con.close();
+	}
+	
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End like_post
+	
+	public static int dislike_post(int id,ServletContext cont)
+	{
+		int i=0;
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
-			comment_list.add(c);		
-		}	
-		con.close();
-		
-	}
-	catch (Exception e) {
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	return comment_list;
-	 // End show_comment
-}
-
-public static int post_delete(int id_post){
-	int i=0;
-	
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `post` WHERE `ID`= ? LIMIT 1;");
-	
-		pstmt.setInt(1, id_post);
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End post_delete
-
-public static int delete_comments(int id_post)
-{
-	int i=0;
-	
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `commenti` WHERE ID_post=?");
-	
-		pstmt.setInt(1, id_post);	
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End delete_comments
-
-public static int like_insert(int id_post, int id_utente){
-	int i=0;
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `like_post` (ID_post, `ID_utente`) VALUES (?, ?)");
-		
-		
-		pstmt.setInt(1, id_post);
-		pstmt.setInt(2, id_utente);
-		
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-	}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End like_insert
-
-public static int dislike_insert(int id_post, int id_utente){
-	int i=0;
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `dislike_post` (ID_post, `ID_utente`) VALUES (?, ?)");
-		
-		
-		pstmt.setInt(1, id_post);
-		pstmt.setInt(2, id_utente);
-		
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-	}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End dislike_insert
-
-public static int like_delete(int id_post, int id_utente){
-	int i=0;
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `like_post` WHERE ID_post=? AND ID_utente=?");
-		
-		pstmt.setInt(1, id_post);
-		pstmt.setInt(2, id_utente);
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-	}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End like_insert
-
-public static int dislike_delete(int id_post, int id_utente){
-	int i=0;
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `dislike_post` WHERE ID_post=? AND ID_utente=?");
-		
-		pstmt.setInt(1, id_post);
-		pstmt.setInt(2, id_utente);
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-	}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End like_insert
-
-public static Like check_like(int id_utente, int id_post)
-{
-	Like l=null;
-	
-	try
-	{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
-													   " FROM like_post " +
-														" WHERE ID_utente=? AND ID_post=?");
-		
-		pstmt.setInt(1, id_utente);
-		pstmt.setInt(2, id_post);
-		
-		ResultSet rs = pstmt.executeQuery();
 			
-		while (rs.next()){
+			PreparedStatement pstmt = con.prepareStatement(" UPDATE `post` SET post.`dislike`= post.`dislike`+1 WHERE (`ID`= ?)");
+		
+			pstmt.setInt(1, id);
 			
-			int id=rs.getInt("ID");
+			i = pstmt.executeUpdate();
 			
-			l= new Like(id, id_post, id_utente);
-						
-		}	
-		con.close();
-		
+			con.close();
 	}
-	catch (Exception e) {
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	return l;
-	 // End check_like
-}
-
-public static Dislike check_dislike(int id_utente, int id_post)
-{
-	Dislike d=null;
 	
-	try
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End dislike_post
+	
+	public static int non_like_post(int id,ServletContext cont)
 	{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                "user=" + "root" + "&password=" + "");
+		int i=0;
 		
-		
-		PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
-													   " FROM dislike_post " +
-														" WHERE ID_utente=? AND ID_post=?");
-		
-		pstmt.setInt(1, id_utente);
-		pstmt.setInt(2, id_post);
-		
-		ResultSet rs = pstmt.executeQuery();
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
-		while (rs.next()){
 			
-			int id=rs.getInt("ID");
+			PreparedStatement pstmt = con.prepareStatement(" UPDATE `post` SET post.`like`= post.`like`-1 WHERE (`ID`= ?)");
+		
+			pstmt.setInt(1, id);
 			
-			d= new Dislike(id, id_post, id_utente);
-						
-		}	
-		con.close();
-		
-	}
-	catch (Exception e) {
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	return d;
-	 // End check_dislike
-}
-
-
-// QUERY LIKE DISLIKE COMMENTI
-public static int like_comment(int id)
-{
-	int i=0;
-	
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" UPDATE `commenti` SET commenti.`like`= commenti.`like`+1 WHERE (`ID`= ?)");
-	
-		pstmt.setInt(1, id);
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End like_post
-
-public static int dislike_comment(int id)
-{
-	int i=0;
-	
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" UPDATE `commenti` SET commenti.`dislike`= commenti.`dislike`+1 WHERE (`ID`= ?)");
-	
-		pstmt.setInt(1, id);
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End dislike_post
-
-public static int non_like_comment(int id)
-{
-	int i=0;
-	
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" UPDATE `commenti` SET commenti.`like`= commenti.`like`-1 WHERE (`ID`= ?)");
-	
-		pstmt.setInt(1, id);
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End non_like_post
-
-public static int non_dislike_comment(int id)
-{
-	int i=0;
-	
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" UPDATE `commenti` SET commenti.`dislike`= commenti.`dislike`-1 WHERE (`ID`= ?)");
-	
-		pstmt.setInt(1, id);
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End like_post
-
-public static int like_comment_insert(int id_commento, int id_utente){
-	int i=0;
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `like_comment` (ID_commento, `ID_utente`) VALUES (?, ?)");
-		
-		
-		pstmt.setInt(1, id_commento);
-		pstmt.setInt(2, id_utente);
-		
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-	}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End like_insert
-
-public static int dislike_comment_insert(int id_commento, int id_utente){
-	int i=0;
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `dislike_comment` (ID_commento, `ID_utente`) VALUES (?, ?)");
-		
-		
-		pstmt.setInt(1, id_commento);
-		pstmt.setInt(2, id_utente);
-		
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-	}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End dislike_insert
-
-public static int like_comment_delete(int id_commento, int id_utente){
-	int i=0;
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `like_comment` WHERE ID_commento=? AND ID_utente=?");
-		
-		pstmt.setInt(1, id_commento);
-		pstmt.setInt(2, id_utente);
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-	}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End like_insert
-
-public static int dislike_comment_delete(int id_commento, int id_utente){
-	int i=0;
-	try{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" + "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `dislike_comment` WHERE ID_commento=? AND ID_utente=?");
-		
-		pstmt.setInt(1, id_commento);
-		pstmt.setInt(2, id_utente);
-		
-		i = pstmt.executeUpdate();
-		
-		con.close();
-	}
-
-	catch (Exception e) 
-	{
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	
-	return i;
-}// End like_insert
-
-public static Like check_like_comment(int id_utente, int id_commento)
-{
-	Like l=null;
-	
-	try
-	{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                "user=" + "root" + "&password=" + "");
-		
-		
-		PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
-													   " FROM like_comment " +
-														" WHERE ID_utente=? AND ID_commento=?");
-		
-		pstmt.setInt(1, id_utente);
-		pstmt.setInt(2, id_commento);
-		
-		ResultSet rs = pstmt.executeQuery();
+			i = pstmt.executeUpdate();
 			
-		while (rs.next()){
-			
-			int id=rs.getInt("ID");
-			
-			l= new Like(id, id_commento, id_utente);
-						
-		}	
-		con.close();
-		
+			con.close();
 	}
-	catch (Exception e) {
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	return l;
-	 // End check_like
-}
-
-public static Dislike check_dislike_comment(int id_utente, int id_commento)
-{
-	Dislike d=null;
 	
-	try
-	{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                "user=" + "root" + "&password=" + "");
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
 		
-		
-		PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
-													   " FROM dislike_comment " +
-														" WHERE ID_utente=? AND ID_commento=?");
-		
-		pstmt.setInt(1, id_utente);
-		pstmt.setInt(2, id_commento);
-		
-		ResultSet rs = pstmt.executeQuery();
-			
-		while (rs.next()){
-			
-			int id=rs.getInt("ID");
-			
-			d= new Dislike(id, id_commento, id_utente);
-						
-		}	
-		con.close();
-		
-	}
-	catch (Exception e) {
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
-	}
-	return d;
-	 // End check_dislike_comment
-}
-
-
-
-public static String photoById(int id_utente)
-{
-	String photo="";
+		return i;
+	}// End non_like_post
 	
-	try
+	public static int non_dislike_post(int id,ServletContext cont)
 	{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://" + "127.0.0.1" + "/" + "loscobigbook" + "?" +
-                "user=" + "root" + "&password=" + "");
+		int i=0;
 		
-		
-		PreparedStatement pstmt = con.prepareStatement(" SELECT url_image " + 
-													   " FROM photo " + 
-														" WHERE ID_utente=? ");
-		pstmt.setInt(1, id_utente);
-		
-		ResultSet rs = pstmt.executeQuery();
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
-		while (rs.next()){
-			 photo=rs.getString("url_image");
+			
+			PreparedStatement pstmt = con.prepareStatement(" UPDATE `post` SET post.`dislike`= post.`dislike`-1 WHERE (`ID`= ?)");
+		
+			pstmt.setInt(1, id);
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+	}
+	
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End like_post
+	
+	public static ArrayList<Commento> show_comment(int id_post,ServletContext cont)
+	{
+		ArrayList <Commento> comment_list= new ArrayList<Commento>();
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" SELECT * FROM commenti AS c JOIN utente AS u ON c.ID_utente=u.ID WHERE ID_post=? ORDER BY c.ID DESC");
+			
+			pstmt.setInt(1, id_post);
+			
+			ResultSet rs = pstmt.executeQuery();
+				
+			while (rs.next()){
+				int id=rs.getInt("ID");
+				String commento=rs.getString("Commento");
+				int id_utente=rs.getInt("ID_utente");
+				int like=rs.getInt("like");
+				int dislike=rs.getInt("dislike");
+				String nome=rs.getString("Nome");
+				String cognome =rs.getString("Cognome");
+				
+				Commento c = new Commento(id, id_utente, id_post, commento, like, dislike,nome,cognome);
+				
+				comment_list.add(c);		
+			}	
+			con.close();
+			
+		}
+		catch (Exception e) {
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		return comment_list;
+		 // End show_comment
+	}
+	
+	public static int post_delete(int id_post,ServletContext cont){
+		int i=0;
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `post` WHERE `ID`= ? LIMIT 1;");
+		
+			pstmt.setInt(1, id_post);
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+	}
+	
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End post_delete
+	
+	public static int delete_comments(int id_post,ServletContext cont)
+	{
+		int i=0;
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `commenti` WHERE ID_post=?");
+		
+			pstmt.setInt(1, id_post);	
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+	}
+	
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End delete_comments
+	
+	public static int like_insert(int id_post, int id_utente,ServletContext cont){
+		int i=0;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `like_post` (ID_post, `ID_utente`) VALUES (?, ?)");
+			
+			
+			pstmt.setInt(1, id_post);
+			pstmt.setInt(2, id_utente);
+			
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
 		}
 	
-		con.close();
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
 		
+		return i;
+	}// End like_insert
+	
+	public static int dislike_insert(int id_post, int id_utente,ServletContext cont){
+		int i=0;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `dislike_post` (ID_post, `ID_utente`) VALUES (?, ?)");
+			
+			
+			pstmt.setInt(1, id_post);
+			pstmt.setInt(2, id_utente);
+			
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+		}
+	
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End dislike_insert
+	
+	public static int like_delete(int id_post, int id_utente,ServletContext cont){
+		int i=0;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `like_post` WHERE ID_post=? AND ID_utente=?");
+			
+			pstmt.setInt(1, id_post);
+			pstmt.setInt(2, id_utente);
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+		}
+	
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End like_insert
+	
+	public static int dislike_delete(int id_post, int id_utente,ServletContext cont){
+		int i=0;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `dislike_post` WHERE ID_post=? AND ID_utente=?");
+			
+			pstmt.setInt(1, id_post);
+			pstmt.setInt(2, id_utente);
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+		}
+	
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End like_insert
+	
+	public static Like check_like(int id_utente, int id_post,ServletContext cont)
+	{
+		Like l=null;
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
+														   " FROM like_post " +
+															" WHERE ID_utente=? AND ID_post=?");
+			
+			pstmt.setInt(1, id_utente);
+			pstmt.setInt(2, id_post);
+			
+			ResultSet rs = pstmt.executeQuery();
+				
+			while (rs.next()){
+				
+				int id=rs.getInt("ID");
+				
+				l= new Like(id, id_post, id_utente);
+							
+			}	
+			con.close();
+			
+		}
+		catch (Exception e) {
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		return l;
+		 // End check_like
 	}
-	catch (Exception e) {
-		System.out.println("Errore con DB o Query errata");
-		e.printStackTrace();
+	
+	public static Dislike check_dislike(int id_utente, int id_post,ServletContext cont)
+	{
+		Dislike d=null;
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
+														   " FROM dislike_post " +
+															" WHERE ID_utente=? AND ID_post=?");
+			
+			pstmt.setInt(1, id_utente);
+			pstmt.setInt(2, id_post);
+			
+			ResultSet rs = pstmt.executeQuery();
+				
+			while (rs.next()){
+				
+				int id=rs.getInt("ID");
+				
+				d= new Dislike(id, id_post, id_utente);
+							
+			}	
+			con.close();
+			
+		}
+		catch (Exception e) {
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		return d;
+		 // End check_dislike
 	}
-	return photo;
-	 // End userByID
-}
+	
+	// QUERY LIKE DISLIKE COMMENTI
+	public static int like_comment(int id,ServletContext cont)
+	{
+		int i=0;
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" UPDATE `commenti` SET commenti.`like`= commenti.`like`+1 WHERE (`ID`= ?)");
+		
+			pstmt.setInt(1, id);
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+	}
+	
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End like_post
+	
+	public static int dislike_comment(int id,ServletContext cont)
+	{
+		int i=0;
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" UPDATE `commenti` SET commenti.`dislike`= commenti.`dislike`+1 WHERE (`ID`= ?)");
+		
+			pstmt.setInt(1, id);
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+	}
+	
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End dislike_post
+	
+	public static int non_like_comment(int id,ServletContext cont)
+	{
+		int i=0;
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" UPDATE `commenti` SET commenti.`like`= commenti.`like`-1 WHERE (`ID`= ?)");
+		
+			pstmt.setInt(1, id);
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+	}
+	
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End non_like_post
+	
+	public static int non_dislike_comment(int id,ServletContext cont)
+	{
+		int i=0;
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" UPDATE `commenti` SET commenti.`dislike`= commenti.`dislike`-1 WHERE (`ID`= ?)");
+		
+			pstmt.setInt(1, id);
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+	}
+	
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End like_post
+	
+	public static int like_comment_insert(int id_commento, int id_utente,ServletContext cont){
+		int i=0;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `like_comment` (ID_commento, `ID_utente`) VALUES (?, ?)");
+			
+			
+			pstmt.setInt(1, id_commento);
+			pstmt.setInt(2, id_utente);
+			
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+		}
+	
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End like_insert
+	
+	public static int dislike_comment_insert(int id_commento, int id_utente,ServletContext cont){
+		int i=0;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" INSERT INTO `dislike_comment` (ID_commento, `ID_utente`) VALUES (?, ?)");
+			
+			
+			pstmt.setInt(1, id_commento);
+			pstmt.setInt(2, id_utente);
+			
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+		}
+	
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End dislike_insert
+	
+	public static int like_comment_delete(int id_commento, int id_utente,ServletContext cont){
+		int i=0;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `like_comment` WHERE ID_commento=? AND ID_utente=?");
+			
+			pstmt.setInt(1, id_commento);
+			pstmt.setInt(2, id_utente);
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+		}
+	
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End like_insert
+	
+	public static int dislike_comment_delete(int id_commento, int id_utente,ServletContext cont){
+		int i=0;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" DELETE FROM `dislike_comment` WHERE ID_commento=? AND ID_utente=?");
+			
+			pstmt.setInt(1, id_commento);
+			pstmt.setInt(2, id_utente);
+			
+			i = pstmt.executeUpdate();
+			
+			con.close();
+		}
+	
+		catch (Exception e) 
+		{
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		
+		return i;
+	}// End like_insert
+	
+	public static Like check_like_comment(int id_utente, int id_commento,ServletContext cont)
+	{
+		Like l=null;
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
+														   " FROM like_comment " +
+															" WHERE ID_utente=? AND ID_commento=?");
+			
+			pstmt.setInt(1, id_utente);
+			pstmt.setInt(2, id_commento);
+			
+			ResultSet rs = pstmt.executeQuery();
+				
+			while (rs.next()){
+				
+				int id=rs.getInt("ID");
+				
+				l= new Like(id, id_commento, id_utente);
+							
+			}	
+			con.close();
+			
+		}
+		catch (Exception e) {
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		return l;
+		 // End check_like
+	}
+	
+	public static Dislike check_dislike_comment(int id_utente, int id_commento,ServletContext cont)
+	{
+		Dislike d=null;
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" SELECT * " + 
+														   " FROM dislike_comment " +
+															" WHERE ID_utente=? AND ID_commento=?");
+			
+			pstmt.setInt(1, id_utente);
+			pstmt.setInt(2, id_commento);
+			
+			ResultSet rs = pstmt.executeQuery();
+				
+			while (rs.next()){
+				
+				int id=rs.getInt("ID");
+				
+				d= new Dislike(id, id_commento, id_utente);
+							
+			}	
+			con.close();
+			
+		}
+		catch (Exception e) {
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		return d;
+		 // End check_dislike_comment
+	}
+	
+	public static String photoById(int id_utente,ServletContext cont)
+	{
+		String photo="";
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" SELECT url_image " + 
+														   " FROM photo " + 
+															" WHERE ID_utente=? ");
+			pstmt.setInt(1, id_utente);
+			
+			ResultSet rs = pstmt.executeQuery();
+				
+			while (rs.next()){
+				 photo=rs.getString("url_image");
+			}
+		
+			con.close();
+			
+		}
+		catch (Exception e) {
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		return photo;
+		 // End userByID
+	}
 
 }

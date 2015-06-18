@@ -30,6 +30,8 @@
        <% 
 	   Utente sesuser=null;
 	   sesuser=(Utente) session.getAttribute("loggato");
+	   
+	   ServletContext context = pageContext.getServletContext();
   		%>
     <div id="page"> 
         <h3 style="margin-left: 10%;">Ciao <%out.print(sesuser.nome);%>, sei loggato come amministratore, cosa vuoi fare?</h3>
@@ -44,7 +46,7 @@
                 		<div id="lista_utenti">
                 			<table>
                 			<%
-                			ArrayList<Utente> user_list=DBQuery.admin_list_user();
+                			ArrayList<Utente> user_list=DBQuery.admin_list_user(context);
                 			for (int i=0; i<user_list.size();i++)
                 			{
                 			%>
@@ -61,10 +63,10 @@
                 </div>
                 <div id="Censura">
 	                <%
-	                	ArrayList<Post> p_list=DBQuery.show_post_bacheca();
+	                	ArrayList<Post> p_list=DBQuery.show_post_bacheca(context);
 	                	for(int j=0; j<p_list.size(); j++)
 	                	{
-	                		Utente u=DBQuery.userByID(p_list.get(j).ID_utente);
+	                		Utente u=DBQuery.userByID(p_list.get(j).ID_utente,context);
 	                	
 	                %>
 	                

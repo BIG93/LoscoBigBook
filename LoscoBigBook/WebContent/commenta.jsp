@@ -10,10 +10,12 @@
 </head>
 <body>
 <%
+ServletContext context = pageContext.getServletContext();
+
 String testo = request.getParameter("testo");
 int idutente = Integer.parseInt(request.getParameter("idutente"));
 int idpost = Integer.parseInt(request.getParameter("idpost"));
-int i = DBQuery.pubblica_commento(idutente, idpost, testo);
+int i = DBQuery.pubblica_commento(idutente, idpost, testo,context);
 %>
 </body>
 </html>

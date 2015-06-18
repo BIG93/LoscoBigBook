@@ -10,9 +10,11 @@
 </head>
 <body>
 <%
+ServletContext context = pageContext.getServletContext();
+
 String testo = request.getParameter("testo");
 int idutente = Integer.parseInt(request.getParameter("idutente"));
-int i = DBQuery.pubblica_post(idutente, testo);
+int i = DBQuery.pubblica_post(idutente, testo,context);
 %>
 </body>
 </html>

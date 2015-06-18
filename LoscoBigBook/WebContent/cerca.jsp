@@ -24,9 +24,7 @@
 Utente sesuser=null;
 sesuser=(Utente) session.getAttribute("loggato");
 
-if(sesuser==null){
-	   response.sendRedirect("Home.jsp");
-}
+ServletContext context = pageContext.getServletContext();
 %>
 
  <div id="page">  
@@ -40,7 +38,7 @@ if(sesuser==null){
         	else{
         		
         		String ricerca =request.getParameter("input-cerca");
-        		ArrayList<Utente> userfind_search = DBQuery.User_search(ricerca);
+        		ArrayList<Utente> userfind_search = DBQuery.User_search(ricerca,context);
         		if(userfind_search.size()==0){
         			%>
         				<h3 style="margin-left:5%">Nessun utente trovato</h3>

@@ -9,9 +9,11 @@
 </head>
 <body>
 <%
+   ServletContext context = pageContext.getServletContext();
+
    int currentid = Integer.parseInt(request.getParameter("currentid"));
    int id = Integer.parseInt(request.getParameter("id"));
-   int i = DBQuery.friend_request(currentid, id);
+   int i = DBQuery.friend_request(currentid, id,context);
  %>
 </body>
 </html>

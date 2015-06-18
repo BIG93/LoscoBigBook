@@ -17,7 +17,12 @@
         
 	<body>
 	
-	<%Utente sesuser=(Utente) session.getAttribute("loggato"); %>
+	<%
+	Utente sesuser=(Utente) session.getAttribute("loggato"); 
+	
+	ServletContext context = pageContext.getServletContext();
+   
+	%>
             <div id="page">
                 
                     <h1 class="bacheca">Post dei tuoi amici</h1>
@@ -27,11 +32,11 @@
                 	<div id="all-post-container">
 	                	<%
 	                	ArrayList<Post> p = new ArrayList<Post>();
-	                	p=DBQuery.show_post_bacheca();
+	                	p=DBQuery.show_post_bacheca(context);
 	                	for(int i=0;i< p.size(); i++){
 	                		Utente u = null;
-	                		u=DBQuery.userByID(p.get(i).ID_utente);
-	                		Friendship f=DBQuery.friendship_status(sesuser.id, p.get(i).ID_utente);
+	                		u=DBQuery.userByID(p.get(i).ID_utente,context);
+	                		Friendship f=DBQuery.friendship_status(sesuser.id, p.get(i).ID_utente,context);
 	                		
 	                		if(p.get(i).ID_utente==sesuser.id || (f!=null)&&(f.stato.equals("Confermata")))
 	                		{
@@ -46,7 +51,7 @@
 	                                    <span id="like-counter">
 	                                        <%out.print(p.get(i).like);%>	
 	                                    </span>
-	                                    <%Like l=DBQuery.check_like(sesuser.id, p.get(i).id); 
+	                                    <%Like l=DBQuery.check_like(sesuser.id, p.get(i).id,context); 
 	                                      if(l==null){
 	                                    %>
 		                                    <span id="mi-piace">
@@ -65,7 +70,7 @@
 	                                    <span id="dislike-counter">	
 	                                        <%out.print(p.get(i).dislike);%>
 	                                    </span>
-	                                    <%Dislike d=DBQuery.check_dislike(sesuser.id, p.get(i).id);
+	                                    <%Dislike d=DBQuery.check_dislike(sesuser.id, p.get(i).id,context);
 	                                      if(d==null){
 	                                    %>
 	                                    <span id="non-mi-piace" class="tasto-like">
@@ -94,7 +99,7 @@
 	                                   		</tr>
 	                                    </table>
 	                                    <%
-	                                    	ArrayList<Commento> comment_list = DBQuery.show_comment(p.get(i).id);
+	                                    	ArrayList<Commento> comment_list = DBQuery.show_comment(p.get(i).id,context);
 	                                    	for(int j=0; j<comment_list.size(); j++){
 	                                    %>
 		                                <div id="comment-container">
@@ -108,7 +113,7 @@
 				                                   <span id="like-counter">
 	                                        <%out.print(comment_list.get(j).like);%>	
 	                                    </span>
-	                                    <%Like lc=DBQuery.check_like_comment(sesuser.id, comment_list.get(j).ID); 
+	                                    <%Like lc=DBQuery.check_like_comment(sesuser.id, comment_list.get(j).ID,context); 
 	                                      if(lc==null){
 	                                    %>
 		                                    <span id="mi-piace">
@@ -127,7 +132,7 @@
 	                                    <span id="dislike-counter">	
 	                                        <%out.print(comment_list.get(j).dislike);%>
 	                                    </span>
-	                                    <%Dislike dc=DBQuery.check_dislike_comment(sesuser.id, comment_list.get(j).ID);
+	                                    <%Dislike dc=DBQuery.check_dislike_comment(sesuser.id, comment_list.get(j).ID,context);
 	                                      if(dc==null){
 	                                    %>
 	                                    <span id="non-mi-piace" class="tasto-like">

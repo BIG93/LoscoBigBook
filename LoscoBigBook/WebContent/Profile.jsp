@@ -26,6 +26,8 @@
     <body>
     
      <%
+     ServletContext context = pageContext.getServletContext();
+     
    Utente sesuser=null;
    sesuser=(Utente) session.getAttribute("loggato");
    
@@ -54,9 +56,9 @@
             <div id="middle-container">
                 <div id="ProfileImageContainer">
                 	<%
-                	String photo=DBQuery.photoById(sesuser.id);
+                	String photo=DBQuery.photoById(sesuser.id,context);
                 	if(photo.equals("")){
-                		photo=DBQuery.photoById(0);
+                		photo=DBQuery.photoById(0,context);
                 	}
                 	%>
                 	
@@ -67,10 +69,10 @@
                         <h3>Richieste d'amicizia</h3>
                     </div>    
                         <%
-                        ArrayList<Friendship> f_list=DBQuery.friendship_list(sesuser.id);
+                        ArrayList<Friendship> f_list=DBQuery.friendship_list(sesuser.id,context);
                         for(int i=0; i<f_list.size();i++)
                         {
-                        	Utente u=DBQuery.userByID(f_list.get(i).richiedente);
+                        	Utente u=DBQuery.userByID(f_list.get(i).richiedente,context);
                         %>
                        <div style="border:3px solid #66ff66; padding:7px; margin-bottom:3px;">
 	                       <table>
@@ -106,7 +108,7 @@
                     <div id="Post">
 	                    <%
 	                	ArrayList<Post> p = new ArrayList<Post>();
-	                	p=DBQuery.show_post_profile(sesuser.id);
+	                	p=DBQuery.show_post_profile(sesuser.id,context);
 	                	for(int i=0;i< p.size(); i++){
 		              	%>              	
                         <div id="postContainer">
@@ -119,7 +121,7 @@
 	                                    <span id="like-counter">
 	                                        <%out.print(p.get(i).like);%>	
 	                                    </span>
-	                                    <%Like l=DBQuery.check_like(sesuser.id, p.get(i).id); 
+	                                    <%Like l=DBQuery.check_like(sesuser.id, p.get(i).id,context); 
 	                                      if(l==null){
 	                                    %>
 		                                    <span id="mi-piace">
@@ -138,7 +140,7 @@
 	                                    <span id="dislike-counter">	
 	                                        <%out.print(p.get(i).dislike);%>
 	                                    </span>
-	                                    <%Dislike d=DBQuery.check_dislike(sesuser.id, p.get(i).id);
+	                                    <%Dislike d=DBQuery.check_dislike(sesuser.id, p.get(i).id,context);
 	                                      if(d==null){
 	                                    %>
 	                                    <span id="non-mi-piace" class="tasto-like">
@@ -168,7 +170,7 @@
 	                                   		</tr>
 	                                    </table>
 	                                    <%
-	                                    	ArrayList<Commento> comment_list = DBQuery.show_comment(p.get(i).id);
+	                                    	ArrayList<Commento> comment_list = DBQuery.show_comment(p.get(i).id,context);
 	                                    	for(int j=0; j<comment_list.size(); j++){
 	                                    %>
 		                                	<div id="comment-container">
@@ -182,7 +184,7 @@
 					                                    <span id="like-counter">
 				                                        	<%out.print(comment_list.get(j).like);%>	
 				                                    	</span>
-					                                    <%Like lc=DBQuery.check_like_comment(sesuser.id, comment_list.get(j).ID); 
+					                                    <%Like lc=DBQuery.check_like_comment(sesuser.id, comment_list.get(j).ID,context); 
 					                                      if(lc==null){
 					                                    %>
 					                                    <span id="mi-piace">
@@ -201,7 +203,7 @@
 					                                    <span id="dislike-counter">	
 					                                        <%out.print(comment_list.get(j).dislike);%>
 					                                    </span>
-					                                    <%Dislike dc=DBQuery.check_dislike_comment(sesuser.id, comment_list.get(j).ID);
+					                                    <%Dislike dc=DBQuery.check_dislike_comment(sesuser.id, comment_list.get(j).ID,context);
 					                                      if(dc==null){
 					                                    %>
 					                                    <span id="non-mi-piace" class="tasto-like">
@@ -244,7 +246,7 @@
                     </div>
                     <div id="Amici">
                         <%
-                        ArrayList<Friendship> confirmed_list=DBQuery.confirmed_friend(sesuser.id);
+                        ArrayList<Friendship> confirmed_list=DBQuery.confirmed_friend(sesuser.id,context);
                          if(confirmed_list.size()==0)
                          {
                         	out.println("Non hai amici");
@@ -257,11 +259,11 @@
 	                        	
 	                        	if(sesuser.id==confirmed_list.get(j).richiedente)
 	                        	{
-	                        		u_friend=DBQuery.userByID(confirmed_list.get(j).ricevente);
+	                        		u_friend=DBQuery.userByID(confirmed_list.get(j).ricevente,context);
 	                        	}
 	                        	else
 	                        	{
-	                        		u_friend=DBQuery.userByID(confirmed_list.get(j).richiedente);
+	                        		u_friend=DBQuery.userByID(confirmed_list.get(j).richiedente,context);
 	                        	}
 	                        	%>
 	                        	<div style="border:1px solid #66ff66; padding:7px; margin-bottom:3px; text-align: center;">

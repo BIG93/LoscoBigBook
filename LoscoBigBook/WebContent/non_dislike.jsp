@@ -9,10 +9,12 @@
 </head>
 <body>
 <% 
+ServletContext context = pageContext.getServletContext();
+
 int id= Integer.parseInt(request.getParameter("id"));
 int id_utente= Integer.parseInt(request.getParameter("idutente"));
-int x=DBQuery.dislike_delete(id, id_utente);
-int i = DBQuery.non_dislike_post(id);
+int x=DBQuery.dislike_delete(id, id_utente,context);
+int i = DBQuery.non_dislike_post(id,context);
 %>
 </body>
 </html>

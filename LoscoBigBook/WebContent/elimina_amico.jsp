@@ -9,10 +9,12 @@
 </head>
 <body>
 <%
+   ServletContext context = pageContext.getServletContext();
+
    int richiedente = Integer.parseInt(request.getParameter("richiedente"));
    int ricevente = Integer.parseInt(request.getParameter("ricevente"));
    
-   int x = DBQuery.friend_delete(richiedente, ricevente);
+   int x = DBQuery.friend_delete(richiedente, ricevente,context);
   
  %>
 </body>
