@@ -11,7 +11,7 @@
         <script src="function.js" type="text/javascript"></script>
         <link href="jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css"/>
         <script src="jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
-        <script src="functionjs.js" type="text/javascript"></script>
+        <script src="function.js" type="text/javascript"></script>
         <link href="CSShome.css" rel="stylesheet" type="text/css"/>
     </head>
     
@@ -65,6 +65,9 @@
 		}
 		if (mex.equals("okreg")){
 			out.print("<div id='dialog' title='Registrazione avvenuta'> La registrazione è avvenuta con successo!</br> Ora puoi effettuare il tuo primo login. </div>");
+		}
+		if (mex.equals("email")){
+			out.print("<div id='dialog' title='Email presente'>L'email è gia stata utilizzata</div>");
 		}
 	 }
 

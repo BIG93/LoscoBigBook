@@ -60,21 +60,21 @@
 	                                    <%
 	                                      }
 	                                      else{
+	                                    	  
 	                                    %>
 	                                    <span id="non-mi-piace-piu">
 		                                        <input type="button" id="not-like" class="btn" value="non mi piace piu'" onclick="non_like(<%out.print(p.get(i).id);%>,<%out.print(sesuser.id);%>)"></input>
-		                                </span>
 	                                    <%
 	                                      }
 	                                    %>
-	                                    <span id="dislike-counter">	
+	                                    <span id="<%out.print("dislike"+i);%>">	
 	                                        <%out.print(p.get(i).dislike);%>
 	                                    </span>
 	                                    <%Dislike d=DBQuery.check_dislike(sesuser.id, p.get(i).id,context);
 	                                      if(d==null){
 	                                    %>
 	                                    <span id="non-mi-piace" class="tasto-like">
-	                                       	<input type="button" id="dislike" class="btn" value="non mi piace" onclick="dislike(<%out.print(p.get(i).id);%>, <%out.print(sesuser.id);%>);"></input>
+	                                       	<input type="button" id="<% out.print("dislike"+i);%>" class="btn" value="non mi piace" onclick="dislike(<%out.print(p.get(i).id);%>, <%out.print(sesuser.id);%>);"></input>
 	                                    </span>
 	                                    <%
 	                                      }
@@ -121,8 +121,14 @@
 		                                    </span> 
 	                                    <%
 	                                      }
-	                                      else{
+	                                      else{	                                    	 
 	                                    %>
+	                                    <script>
+	                                    	$(document).ready(function(){
+	                                    		document.getElementById(<%out.print("'dislike"+i+"'");%>).disabled=true;
+	                                    		
+	                                    	});
+	                                    </script>
 	                                    <span id="non-mi-piace-piu">
 		                                        <input type="button" id="not-like" class="btn" value="non mi piace piu'" onclick="non_like_comment(<%out.print(comment_list.get(j).ID);%>,<%out.print(sesuser.id);%>)"></input>
 		                                </span>

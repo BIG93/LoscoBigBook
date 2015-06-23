@@ -1526,5 +1526,38 @@ public class DBQuery {
 		return photo;
 		 // End userByID
 	}
+	
+	public static String check_email(String email,ServletContext cont)
+	{
+		String mail="";
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://" + cont.getInitParameter("ip") + "/" + cont.getInitParameter("database") + "?" +
+                    "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
+			
+			
+			PreparedStatement pstmt = con.prepareStatement(" SELECT Email " + 
+														   " FROM utente " + 
+															" WHERE Email=? ");
+			pstmt.setString(1, email);
+			
+			ResultSet rs = pstmt.executeQuery();
+				
+			while (rs.next()){
+				 mail=rs.getString("Email");
+			}
+		
+			con.close();
+			
+		}
+		catch (Exception e) {
+			System.out.println("Errore con DB o Query errata");
+			e.printStackTrace();
+		}
+		return mail;
+		 // check_email
+	}
 
 }

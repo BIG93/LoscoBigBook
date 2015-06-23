@@ -9,6 +9,9 @@
 </head>
 <body>
 <%
+
+		ServletContext cont = pageContext.getServletContext();
+
     	String nome=request.getParameter("nome");
     	String cognome=request.getParameter("cognome");
     	String email=request.getParameter("email");
@@ -18,15 +21,22 @@
     	
     	ServletContext context = pageContext.getServletContext();
    	
-    	int i=DBQuery.registrazione(nome, cognome, email, password, datanascita, sesso, context);
+    	String dbemail=DBQuery.check_email(email, cont);
     	
-    	 if(i>0){
-    		 response.sendRedirect("Home.jsp?mex=okreg");
-    		 
-    	 }
-    	 else {
-    	        response.sendRedirect("Home.jsp?mex=errreg");
-    	    }
+    	if(dbemail.equals("")){
+	    	int i=DBQuery.registrazione(nome, cognome, email, password, datanascita, sesso, context);
+	    	
+	    	 if(i>0){
+	    		 response.sendRedirect("Home.jsp?mex=okreg");
+	    		 
+	    	 }
+	    	 else {
+	    	      response.sendRedirect("Home.jsp?mex=errreg");
+	    	      }
+	    	}
+    	else{
+    		response.sendRedirect("Home.jsp?mex=email");
+    	}
     	%>
 
 </body>

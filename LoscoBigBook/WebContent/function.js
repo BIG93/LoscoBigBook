@@ -115,7 +115,7 @@ function dislike(id, idutente){
 	    		 url : "dislike.jsp",
 	    		 data : "id=" + id + '&idutente=' + idutente,
 	    		 success : function(data){
-	                   location.reload();
+	                  location.reload()
 	             }
 	    	});
 	 });
@@ -223,30 +223,29 @@ function friend_request(currentid, id) {
 function controllo(){
         var password=$("#password").val();
         var npassword=$("#npassword").val();
-        
-      
-     if(password != npassword)
-      {
-            $("body").append("<div id='myDiv' title='Errore' style='font-family:verdana;'>Le password inserite non sono uguali!</div>");
-            
-            $( "#myDiv" ).dialog({
-					            	show:{
-						    	        effect: "slide",
-						    	        duration: 500
-						    	      },
-                                    buttons: [
-                                    {
-                                      text: "OK",
-                                      
-                                      click: function() {
-                                        $( this ).dialog( "close" );
-                                      }
-                                    }
-                                  ]
-                                });
-            
-            return false;
-      	}
+       
+	     if(password != npassword)
+	      {
+	            $("body").append("<div id='myDiv' title='Errore' style='font-family:verdana;'>Le password inserite non sono uguali!</div>");
+	            
+	            $( "#myDiv" ).dialog({
+						            	show:{
+							    	        effect: "slide",
+							    	        duration: 500
+							    	      },
+	                                    buttons: [
+	                                    {
+	                                      text: "OK",
+	                                      
+	                                      click: function() {
+	                                        $( this ).dialog( "close" );
+	                                      }
+	                                    }
+	                                  ]
+	                                });
+	            
+	            return false;
+	      	}
       return true;
 }
 
