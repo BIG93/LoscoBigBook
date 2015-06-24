@@ -31,7 +31,7 @@ ServletContext context = pageContext.getServletContext();
         <%
         	if(request.getParameter("input-cerca").equals("")){
         %>
-        	<h3 style="text-align: center">Inserisci un testo nella casella in alto</h3>
+        		<h3 style="text-align: center">Inserisci un testo nella casella in alto</h3>
        
     	<%			
         	}
