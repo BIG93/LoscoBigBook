@@ -56,105 +56,137 @@ function commenta(commento, id_post,sesuserid) {
 }
 
 //LIKE DISLIKE POST-COMMENT
-function like(id, idutente){
+function like(id, idutente,i){
 	 $(document).ready(function(){
 	    	$.ajax({
 	    		type : "POST",
 	    		 url : "like.jsp",
 	    		 data : "id=" + id + '&idutente=' + idutente,
 	    		 success : function(data){
-	                   location.reload();
+	                   beforel=$("#like-counter"+i).text();
+	                   afterl=parseInt(beforel)+1;
+	                   $("#like-counter"+i).html(afterl);
+	                   $("#like"+i).remove();
+	                   $("#mi-piace"+i).html("<input type='button' id='not-like"+i+"' class='btn' value='non mi piace piu' onclick='non_like("+id+","+idutente+","+i+");'></input>");
 	             }
 	    	});
 	 });
 }
 
-function like_comment(id, idutente){
+function like_comment(id, idutente,j){
 	 $(document).ready(function(){
 	    	$.ajax({
 	    		type : "POST",
 	    		 url : "like_comment.jsp",
 	    		 data : "id=" + id + '&idutente=' + idutente,
 	    		 success : function(data){
-	                   location.reload();
+	    			   beforel=$("#like-comment-counter"+j).text();
+	                   afterl=parseInt(beforel)+1;
+	                   $("#like-comment-counter"+j).html(afterl);
+	                   $("#comment-like"+j).remove();
+	                   $("#comment-mi-piace"+j).html("<input type='button' id='comment-not-like"+j+"' class='btn' value='non mi piace piu' onclick='non_like_comment("+id+","+idutente+","+j+");'></input>");
 	             }
 	    	});
 	 });
 }
 
-function non_like(id_post,id_utente){
+function non_like(id_post,id_utente,i){
 	 $(document).ready(function(){
 	    	$.ajax({
 	    		type : "POST",
 	    		 url : "non_like.jsp",
 	    		 data : "id=" + id_post + '&idutente=' + id_utente,
 	    		 success : function(data){
-	                   location.reload();
-	             }
+	    			   beforel=$("#like-counter"+i).text();
+	                   afterl=parseInt(beforel)-1;
+	                   $("#like-counter"+i).html(afterl);
+	                   $("#not-like"+i).remove();
+	                   $("#mi-piace"+i).html("<input type='button' id='like' class='btn' value='mi piace' onclick='like("+id_post+","+id_utente+","+i+");'></input>");
+	    		 }
 	    	});
 	 });
 }
 
-function non_like_comment(id_post,id_utente){
+function non_like_comment(id_post,id_utente,j){
 	 $(document).ready(function(){
 	    	$.ajax({
 	    		type : "POST",
 	    		 url : "non_like_comment.jsp",
 	    		 data : "id=" + id_post + '&idutente=' + id_utente,
 	    		 success : function(data){
-	                   location.reload();
+	    			 beforel=$("#like-comment-counter"+j).text();
+	                   afterl=parseInt(beforel)-1;
+	                   $("#like-comment-counter"+j).html(afterl);
+	                   $("#comment-not-like"+j).remove();
+	                   $("#comment-mi-piace"+j).html("<input type='button' id='comment-like"+j+"' class='btn' value='mi piace' onclick='like_comment("+id_post+","+id_utente+","+j+");'></input>");
 	             }
 	    	});
 	 });
 }
 
-function dislike(id, idutente){
+function dislike(id, idutente,i){
 	 $(document).ready(function(){
 	    	$.ajax({
 	    		type : "POST",
 	    		 url : "dislike.jsp",
 	    		 data : "id=" + id + '&idutente=' + idutente,
 	    		 success : function(data){
-	                  location.reload()
+	    			   befored=$("#dislike-counter"+i).text();
+	                   afterd=parseInt(befored)+1;
+	                   $("#dislike-counter"+i).html(afterd);
+	                   $("#dislike"+i).remove();
+	                   $("#non-mi-piace"+i).html("<input type='button' id='not-like"+i+"' class='btn' value='mi potrebbe piacere' onclick='non_dislike("+id+","+idutente+","+i+");'></input>");
 	             }
 	    	});
 	 });
 }
 
-function dislike_comment(id, idutente){
+function dislike_comment(id, idutente,j){
 	 $(document).ready(function(){
 	    	$.ajax({
 	    		type : "POST",
 	    		 url : "dislike_comment.jsp",
 	    		 data : "id=" + id + '&idutente=' + idutente,
 	    		 success : function(data){
-	                   location.reload();
+	    			   beforel=$("#comment-dislike-counter"+j).text();
+	                   afterl=parseInt(beforel)+1;
+	                   $("#comment-dislike-counter"+j).html(afterl);
+	                   $("#comment-dislike"+j).remove();
+	                   $("#comment-non-mi-piace"+j).html("<input type='button' id='comment-not-dislike"+j+"' class='btn' value='mi potrebbe piacere' onclick='non_dislike_comment("+id+","+idutente+","+j+");'></input>");
 	             }
 	    	});
 	 });
 }
 
-function non_dislike(id_post,id_utente){
+function non_dislike(id_post,id_utente,i){
 	 $(document).ready(function(){
 	    	$.ajax({
 	    		type : "POST",
 	    		 url : "non_dislike.jsp",
 	    		 data : "id=" + id_post + '&idutente=' + id_utente,
 	    		 success : function(data){
-	                   location.reload();
+	    			   befored=$("#dislike-counter"+i).text();
+	                   afterd=parseInt(befored)-1;
+	                   $("#dislike-counter"+i).html(afterd);
+	                   $("#dislike"+i).remove();
+	                   $("#non-mi-piace"+i).html("<input type='button' id='dislike"+i+"' class='btn' value='non mi piace' onclick='dislike("+id_post+","+id_utente+","+i+");'></input>");
 	             }
 	    	});
 	 });
 }
 
-function non_dislike_comment(id_post,id_utente){
+function non_dislike_comment(id_post,id_utente,j){
 	 $(document).ready(function(){
 	    	$.ajax({
 	    		type : "POST",
 	    		 url : "non_dislike_comment.jsp",
 	    		 data : "id=" + id_post + '&idutente=' + id_utente,
 	    		 success : function(data){
-	                   location.reload();
+	    			   befored=$("#comment-dislike-counter"+j).text();
+	                   afterd=parseInt(befored)-1;
+	                   $("#comment-dislike-counter"+j).html(afterd);
+	                   $("#comment-dislike"+j).remove();
+	                   $("#comment-non-mi-piace"+j).html("<input type='button' id='comment-dislike"+j+"' class='btn' value='non mi piace' onclick='dislike_comment("+id_post+","+id_utente+","+j+");'></input>");
 	             }
 	    	});
 	 });
