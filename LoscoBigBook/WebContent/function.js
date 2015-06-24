@@ -81,6 +81,7 @@ function like_comment(id, idutente,j){
 	    		 url : "like_comment.jsp",
 	    		 data : "id=" + id + '&idutente=' + idutente,
 	    		 success : function(data){
+	    			 console.log(j);
 	    			   beforel=$("#like-comment-counter"+j).text();
 	                   afterl=parseInt(beforel)+1;
 	                   $("#like-comment-counter"+j).html(afterl);

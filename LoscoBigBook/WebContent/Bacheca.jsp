@@ -27,7 +27,7 @@
                 
                     <h1 class="bacheca">Post dei tuoi amici</h1>
                     <textarea id="post" class="bacheca" cols="100" rows="10" placeholder="Dillo ai tuoi amici..." maxlength="150"></textarea>
-                    <input type="button" value="Pubblica" class="btn" id="pubblica" onclick="pubblica( $.trim($('#post').val()),<%if(sesuser!=null){out.print(sesuser.id);}%>);"/>
+                    <input type="button" value="Pubblica" class="btn" id="pubblica" onclick="pubblica( $.trim($('#post').val()),<%out.print(sesuser.id);%>);"/>
                 	<br/>
                 	<div id="all-post-container">
 	                	<%
@@ -112,41 +112,41 @@
 		                                		</div>
 		                                		
 		                                		<div id="comment-like-container">
-				                                   <span id="<%out.print("like-comment-counter"+j);%>">
+				                                   <span id="<%out.print("like-comment-counter"+(i+1)+(j+1));%>">
 	                                               	<%out.print(comment_list.get(j).like);%>	
 	                                               </span>
 				                                    <%Like lc=DBQuery.check_like_comment(sesuser.id, comment_list.get(j).ID,context); 
 				                                      if(lc==null){
 				                                    %>
-				                                    <span id="<%out.print("comment-mi-piace"+j);%>">
-				                                        <input type="button" id="<%out.print("comment-like"+j);%>" class="btn" value="mi piace" onclick="like_comment(<%out.print(comment_list.get(j).ID);%>, <%out.print(sesuser.id);%>,<%out.print(j);%>);"></input>
+				                                    <span id="<%out.print("comment-mi-piace"+(i+1)+(j+1));%>">
+				                                        <input type="button" id="<%out.print("comment-like"+(i+1)+(j+1));%>" class="btn" value="mi piace" onclick="like_comment(<%out.print(comment_list.get(j).ID);%>, <%out.print(sesuser.id);%>,<%out.print((i+1)+""+(j+1));%>);"></input>
 				                                    </span> 
 				                                    <%
 				                                      }
 				                                      else{	                                    	 
 				                                    %>
 				                                   
-				                                    <span id="<%out.print("comment-mi-piace"+j);%>">
-					                                        <input type="button" id="<%out.print("comment-not-like"+j);%>" class="btn" value="non mi piace piu" onclick="non_like_comment(<%out.print(comment_list.get(j).ID);%>,<%out.print(sesuser.id);%>,<%out.print(j);%>)"></input>
+				                                    <span id="<%out.print("comment-mi-piace"+(i+1)+(j+1));%>">
+					                                        <input type="button" id="<%out.print("comment-not-like"+(i+1)+(j+1));%>" class="btn" value="non mi piace piu" onclick="non_like_comment(<%out.print(comment_list.get(j).ID);%>,<%out.print(sesuser.id);%>,<%out.print((i+1)+""+(j+1));%>)"></input>
 					                                </span>
 				                                    <%
 				                                      }
 				                                    %>
-				                                    <span id="<%out.print("comment-dislike-counter"+j);%>">	
+				                                    <span id="<%out.print("comment-dislike-counter"+(i+1)+(j+1));%>">	
 				                                        <%out.print(comment_list.get(j).dislike);%>
 				                                    </span>
 				                                    <%Dislike dc=DBQuery.check_dislike_comment(sesuser.id, comment_list.get(j).ID,context);
 				                                      if(dc==null){
 				                                    %>
-				                                    <span id="<%out.print("comment-non-mi-piace"+j);%>" class="tasto-like">
-				                                       	<input type="button" id="<%out.print("comment-dislike"+j);%>" class="btn" value="non mi piace" onclick="dislike_comment(<%out.print(comment_list.get(j).ID);%>, <%out.print(sesuser.id);%>, <%out.print(j);%>);"></input>
+				                                    <span id="<%out.print("comment-non-mi-piace"+(i+1)+(j+1));%>" class="tasto-like">
+				                                       	<input type="button" id="<%out.print("comment-dislike"+(i+1)+(j+1));%>" class="btn" value="non mi piace" onclick="dislike_comment(<%out.print(comment_list.get(j).ID);%>, <%out.print(sesuser.id);%>, <%out.print((i+1)+""+(j+1));%>);"></input>
 				                                    </span>
 				                                    <%
 				                                      }
 				                                      else{
 				                                    %>
-				                                     <span id="<%out.print("comment-non-mi-piace"+j);%>">
-					                                        <input type="button" id="<%out.print("comment-not-dislike"+j);%>" class="btn" value="mi potrebbe piacere" onclick="non_dislike_comment(<%out.print(comment_list.get(j).ID);%>,<%out.print(sesuser.id);%>,<%out.print(j);%>)"></input>
+				                                     <span id="<%out.print("comment-non-mi-piace"+(i+1)+(j+1));%>">
+					                                        <input type="button" id="<%out.print("comment-not-dislike"+(i+1)+(j+1));%>" class="btn" value="mi potrebbe piacere" onclick="non_dislike_comment(<%out.print(comment_list.get(j).ID);%>,<%out.print(sesuser.id);%>,<%out.print((i+1)+""+(j+1));%>)"></input>
 					                                </span>
 				                                    <%
 				                                      }
