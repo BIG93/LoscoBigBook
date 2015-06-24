@@ -920,7 +920,7 @@ public class DBQuery {
                     "user=" + cont.getInitParameter("user") + "&password=" + cont.getInitParameter("dbpassword"));
 			
 			
-			PreparedStatement pstmt = con.prepareStatement(" SELECT * FROM commenti AS c JOIN utente AS u ON c.ID_utente=u.ID WHERE ID_post=? ORDER BY c.ID DESC");
+			PreparedStatement pstmt = con.prepareStatement(" SELECT * FROM commenti AS c JOIN utente AS u ON c.ID_utente=u.ID WHERE ID_post=? ORDER BY c.ID");
 			
 			pstmt.setInt(1, id_post);
 			

@@ -110,11 +110,12 @@
 		                    <% 
 		                	ArrayList<Post> p = new ArrayList<Post>();
 		                	p=DBQuery.show_post_profile(urlIDInt,context);
+		                	u=DBQuery.userByID(urlIDInt, context);
 		                	for(int i=0;i< p.size(); i++){
 			              	%>              	
 	                        <div id="postContainer">
 	                            <div class="post">
-	                                <a href="<%out.print("Friend-Profile.jsp?id="+sesuser.id);%>"><span class="author-post"><%out.print(sesuser.nome + " "+ sesuser.cognome) ;%></span></a>
+	                                <a href="<%out.print("Friend-Profile.jsp?id="+u.id);%>"><span class="author-post"><%out.print(u.nome + " "+ u.cognome) ;%></span></a>
 	                                <p class="post-text">
 	                               		<%out.print(p.get(i).Post);%>
 	                                </p>

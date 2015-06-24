@@ -50,8 +50,8 @@
                 			for (int i=0; i<user_list.size();i++)
                 			{
                 			%>
-                			<tr>
-                			<td><%out.print(user_list.get(i).nome + " " + user_list.get(i).cognome); %></td><td><input type="button" value="Banna" class="btn" onclick="banna(<%out.print(user_list.get(i).id); %>);" /></td>
+                			<tr id="<%out.print("user"+i);%>">
+                				<td><%out.print(user_list.get(i).nome + " " + user_list.get(i).cognome); %></td><td><input type="button" value="Banna" class="btn" onclick="banna(<%out.print(user_list.get(i).id); %>,<%out.print(i); %>);" /></td>
                 			</tr>
                 			<%
                 			}
@@ -69,8 +69,8 @@
 	                		Utente u=DBQuery.userByID(p_list.get(j).ID_utente,context);
 	                	
 	                %>
-	                
-		                	<div id="postContainer-admnistrator">
+	                    <div id="<%out.print("post-container-administrator"+j);%>">
+		                	<div id="post-container-administrator">
 		                            <div class="post">
 		                                <span class="author-post"><%out.print(u.nome + " "+ u.cognome);%></span>
 			                                <p class="post-text">
@@ -79,8 +79,8 @@
 		                             </div>
 		                     </div>
 	                   
-	                  		 <input type="button" id="censura" class="btn" value="Censura" onclick="censura_post(<%out.print(p_list.get(j).id); %>);"/>
-	                 
+	                  		 <input type="button" id="censura" class="btn" value="Censura" onclick="censura_post(<%out.print(p_list.get(j).id); %>,<%out.print(j); %>);"/>
+	                 	</div>
 	                <%
 	                	}
 	                %>

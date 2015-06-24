@@ -74,7 +74,7 @@
                         {
                         	Utente u=DBQuery.userByID(f_list.get(i).richiedente,context);
                         %>
-                       <div style="border:3px solid #66ff66; padding:7px; margin-bottom:3px;">
+                       <div id="<%out.print("friend-request"+i); %>" style="border:3px solid #66ff66; padding:7px; margin-bottom:3px;">
 	                       <table>
 	                       		<tr>
 	                       			<td>
@@ -82,8 +82,8 @@
 	                       			</td>	
 	                       		</tr>	                       		
 	                       </table>
-                       	   <input type="button" value="Conferma" class="btn" onclick="conferma(<%out.print(f_list.get(i).richiedente);%>,<%out.print(sesuser.id);%>);"/>		
-						   <input type="button" value="Rifiuta" class="btn" onclick="elimina(<%out.print(f_list.get(i).richiedente);%>,<%out.print(sesuser.id);%>);"/>
+                       	   <input type="button" value="Conferma" class="btn" onclick="conferma(<%out.print(f_list.get(i).richiedente);%>,<%out.print(sesuser.id);%>,<%out.print(i);%>);"/>		
+						   <input type="button" value="Rifiuta" class="btn" onclick="elimina(<%out.print(f_list.get(i).richiedente);%>,<%out.print(sesuser.id);%>,<%out.print(i);%>);"/>
                        </div>
                        	<% 
                         }

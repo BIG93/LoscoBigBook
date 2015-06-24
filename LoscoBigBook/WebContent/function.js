@@ -1,25 +1,26 @@
 //ADMIN
-function banna(id){
+function banna(id,i){
 	  $.ajax({
 	       type : "POST",
 	       url : "banna.jsp",
 	       data : "id=" + id,
            success : function(data) {
-           		location.reload();
+           		$("#user"+i).remove();
            	 }
 	   });
 	   } 
            
-function censura_post(id_post){
+function censura_post(id_post,j){
     $.ajax({
            type : "POST",
            url : "censura.jsp",
            data : "id=" + id_post,
            success : function(data) {
-           		location.reload();
+           		$("#post-container-administrator"+j).remove();
           }
    });
    } 
+
 //PUBBLICA POST
 function pubblica(testo,sesuserid) {
     $(document).ready(function() {
@@ -30,7 +31,7 @@ function pubblica(testo,sesuserid) {
                    url : "pubblica.jsp",
                    data : "testo=" + testoPost + "&idutente=" + sesuserid,
                    success : function(data) {
-                   location.reload();
+                	   location.reload();
                    }
            });
     	}
@@ -193,7 +194,7 @@ function non_dislike_comment(id_post,id_utente,j){
 }
 
 //CONFERMA-RIFIUTA-AGGIUNGI-RIMUOVI AMICIZIA
-function conferma(richiedente,ricevente) {
+function conferma(richiedente,ricevente,i) {
     $(document).ready(function() {
            
                    $.ajax({
@@ -201,14 +202,14 @@ function conferma(richiedente,ricevente) {
                    url : "confirm.jsp",
                    data : "richiedente=" + richiedente + "&ricevente=" + ricevente,
                    success : function(data) {
-                   	location.reload();
+                   		$("#friend-request"+i).remove();
                    }
            });
        });
    	
    }
    
-function elimina(richiedente,ricevente) {
+function elimina(richiedente,ricevente,i) {
        $(document).ready(function() {
               
                       $.ajax({
@@ -216,7 +217,7 @@ function elimina(richiedente,ricevente) {
                       url : "reject.jsp",
                       data : "richiedente=" + richiedente + "&ricevente=" + ricevente,
                       success : function(data) {
-                      	location.reload();
+                    	  $("#friend-request"+i).remove();
                       	
                       }
               });
@@ -232,7 +233,8 @@ function elimina_amico(richiedente,ricevente){
                    data : "richiedente=" + richiedente + "&ricevente=" + ricevente,
                    success : function(data)
                    {
-                   	location.reload();
+                   	$("#friend-request-container").empty();
+                   	$("#friend-request-container").html("<button id='friend-request' class='btn' onclick='friend_request("+richiedente+","+ricevente+");'>Aggiungi agli amici</button>");
                    
                    }
            });
@@ -246,7 +248,8 @@ function friend_request(currentid, id) {
             async : false,
             data : "currentid=" + currentid + "&id=" + id,
             success : function(data) {
-                location.reload();
+                $("#friend-request").remove();
+                $("#friend-request-container").html("<h3>Amicizia in attesa di approvazione</h3>");
             }
         });
     };
