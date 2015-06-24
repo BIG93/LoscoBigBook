@@ -127,7 +127,7 @@
 				                                    %>
 				                                   
 				                                    <span id="<%out.print("comment-mi-piace"+j);%>">
-					                                        <input type="button" id="<%out.print("comment-not-like"+j);%>" class="btn" value="non mi piace piu'" onclick="non_like_comment(<%out.print(comment_list.get(j).ID);%>,<%out.print(sesuser.id);%>,<%out.print(j);%>)"></input>
+					                                        <input type="button" id="<%out.print("comment-not-like"+j);%>" class="btn" value="non mi piace piu" onclick="non_like_comment(<%out.print(comment_list.get(j).ID);%>,<%out.print(sesuser.id);%>,<%out.print(j);%>)"></input>
 					                                </span>
 				                                    <%
 				                                      }
