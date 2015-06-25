@@ -69,7 +69,7 @@
 	                		Utente u=DBQuery.userByID(p_list.get(j).ID_utente,context);
 	                	
 	                %>
-	                    <div id="<%out.print("post-container-administrator"+j);%>">
+	                    <div id="<%out.print("post-container-administrator"+j);%>" name="<%out.print(p_list.get(j).ID_utente); %>">
 		                	<div id="post-container-administrator">
 		                            <div class="post">
 		                                <span class="author-post"><%out.print(u.nome + " "+ u.cognome);%></span>

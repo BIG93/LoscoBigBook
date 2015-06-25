@@ -6,6 +6,7 @@ function banna(id,i){
 	       data : "id=" + id,
            success : function(data) {
            		$("#user"+i).remove();
+           		$("div[name="+ id + "]").remove();
            	 }
 	   });
 	   } 
